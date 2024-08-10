@@ -43,7 +43,7 @@ const logout = () => {
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center text-white text-2xl ">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('home')">
                                  Aphrodite
                                 </Link>
                             </div>
@@ -310,8 +310,8 @@ const logout = () => {
                             <div class="h-full px-3 py-4 overflow-y-auto">
                                 <ul class="space-y-2 font-medium">
                                     <li>
-                                        <NuxtLink to="/" class="flex items-center p-2  rounded-lg hover:bg-gray-700 group">
-                                            <svg class="w-5 h-5 text-white-500 transition duration-75 bg-black"
+                                        <NuxtLink to="/user/notification" class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                            <svg class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                 fill="currentColor" viewBox="0 0 22 21">
                                                 <path
@@ -319,7 +319,7 @@ const logout = () => {
                                                 <path
                                                     d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
                                             </svg>
-                                            <span class="ms-3 text-white-500 bg-black">Accueil</span>
+                                            <span class="ms-3">Accueil</span>
                                         </NuxtLink>
                                     </li>
                                     <li>
