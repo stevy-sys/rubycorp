@@ -22,10 +22,9 @@ defineProps({
 <template>
 
     <Head title="Aphrodite" />
-    <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50 w-[50%] mx-auto">
-        <img id="background" class="absolute -left-20 top-0 max-w-[877px]" src="https://laravel.com/assets/img/welcome/background.svg" />
-        <div
-            class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
+    <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50 lg:w-[50%] mx-auto">
+        <!-- <img id="background" class="absolute -left-20 top-0 max-w-[877px]" src="https://laravel.com/assets/img/welcome/background.svg" /> -->
+        <div class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
             <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                 <header class="flex justify-between items-center">
                     <div class="flex lg:justify-center lg:col-start-2 text-2xl text-white">
@@ -99,7 +98,7 @@ defineProps({
 
                 <div class="mt-[150px]  mx-auto flex justify-center flex-wrap">
 
-                    <div v-for="(item) in 20" :key="index" class="border border-black bg-red-500 w-[400px] h-[500px] rounded-lg relative cursor-pointer">
+                    <div v-for="(item) in 20" :key="index" class="border border-black bg-red-500 w-[300px] h-[500px] rounded-lg relative cursor-pointer">
                         <div  v-if="Math.random() < 0.5 == true" class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
                             cadena
                         </div>
