@@ -16,6 +16,10 @@ defineProps({
         type: String,
         required: true,
     },
+    products: {
+        type: Array,
+        required: true,
+    },
 });
 </script>
 
@@ -98,11 +102,11 @@ defineProps({
 
                 <div class="mt-[150px]  mx-auto flex justify-center flex-wrap">
 
-                    <div v-for="(item) in 20" :key="index" class="border border-black bg-red-500 w-[300px] h-[500px] rounded-lg relative cursor-pointer">
+                    <a :href="route('media',{product_id : product.id})" v-for="(product,index) in products" :key="index" class="border border-black bg-red-500 w-[300px] h-[500px] rounded-lg relative cursor-pointer">
                         <div  v-if="Math.random() < 0.5 == true" class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
                             cadena
                         </div>
-                    </div>
+                    </a>
                 </div> 
 
                 <footer class="py-16 text-center text-sm text-black dark:text-white/70">

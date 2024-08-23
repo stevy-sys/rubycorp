@@ -11,6 +11,7 @@
         "@tailwindcss/typography": "^0.5.10",
         "@vitejs/plugin-vue": "^5.0.0",
         "@vue/server-renderer": "^3.3.13",
+        "@stripe/stripe-js": "^4.1.0",
         "autoprefixer": "^10.4.16",
         "axios": "^1.6.4",
         "laravel-vite-plugin": "^1.0",
