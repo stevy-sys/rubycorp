@@ -34,6 +34,7 @@ Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified'
     Route::get('/media/{product_id}', [ProductController::class,'getOneProduct'])->name('media');
 
     Route::get('/create-checkout-session',[ProductController::class,'createCheckoutSession']);
+
     Route::get('/success-checkout-session',function (Request $request) {
         dd('ok');
     })->name('checkout.success');
@@ -49,12 +50,8 @@ Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified'
 
 
 
-
-
-
-
-
-
-
+    //admin
     Route::get('/admin/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/product',[AdminController::class,'listProduct'])->name('admin.allproduct');
+    Route::post('/admin/create-product',[AdminController::class,'create'])->name('admin.store.product');
 });

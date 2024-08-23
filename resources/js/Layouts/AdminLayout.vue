@@ -305,7 +305,7 @@ const logout = () => {
 
             <!-- Page Content -->
             <main>
-                <div class="flex justify-between text-white lg:w-[50%] mx-auto my-10">
+                <div class="flex justify-start text-white lg:w-[50%] mx-auto my-10">
                     <div class="lg:w-[25%] lg:block hidden border borde-grey ">
                         <aside id="default-sidebar" class="hidden lg:block lg:h-screen" aria-label="Sidebar">
                             <div class="h-full px-3 py-4 overflow-y-auto">
@@ -324,7 +324,7 @@ const logout = () => {
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#"  class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                        <Link :href="route('admin.allproduct')"  class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                             <svg class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                 fill="currentColor" viewBox="0 0 22 21">
@@ -333,8 +333,8 @@ const logout = () => {
                                                 <path
                                                     d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
                                             </svg>
-                                            <span class="ms-3">Gallerie</span>
-                                        </a>
+                                            <span class="ms-3">Produits</span>
+                                        </Link>
                                     </li>
                                     <li>
                                         <a href="#"  class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -390,7 +390,7 @@ const logout = () => {
                             </div>
                         </aside>
                     </div>
-                    <div class="'w-[75%] ml-5'">
+                    <div class="w-[75%] ml-5">
                         <slot />
                     </div>
                 </div>
