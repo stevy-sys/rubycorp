@@ -20,8 +20,7 @@
                         <div class="my-5"><span>24 vu</span></div>
                         <div class="my-5"><span>24 acheter</span></div>
                         <div class="my-5"><span>upload : 24 juillet</span></div>
-                        <div class="my-5">Partager sur : <span class="mx-5">facebook</span> <span
-                                class="mx-5">twitter</span></div>
+                        <div class="my-5">Partager sur : <span class="mx-5">facebook</span> <span class="mx-5">twitter</span></div>
                     </div>
 
                     <div class="border my-5 p-5 h-auto rounded bg-grey-500">

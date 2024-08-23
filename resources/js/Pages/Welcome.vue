@@ -1,6 +1,6 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
-
+import { Head, Link, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 defineProps({
     canLogin: {
         type: Boolean,
@@ -21,6 +21,13 @@ defineProps({
         required: true,
     },
 });
+
+const page = usePage();
+console.log(page.props.translations.message)
+const translations = computed(() => {
+    return page.props.translations.message || {};
+});
+
 </script>
 
 <template>
@@ -101,11 +108,11 @@ defineProps({
 
 
                 <div class="mt-[150px]  mx-auto flex justify-center flex-wrap">
-                    <a :href="route('media',{product_id : product.id})" v-for="(product,index) in products" :key="index" class="border border-black bg-red-500 w-[300px] h-[500px] rounded-lg relative cursor-pointer">
+                    <Link :href="route('media',{product_id : product.id})" v-for="(product,index) in products" :key="index" class="border border-black bg-red-500 w-[300px] h-[500px] rounded-lg relative cursor-pointer">
                         <div  v-if="Math.random() < 0.5 == true" class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
                             cadena
                         </div>
-                    </a>
+                    </Link>
                 </div> 
 
                 <footer class="py-16 text-center text-sm text-black dark:text-white/70">

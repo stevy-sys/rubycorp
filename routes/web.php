@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ConfigController;
 use Inertia\Inertia;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -54,4 +55,9 @@ Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified'
     Route::get('/admin/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
     Route::get('/admin/product',[AdminController::class,'listProduct'])->name('admin.allproduct');
     Route::post('/admin/create-product',[AdminController::class,'create'])->name('admin.store.product');
+    Route::get('/admin/config',[ConfigController::class,'allConfig'])->name('admin.config.index');
+    Route::post('/admin/updateConfig',[ConfigController::class,'updateConfig'])->name('admin.config.update');
+    Route::get('/admin/text',[ConfigController::class,'allTexte'])->name('admin.config.texte');
+    Route::post('/admin/updateTexte',[ConfigController::class,'updateTexte'])->name('admin.config.updateTexte');
+    Route::get('/admin/users',[ConfigController::class,'allUser'])->name('admin.config.user');
 });
