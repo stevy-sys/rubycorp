@@ -35,7 +35,7 @@ defineProps({
                         Aphrodite
                     </div>
                     <nav v-if="canLogin" class="-mx-3 flex flex-1 justify-end">
-                        <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                        <Link v-if="$page.props.auth.user" :href="route('app.dashboard')" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
                             Dashboard
                         </Link>
 
@@ -101,7 +101,6 @@ defineProps({
 
 
                 <div class="mt-[150px]  mx-auto flex justify-center flex-wrap">
-
                     <a :href="route('media',{product_id : product.id})" v-for="(product,index) in products" :key="index" class="border border-black bg-red-500 w-[300px] h-[500px] rounded-lg relative cursor-pointer">
                         <div  v-if="Math.random() < 0.5 == true" class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
                             cadena

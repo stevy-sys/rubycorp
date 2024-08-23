@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use Inertia\Inertia;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProductController;
@@ -19,9 +21,16 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+
+
     Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+        if (Auth::user()->is_admin) {
+            return redirect()->route('admin.dashboard');
+        }else{
+             return redirect()->route('user.dashboard');
+        }
+    })->name('app.dashboard');
+
     Route::get('/media/{product_id}', [ProductController::class,'getOneProduct'])->name('media');
 
     Route::get('/create-checkout-session',[ProductController::class,'createCheckoutSession']);
@@ -31,4 +40,21 @@ Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'), 'verified'
     Route::get('/abort-checkout-session',function () {
         dd('annuler');
     })->name('checkout.cancel');
+
+
+
+    Route::get('/user/dashboard',function () {
+        return Inertia::render('Dashboard');
+    })->name('user.dashboard');
+
+
+
+
+
+
+
+
+
+
+    Route::get('/admin/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
 });

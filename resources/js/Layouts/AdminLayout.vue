@@ -206,7 +206,7 @@ const logout = () => {
                 <div :class="{ 'block': showingNavigationDropdown, 'hidden': !showingNavigationDropdown }"
                     class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                        <ResponsiveNavLink :href="route('app.dashboard')" :active="route().current('admin.dashboard')">
                             Dashboard
                         </ResponsiveNavLink>
                     </div>
@@ -306,7 +306,7 @@ const logout = () => {
             <!-- Page Content -->
             <main>
                 <div class="flex justify-between text-white lg:w-[50%] mx-auto my-10">
-                    <div v-if="showSidebar" class="lg:w-[25%] lg:block hidden border borde-grey ">
+                    <div class="lg:w-[25%] lg:block hidden border borde-grey ">
                         <aside id="default-sidebar" class="hidden lg:block lg:h-screen" aria-label="Sidebar">
                             <div class="h-full px-3 py-4 overflow-y-auto">
                                 <ul class="space-y-2 font-medium">
@@ -320,7 +320,7 @@ const logout = () => {
                                                 <path
                                                     d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
                                             </svg>
-                                            <span class="ms-3">Accueil</span>
+                                            <span class="ms-3">Dashboard</span>
                                         </a>
                                     </li>
                                     <li>
@@ -390,7 +390,7 @@ const logout = () => {
                             </div>
                         </aside>
                     </div>
-                    <div :class="showSidebar ? 'w-[75%] ml-5' : 'w-full mx-5'">
+                    <div class="'w-[75%] ml-5'">
                         <slot />
                     </div>
                 </div>
