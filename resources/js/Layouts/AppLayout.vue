@@ -45,7 +45,7 @@ const logout = () => {
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center text-white text-2xl ">
                                 <Link :href="route('home')">
-                                 Aphrodite
+                                 App
                                 </Link>
                             </div>
 
@@ -310,7 +310,7 @@ const logout = () => {
                         <aside id="default-sidebar" class="hidden lg:block lg:h-screen" aria-label="Sidebar">
                             <div class="h-full px-3 py-4 overflow-y-auto">
                                 <ul class="space-y-2 font-medium">
-                                    <li>
+                                    <!-- <li>
                                         <a href="#" class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                             <svg class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -322,8 +322,8 @@ const logout = () => {
                                             </svg>
                                             <span class="ms-3">Accueil</span>
                                         </a>
-                                    </li>
-                                    <li>
+                                    </li> -->
+                                    <!-- <li>
                                         <a href="#"  class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                             <svg class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -335,9 +335,9 @@ const logout = () => {
                                             </svg>
                                             <span class="ms-3">Notification</span>
                                         </a>
-                                    </li>
+                                    </li> -->
                                     <li>
-                                        <a href="#"  class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                        <Link :href="route('user.gallerie.index')"  class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                             <svg class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                 fill="currentColor" viewBox="0 0 22 21">
@@ -347,9 +347,9 @@ const logout = () => {
                                                     d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
                                             </svg>
                                             <span class="ms-3">Gallerie</span>
-                                        </a>
+                                        </Link>
                                     </li>
-                                    <li>
+                                    <!-- <li>
                                         <a href="#" class="flex items-center p-2  rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                             <svg class="flex-shrink-0 w-5 h-5 text-white-500 transition duration-75  group-hover:text-white dark:group-hover:text-white"
                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -361,9 +361,9 @@ const logout = () => {
                                             <span
                                                 class="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">Pro</span>
                                         </a>
-                                    </li>
+                                    </li> -->
                                     <li>
-                                        <a href="#" class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                        <Link :href="route('user.facture.index')" class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                             <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                 fill="currentColor" viewBox="0 0 20 20">
@@ -373,9 +373,9 @@ const logout = () => {
                                             <span class="flex-1 ms-3 whitespace-nowrap">Facture</span>
                                             <span
                                                 class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
-                                        </a>
+                                        </Link>
                                     </li>
-                                    <li>
+                                    <!-- <li>
                                         <a href="#" class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                             <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -385,7 +385,7 @@ const logout = () => {
                                             <span class="flex-1 ms-3 whitespace-nowrap">Profile</span>
                                             <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
                                         </a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </aside>

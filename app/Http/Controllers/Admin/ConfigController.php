@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Models\Config;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 
 class ConfigController extends Controller
@@ -13,6 +14,30 @@ class ConfigController extends Controller
     public function allConfig() {
         $configs = Config::all();
         return Inertia::render('Admin/Config',compact('configs'));
+    }
+
+    public function updateCategorie(Request $request) {
+        if ($request->action == 'update') {
+            $cate = Category::find($request->id);
+            $cate->name = $request->name ;
+            $cate->save();
+        }else{
+            $cate = Category::find($request->id);
+            $cate->delete();
+        }
+        return Category::all();
+    }
+
+    public function allCategorie() {
+        $categories = Category::all();
+        return Inertia::render('Admin/Categorie',compact('categories'));
+    }
+
+    public function addCategorie(Request $request) {
+        Category::create([
+            'name' => $request->name
+        ]);
+        return redirect()->route('admin.categorie.index');
     }
 
     public function allUser() {

@@ -9,6 +9,7 @@ use Stripe\Customer;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Stripe\Checkout\Session;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -21,7 +22,7 @@ class ProductController extends Controller
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));
         try {
-            $user = User::first(); // Assurez-vous d'ajuster cette partie selon votre logique d'authentification et de récupération d'utilisateur
+            $user = Auth::user(); // Assurez-vous d'ajuster cette partie selon votre logique d'authentification et de récupération d'utilisateur
             if (!$user->stripe_id) {
                 // Créez un client Stripe et associez-le à l'utilisateur
                 $customer = Customer::create([
@@ -49,8 +50,8 @@ class ProductController extends Controller
                 'locale' => 'auto',
                 'mode' => 'payment',
                 'customer' => $stripeId, // Associe le client Stripe à l'utilisateur
-                'success_url' => route('checkout.success',['media' => $product->id]),
-                'cancel_url' => url('media/'. $product->id)
+                'success_url' => route('checkout.success',['media' => $request->product_id]),
+                'cancel_url' => url('media/'. $request->product_id)
             ]);
 
             return response()->json(['id' => $session->id]);
