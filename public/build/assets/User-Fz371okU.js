@@ -1,1 +1,0 @@
-import{_ as e}from"./AdminLayout-_MbE6eNM.js";import{o as s,c as t,w as a,a as o}from"./app-FzbYCmD7.js";import"./ResponsiveNavLink-BCqw6hiM.js";const r=o("div",null," Users ",-1),p={__name:"User",setup(_){return(c,n)=>(s(),t(e,null,{default:a(()=>[r]),_:1}))}};export{p as default};
