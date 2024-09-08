@@ -1,4 +1,6 @@
 <script setup>
+import ModalLayout from '@/Components/ModalLayout.vue';
+import { Icon } from '@iconify/vue';
 import { Head, Link, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { computed } from 'vue';
@@ -29,12 +31,20 @@ defineProps({
 
 const productsFiltre = ref(null)
 const showNotFilter = ref(false)
+const showModalFiltre = ref(false)
+const showData = ref('post')
+
+const showModalChat = ref(false)
+const showModalSubscribe = ref(false)
+
 const page = usePage();
 console.log(page.props.translations.message)
 const translations = computed(() => {
     return page.props.translations.message || {};
 });
 const config = computed(() => {
+    console.log(page);
+    
     return page.props.config || {};
 });
 
@@ -47,7 +57,9 @@ const filtre = async (event) => {
     if (response) {
         productsFiltre.value = response.data
     }
+    showModalFiltre.value = false
 }
+
 
 </script>
 
@@ -88,16 +100,14 @@ const filtre = async (event) => {
                         alt="" srcset="">
                 </div>
                 <div class="relative bottom-[100px] left-[50%] rounded-full">
-                    <div
-                        class="bg-red-500 absolute w-[200px] rounded-full h-[200px] border z-100 bg-white transform -translate-x-1/2  ">
-                        <img v-if="config.pdp" class="w-[200px] h-[200px] rounded-full"
-                            :src="`/storage/data/image/${config.pdp}`" alt="" srcset="">
+                    <div class="bg-red-500 absolute w-[200px] rounded-full h-[200px] border z-100 bg-white transform -translate-x-1/2  ">
+                        <img v-if="config.pdp" class="w-[200px] h-[200px] rounded-full" :src="`/storage/data/image/${config.pdp}`" alt="" srcset="">
                     </div>
                 </div>
 
                 <div class="text-center mt-[120px]">
                     <div>
-                        <div class="text-4xl font-bold">
+                        <div class="text-4xl font-bold text-white">
                             Lolitasse
                         </div>
                         <div class="text-xl my-5">
@@ -109,6 +119,28 @@ const filtre = async (event) => {
                     </div>
                     <div class="my-5">
                         <span>𝐏𝐀𝐒𝐒𝐈𝐎𝐍𝐍𝐄́𝐄 𝐏𝐀𝐑 𝐋𝐀 𝐁𝐄𝐀𝐔𝐓𝐄́ 𝐃𝐔 𝐂𝐎𝐑𝐒</span>
+                        <div class="my-3 text-xs ">
+                            <ModalLayout classes="bg-red-400 text-white " :isOpen="showModalSubscribe">
+                                <template #button>
+                                    <button @click="showModalSubscribe= true" class="border bg-red-400 text-white border-0 px-10 py-3 rounded-lg font-black mx-2">S'abonner</button>
+                                </template>
+                                <template #header>
+                                    <div class="text-white">
+                                        Abonnement
+                                    </div>
+                                </template>
+                                <template #content>
+                                    <div>
+                                        Votre abonnement est fait avec success
+                                    </div>
+                                </template>
+                                <template #footer>
+                                    <div>
+                                        <button class="px-3 py-2 rounded-lg bg-blue-400 " @click="showModalSubscribe = false">fermer</button>
+                                    </div>
+                                </template>
+                            </ModalLayout>
+                        </div>
                         <ul class="my-3">
                             <li> • Venir en privée pour plus de contenu spicy ! </li>
                             <li> • Nue/Lingerie/Plaisir seul/Pieds/S </li>
@@ -120,13 +152,14 @@ const filtre = async (event) => {
                             abonnement et les
                             pushs !
                         </div>
+                        <div class="my-3 flex justify-center text-xs">
+                            <button class="hover:bg-red-400 border-white px-10 py-3 text-white rounded-lg font-black mx-2">Tips</button>
+                            <button class="hover:bg-red-400 border-white px-10 py-3 text-white rounded-lg font-black mx-2">Message</button>
+                        </div>
                         <div class="my-5 flex justify-center">
-                            <Icon name="mdi:facebook"
-                                style="color: red ; background-color: red !important; margin-left: 5px;" size="2em" />
-                            <Icon name="mdi:instagram"
-                                style="color: red ; background-color: red !important; margin-left: 5px;" size="2em" />
-                            <Icon name="mdi:snapchat"
-                                style="color: red ; background-color: red !important; margin-left: 5px;" size="2em" />
+                            <Icon class="cursor-pointer hover:text-red-400" icon="la:facebook-f" style="font-size: 30px; margin-left: 5px;" size="2em" />
+                            <Icon class="cursor-pointer hover:text-red-400" icon="mdi:instagram" style="font-size: 30px ; margin-left: 5px;" size="2em" />
+                            <Icon class="cursor-pointer hover:text-red-400" icon="mdi:snapchat" style="font-size: 30px ; margin-left: 5px;" size="2em" />
                         </div>
                     </div>
                     <div class="my-5">
@@ -134,51 +167,74 @@ const filtre = async (event) => {
                     </div>
                 </div>
 
+                <div class="bg-slate-800 w-full px-2 py-5 flex justify-center items-center">
+                    <div @click="showData = 'post'" :class="showData == 'post' ? 'border-red-400 border-b-4' :''" class="hover:text-red-400 cursor-pointer mx-5 p-5  ">
+                        Post (12)
+                    </div>
+                    <div @click="showData = 'demande'" :class="showData == 'demande' ? 'border-red-400 border-b-4' :''" class="hover:text-red-400 cursor-pointer mx-5 p-5">
+                        Post on demande (34)
+                    </div>
+                </div>
+
                 <div class="p-4">
                     <div class="relative mt-2 w-1/4">
-                        <div class="items-start mt-5 ">
-                            <div>
-                                <label for="password" class="block mb-2 text-sm font-medium text-white-900 ">Choisir
-                                    categorie</label>
-                            </div>
-                            <div>
-                                <select @change="filtre($event)" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option selected value="all">Tout</option>
-                                    <option v-for="(cate, index) in categories" :key="index" :value="cate.id">{{
-                                        cate.name }}</option>
-                                </select>
-                            </div>
+                        <div class="items-start mt-5 hover:text-red-400">
+                            <ModalLayout classes="bg-red-400 text-white " :isOpen="showModalFiltre">
+                                <template #button>
+                                    <label @click="showModalFiltre = true" for="password" class="cursor-pointer block flex items-center mb-2 text-sm font-medium text-white-900 ">
+                                        <Icon icon="bx:copy" style="font-size: 30px ; margin-right: 5px;" size="2em" />
+                                        <div class="text-lg">
+                                            Choisir categorie
+                                        </div>
+                                        <Icon icon="mdi:filter" style="font-size: 30px ; margin-right: 5px;" size="2em" />
+                                    </label>
+                                </template>
+                                <template #header>
+                                    <div class="text-white">
+                                        Choiri la categorie selon votre choix
+                                    </div>
+                                </template>
+                                <template #content>
+                                    <div>
+                                        <select @change="filtre($event)" id="countries" class="border-0 text-gray-900 text-sm rounded-lg  block w-full p-2.5 bg-red-400 dark:placeholder-gray-400 dark:text-white ">
+                                            <option selected value="all">Tout</option>
+                                            <option v-for="(cate, index) in categories" :key="index" :value="cate.id">{{ cate.name }}</option>
+                                        </select>
+                                    </div>
+                                </template>
+                                <template #footer>
+                                    <div>
+                                        <button class="px-3 py-2 rounded-lg bg-blue-400 " @click="showModalFiltre = false">fermer</button>
+                                    </div>
+                                </template>
+                            </ModalLayout>
                         </div>
                     </div>
                 </div>
-
-                <div v-if="productsFiltre" class="mx-auto flex justify-center flex-wrap">
-                    <Link :href="route('media', { product_id: product.id })" v-for="(product, index) in productsFiltre"
-                        :key="index"
-                        class="relative border border-black px-1 my-2 w-[300px] h-[300px] rounded-lg cursor-pointer overflow-hidden">
-                    <img :class="product.is_free == false ? 'filter blur' : ''" class="w-full h-full object-cover "
-                        :src="`/storage/data/image/${product.name}`" alt="Product Image" />
-                    <div v-if="product.is_free == false"
-                        class="absolute z-50 inset-0 flex items-center justify-center bg-white bg-opacity-60 rounded-lg">
-                        <span class="text-2xl font-bold text-gray-700">🔒</span>
+                
+                <div v-if="showData == 'post'">
+                    <div v-if="productsFiltre" class="mx-auto flex justify-center flex-wrap">
+                        <Link :href="route('media', { product_id: product.id })" v-for="(product, index) in productsFiltre" :key="index" class="relative border border-black px-1 my-2 w-[300px] h-[300px] rounded-lg cursor-pointer overflow-hidden">
+                        <img :class="product.is_free == false ? 'filter blur' : ''" class="w-full h-full object-cover " :src="`/storage/data/image/${product.name}`" alt="Product Image" />
+                        <div v-if="product.is_free == false" class="absolute  z-10 inset-0 flex items-center justify-center bg-white bg-opacity-60 rounded-lg">
+                            <Icon icon="material-symbols:lock" style="color: black; font-size: 30px ; margin-right: 5px;" size="2em" />
+                        </div>
+                        </Link>
                     </div>
-                    </Link>
-                </div>
-                <div v-else class=" mx-auto flex justify-center flex-wrap">
-                    <Link :href="route('media', { product_id: product.id })" v-for="(product, index) in products"
-                        :key="index"
-                        class="relative border border-black px-1 my-2 w-[300px] h-[300px] rounded-lg cursor-pointer overflow-hidden">
-                    <img :class="product.is_free == false ? 'filter blur' : ''" class="w-full h-full object-cover "
-                        :src="`/storage/data/image/${product.name}`" alt="Product Image" />
-                    <div v-if="product.is_free == false"
-                        class="absolute z-50 inset-0 flex items-center justify-center bg-white bg-opacity-60 rounded-lg">
-                        <span class="text-2xl font-bold text-gray-700">🔒</span>
+                    <div v-else class=" mx-auto flex justify-center flex-wrap">
+                        <Link :href="route('media', { product_id: product.id })" v-for="(product, index) in products" :key="index" class="relative border border-black px-1 my-2 w-[300px] h-[300px] rounded-lg cursor-pointer overflow-hidden">
+                        <img :class="product.is_free == false ? 'filter blur' : ''" class="w-full h-full object-cover " :src="`/storage/data/image/${product.name}`" alt="Product Image" />
+                        <div v-if="product.is_free == false" class="absolute z-10 inset-0 flex items-center justify-center bg-white bg-opacity-60 rounded-lg">
+                            <Icon icon="material-symbols:lock" style="color: black; font-size: 30px ; margin-right: 5px;" size="2em" />
+                        </div>
+                        </Link>
                     </div>
-                    </Link>
                 </div>
-
-                <footer class="py-16 text-center text-sm text-black dark:text-white/70">
-                    Laravel v{{ laravelVersion }} (PHP v{{ phpVersion }})
+                <div v-else>
+                    
+                </div>
+                <footer class="cursor-pointer py-16 text-center text-sm text-black dark:text-white/70">
+                    Mention legale
                 </footer>
             </div>
         </div>

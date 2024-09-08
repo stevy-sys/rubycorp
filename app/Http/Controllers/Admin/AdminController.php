@@ -64,6 +64,7 @@ class AdminController extends Controller
             'is_free' => $request->is_free ? $request->is_free : false,
             'product_id' => $product->id,
             'price_id' => $priceIds[0],
+            'modele' =>  $request->model
         ]);
         $product->categories()->sync([$request->categorie]);
         // Retourner les identifiants du produit et du prix
