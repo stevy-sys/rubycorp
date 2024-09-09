@@ -85,6 +85,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     Route::get('/user/gallerie', [UserController::class, 'gallerie'])->name('user.gallerie.index');
     Route::get('/user/facture', [UserController::class, 'facture'])->name('user.facture.index');
+    Route::get('/user/chat', [UserController::class, 'chat'])->name('user.chat.index');
+    Route::post('/user/sendMessage', [UserController::class, 'sendMessage'])->name('user.chat.send');
+    Route::get('/user/notification', [UserController::class, 'notification'])->name('user.notification.index');
 
 
     //admin

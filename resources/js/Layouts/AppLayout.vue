@@ -135,7 +135,7 @@ const logout = () => {
                                         <button v-if="$page.props.jetstream.managesProfilePhotos"
                                             class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                                             <img class="h-8 w-8 rounded-full object-cover"
-                                                :src="$page.props.auth.user.profile_photo_url"
+                                                :src="'/storage/'+$page.props.auth.user.profile_photo_path"
                                                 :alt="$page.props.auth.user.name">
                                         </button>
 
@@ -206,8 +206,18 @@ const logout = () => {
                 <div :class="{ 'block': showingNavigationDropdown, 'hidden': !showingNavigationDropdown }"
                     class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('app.dashboard')" :active="route().current('app.dashboard')">
-                            Dashboard
+                        <ResponsiveNavLink :href="route('user.gallerie.index')" :active="route().current('user.gallerie.index')">
+                            Gallerie
+                        </ResponsiveNavLink>
+                    </div>
+                    <div class="pt-2 pb-3 space-y-1">
+                        <ResponsiveNavLink :href="route('user.chat.index')" :active="route().current('user.chat.index')">
+                            Message
+                        </ResponsiveNavLink>
+                    </div>
+                    <div class="pt-2 pb-3 space-y-1">
+                        <ResponsiveNavLink :href="route('user.notification.index')" :active="route().current('user.notification.index')">
+                            Notification
                         </ResponsiveNavLink>
                     </div>
 
@@ -216,7 +226,7 @@ const logout = () => {
                         <div class="flex items-center px-4">
                             <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 me-3">
                                 <img class="h-10 w-10 rounded-full object-cover"
-                                    :src="$page.props.auth.user.profile_photo_url" :alt="$page.props.auth.user.name">
+                                    :src="'/storage/'+$page.props.auth.user.profile_photo_path" :alt="$page.props.auth.user.name">
                             </div>
 
                             <div>
@@ -349,8 +359,8 @@ const logout = () => {
                                             <span class="ms-3">Gallerie</span>
                                         </Link>
                                     </li>
-                                    <!-- <li>
-                                        <a href="#" class="flex items-center p-2  rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                    <li>
+                                        <Link :href="route('user.chat.index')" class="flex items-center p-2  rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                             <svg class="flex-shrink-0 w-5 h-5 text-white-500 transition duration-75  group-hover:text-white dark:group-hover:text-white"
                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                 fill="currentColor" viewBox="0 0 18 18">
@@ -358,11 +368,31 @@ const logout = () => {
                                                     d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
                                             </svg>
                                             <span class="flex-1 ms-3 whitespace-nowrap">Message</span>
-                                            <span
-                                                class="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">Pro</span>
-                                        </a>
-                                    </li> -->
+                                            <span class="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">2</span>
+                                        </Link>
+                                    </li>
                                     <li>
+                                        <Link :href="route('profile.show')" class="flex items-center p-2  rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                            <svg class="flex-shrink-0 w-5 h-5 text-white-500 transition duration-75  group-hover:text-white dark:group-hover:text-white"
+                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                fill="currentColor" viewBox="0 0 18 18">
+                                                <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
+                                            </svg>
+                                            <span class="flex-1 ms-3 whitespace-nowrap">Profile</span>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link :href="route('user.notification.index')" class="flex items-center p-2  rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                            <svg class="flex-shrink-0 w-5 h-5 text-white-500 transition duration-75  group-hover:text-white dark:group-hover:text-white"
+                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                fill="currentColor" viewBox="0 0 18 18">
+                                                <path d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
+                                            </svg>
+                                            <span class="flex-1 ms-3 whitespace-nowrap">Notifications</span>
+                                            <span class="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">1</span>
+                                        </Link>
+                                    </li>
+                                    <!-- <li>
                                         <Link :href="route('user.facture.index')" class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                             <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -374,7 +404,7 @@ const logout = () => {
                                             <span
                                                 class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
                                         </Link>
-                                    </li>
+                                    </li> -->
                                     <!-- <li>
                                         <a href="#" class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                             <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"

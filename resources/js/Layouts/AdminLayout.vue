@@ -164,9 +164,40 @@ const logout = () => {
                                             Profile
                                         </DropdownLink>
 
-                                        <DropdownLink v-if="$page.props.jetstream.hasApiFeatures"
-                                            :href="route('api-tokens.index')">
-                                            API Tokens
+                                        <div class="border-t border-gray-200 dark:border-gray-600" />
+
+                                        <DropdownLink :href="route('admin.allproduct')">
+                                            Produits
+                                        </DropdownLink>
+
+                                        <div class="border-t border-gray-200 dark:border-gray-600" />
+
+                                        <DropdownLink :href="route('admin.chat.index')">
+                                            Chat
+                                        </DropdownLink>
+
+                                        <div class="border-t border-gray-200 dark:border-gray-600" />
+
+                                        <DropdownLink :href="route('profile.show')">
+                                            Config
+                                        </DropdownLink>
+
+                                        <div class="border-t border-gray-200 dark:border-gray-600" />
+
+                                        <DropdownLink :href="route('admin.config.texte')">
+                                            Texte
+                                        </DropdownLink>
+
+                                        <div class="border-t border-gray-200 dark:border-gray-600" />
+
+                                        <DropdownLink :href="route('admin.user.index')">
+                                            Utilisateur
+                                        </DropdownLink>
+
+                                        <div class="border-t border-gray-200 dark:border-gray-600" />
+
+                                        <DropdownLink :href="route('profile.show')">
+                                            Facture
                                         </DropdownLink>
 
                                         <div class="border-t border-gray-200 dark:border-gray-600" />

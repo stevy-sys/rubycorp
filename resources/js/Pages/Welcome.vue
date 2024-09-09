@@ -75,21 +75,21 @@ const filtre = async (event) => {
                     <div class="flex lg:justify-center lg:col-start-2 text-2xl text-white">
                         App
                     </div>
-                    <nav v-if="canLogin" class="-mx-3 flex flex-1 justify-end">
-                        <Link v-if="$page.props.auth.user" :href="route('app.dashboard')"
-                            class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                        Dashboard
+                    <nav v-if="canLogin" class="-mx-3 flex flex-1 items-center justify-end">
+                        <Link v-if="$page.props.auth.user" :href="route('user.gallerie.index')" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                            <!-- <img class="h-8 w-8 rounded-full object-cover"
+                                                    :src="'/storage/'+$page.props.auth.user.profile_photo_path"
+                                                    :alt="$page.props.auth.user.name" /> -->
+                            {{ $page.props.auth.user.name }}
                         </Link>
 
                         <template v-else>
-                            <Link :href="route('login')"
-                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                            Connexion
+                            <Link :href="route('login')" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                              Connexion
                             </Link>
 
-                            <Link v-if="canRegister" :href="route('register')"
-                                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                            Inscription
+                            <Link v-if="canRegister" :href="route('register')" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                              Inscription
                             </Link>
                         </template>
                     </nav>
