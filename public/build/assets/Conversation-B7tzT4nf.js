@@ -1,0 +1,1 @@
+import{_ as t}from"./AdminLayout-Db5WUsVE.js";import{o,c as a,w as e,a as r}from"./app-CRG8-m-B.js";import"./ResponsiveNavLink-DwEi84_s.js";import"./iconify-BNbmWbNy.js";const s=r("div",null,null,-1),u={__name:"Conversation",setup(_){return(n,c)=>(o(),a(t,null,{default:e(()=>[s]),_:1}))}};export{u as default};
