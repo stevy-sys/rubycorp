@@ -14,8 +14,20 @@ use Illuminate\Support\Facades\Auth;
 class ProductController extends Controller
 {
     public function getOneProduct(Request $request) {
-        $product = Product::find($request->product_id);
-        return Inertia::render('Media',compact('product'));
+        // Trouve le produit en fonction de l'ID
+        $product = Product::findOrFail($request->product_id);
+    
+        // Récupère les produits qui partagent au moins une catégorie avec le produit actuel
+        $relatif = Product::whereHas('categories', function ($q) use ($product) {
+            // On récupère les ID des catégories associées au produit
+            $q->whereIn('categories.id', $product->categories->pluck('id'));
+        })
+        // Exclut le produit actuel des résultats
+        ->where('id', '!=', $product->id)
+        ->get();
+    
+        // Retourne les données à la vue avec Inertia
+        return Inertia::render('Media', compact('product', 'relatif'));
     }
     
     public function createCheckoutSession(Request $request)

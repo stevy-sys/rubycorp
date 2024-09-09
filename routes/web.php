@@ -1,8 +1,8 @@
 <?php
 
 use Stripe\Stripe;
-use Stripe\Invoice;
 use Inertia\Inertia;
+use App\Models\Invoice;
 use App\Models\Product;
 use Stripe\InvoiceItem;
 use App\Models\Category;
@@ -13,8 +13,8 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\User\UserController;
-use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ChatController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 
@@ -36,10 +36,14 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/create-checkout-session', [ProductController::class, 'createCheckoutSession']);
 
     Route::get('/success-checkout-session', function (Request $request) {
+        Stripe::setApiKey(env('STRIPE_SECRET'));
         $user = Auth::user();
         $user->products()->attach($request->media);
 
-        // Stripe::setApiKey(env('STRIPE_SECRET'));
+        Invoice::create([
+            'product_id' => $request->media,
+            'user_id' => Auth::id()
+        ]);
 
         // // Récupérez les détails du produit
         // $product = Product::find($request->media);
@@ -71,7 +75,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         //     'invoice' => $invoice,
         //     'invoicePdfUrl' => $invoicePdfUrl
         // ]);
-        return redirect()->route('user.dashboard');
+        return redirect()->route('user.gallerie.index');
     })->name('checkout.success');
     Route::get('/abort-checkout-session', function () {
         dd('annuler');

@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Conversation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Invoice;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -54,9 +55,9 @@ class UserController extends Controller
     public function facture() {
         try {
             // Assurez-vous d'utiliser la clé secrète de Stripe
-            Stripe::setApiKey(env('STRIPE_SECRET'));
+            // Stripe::setApiKey(env('STRIPE_SECRET'));
 
-            $factures = [];
+            // $factures = [];
 
             // if (Auth::user()->stripe_id) {
             //     // Récupère toutes les factures associées à l'utilisateur
@@ -65,6 +66,7 @@ class UserController extends Controller
             // }
 
             // Passez les factures à la vue
+            $factures = Invoice::with(['user','product'])->where('user_id',Auth::id())->get();
             return Inertia::render('User/Facture', ['factures' => $factures]);
 
         } catch (\Exception $e) {
