@@ -14,7 +14,9 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\ConfigController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
 Route::post('/filtre', [IndexController::class, 'filtreProduct'])->name('home.filtre');
@@ -91,9 +93,12 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::post('/admin/create-product', [AdminController::class, 'create'])->name('admin.store.product');
     Route::get('/admin/config', [ConfigController::class, 'allConfig'])->name('admin.config.index');
     Route::post('/admin/updateConfig', [ConfigController::class, 'updateConfig'])->name('admin.config.update');
+    Route::get('/admin/chat', [ChatController::class, 'index'])->name('admin.chat.index');
+    Route::get('/admin/getMessage/{conversation_id}', [ChatController::class, 'messages'])->name('admin.chat.message');
+    Route::post('/admin/sendMessage', [ChatController::class, 'sendMessage'])->name('admin.chat.send');
     Route::get('/admin/text', [ConfigController::class, 'allTexte'])->name('admin.config.texte');
     Route::post('/admin/updateTexte', [ConfigController::class, 'updateTexte'])->name('admin.config.updateTexte');
-    Route::get('/admin/users', [ConfigController::class, 'allUser'])->name('admin.config.user');
+    Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.user.index');
     Route::get('/admin/categorie', [ConfigController::class, 'allCategorie'])->name('admin.categorie.index');
     Route::post('/admin/add-categorie', [ConfigController::class, 'addCategorie'])->name('admin.categorie.store');
     Route::post('/admin/update-categorie', [ConfigController::class, 'updateCategorie'])->name('admin.categorie.update');

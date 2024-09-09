@@ -64,13 +64,23 @@ const selectProduct = (product) => {
 
         <ModalLayout classes="bg-red-400 text-white w-[50%] " :isOpen="showProductActif ? true : false">
             <template #content>
-                <div>
-                    <img :src="`/storage/data/image/${productActif.name}`" alt="" srcset="">
-                    <!-- {{productActif}} -->
+                <div class="flex justify-between">
+                    <div class="w-[50%]">
+                        <img :src="`/storage/data/image/${productActif.name}`" alt="" srcset="">
+                    </div>
+                    <div class="w-[50%]">
+                        <div>
+                            prix : {{ productActif.price / 100 }} €
+                        </div>
+                        <div>
+                            model : {{ productActif.modele }}
+                        </div>
+                    </div>
                 </div>
             </template>
             <template #footer>
-                <div>
+                <div class="flex justify-end">
+                    <button class="px-3 py-2 rounded-lg bg-blue-400 mr-5">Supprimer</button>
                     <button class="px-3 py-2 rounded-lg bg-blue-400 " @click="showProductActif = false">fermer</button>
                 </div>
             </template>

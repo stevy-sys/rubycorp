@@ -1,1 +1,0 @@
-import{_ as a}from"./AdminLayout-BCOWZAm6.js";import{o,c as t,w as e,a as s}from"./app-CwhIxXtX.js";import"./ResponsiveNavLink-CJ6slUFH.js";const r=s("div",null," Dashboard ",-1),p={__name:"Dashboard",setup(_){return(c,n)=>(o(),t(a,null,{default:e(()=>[r]),_:1}))}};export{p as default};

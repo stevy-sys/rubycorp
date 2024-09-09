@@ -40,9 +40,6 @@ class ConfigController extends Controller
         return redirect()->route('admin.categorie.index');
     }
 
-    public function allUser() {
-        return Inertia::render('Admin/User');
-    }
 
     public function updateConfig(Request $request) {
         $config = Config::first();

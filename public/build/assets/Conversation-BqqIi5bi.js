@@ -1,0 +1,1 @@
+import{_ as t}from"./AdminLayout-Bu2lNUFi.js";import{o as a,c as e,w as o,a as s}from"./app-CnU-1Nkk.js";import"./ResponsiveNavLink-D21IdXet.js";const r=s("div",null,null,-1),p={__name:"Conversation",setup(_){return(n,c)=>(a(),e(t,null,{default:o(()=>[r]),_:1}))}};export{p as default};
