@@ -29,7 +29,8 @@ class UserController extends Controller
     public function chat() {
         $conversations = Conversation::with(['messages'])->where('talker_id',Auth::id())->first();
         if (!isset($conversations)) {
-            $conversation = Conversation::create(['name' => 'chat','talker_id' => Auth::id()]);
+            $conversations = Conversation::create(['name' => 'chat','talker_id' => Auth::id()]);
+            $conversations->load('messages');
         }
         return Inertia::render('User/Message',compact('conversations'));
     }
