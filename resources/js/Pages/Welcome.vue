@@ -1,7 +1,8 @@
 <script setup>
+import MentionLegal from '@/Components/MentionLegal.vue';
 import ModalLayout from '@/Components/ModalLayout.vue';
 import { Icon } from '@iconify/vue';
-import { Head, Link, usePage } from '@inertiajs/vue3';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import { computed } from 'vue';
 defineProps({
@@ -33,9 +34,12 @@ const productsFiltre = ref(null)
 const showNotFilter = ref(false)
 const showModalFiltre = ref(false)
 const showData = ref('post')
+const showMention = ref(false)
 
 const showModalChat = ref(false)
 const showModalSubscribe = ref(false)
+
+const messageChat = ref('')
 
 const page = usePage();
 console.log(page.props.translations.message)
@@ -60,6 +64,18 @@ const filtre = async (event) => {
     showModalFiltre.value = false
 }
 
+const sendMessage = async () => {
+    if (sendMessage.value == '') {
+        return alert('pas de message');
+    }
+
+    if (!page.props.auth.user) {
+        return alert("Inscriver vous avant d'envoyer message")
+    }
+
+    const response = await window.axios.post('/user/sendMessage',{message : messageChat.value});
+    router.push('/user/chat');
+}
 
 </script>
 
@@ -73,7 +89,7 @@ const filtre = async (event) => {
             <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                 <header class="flex justify-between items-center">
                     <div class="flex lg:justify-center lg:col-start-2 text-2xl text-white">
-                        App
+                        {{ page.props.translations.message.app_name }}
                     </div>
                     <nav v-if="canLogin" class="-mx-3 flex flex-1 items-center justify-end">
                         <Link v-if="$page.props.auth.user" :href="$page.props.auth.user.is_admin == true ? route('admin.allproduct') : route('user.gallerie.index') " class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
@@ -108,17 +124,17 @@ const filtre = async (event) => {
                 <div class="text-center mt-[120px]">
                     <div>
                         <div class="text-4xl font-bold text-white">
-                            Lolitasse
+                        {{ page.props.translations.message.title_name }}
                         </div>
                         <div class="text-xl my-5">
-                            Adult - Paris
+                            {{ page.props.translations.message.sub_title }}
                         </div>
                     </div>
                     <div class="my-5">
                         <hr class=" mx-auto" />
                     </div>
                     <div class="my-5">
-                        <span>𝐏𝐀𝐒𝐒𝐈𝐎𝐍𝐍𝐄́𝐄 𝐏𝐀𝐑 𝐋𝐀 𝐁𝐄𝐀𝐔𝐓𝐄́ 𝐃𝐔 𝐂𝐎𝐑𝐒</span>
+                        <span>{{ page.props.translations.message.sub_title2 }}</span>
                         <div class="my-3 text-xs ">
                             <ModalLayout classes="bg-red-400 text-white " :isOpen="showModalSubscribe">
                                 <template #button>
@@ -142,19 +158,34 @@ const filtre = async (event) => {
                             </ModalLayout>
                         </div>
                         <ul class="my-3">
-                            <li> • Venir en privée pour plus de contenu spicy ! </li>
-                            <li> • Nue/Lingerie/Plaisir seul/Pieds/S </li>
-                            <li> • Plusieurs médias publiés par jours pour votre plus grand plaisir </li>
-                            <li> • Bonnet E/Morphologie </li>
+                            <li>{{ page.props.translations.message.texte1 }}</li>
+                            <li>{{ page.props.translations.message.texte2 }}</li>
+                            <li> {{ page.props.translations.message.texte3 }} </li>
+                            <li> {{ page.props.translations.message.texte4 }} </li>
                         </ul>
                         <div class="my-3 text-xs">
-                            Les 50 premiers qui s'abonneront bénéficieront de promotions importantes sur les prochains
-                            abonnement et les
-                            pushs !
+                            {{ page.props.translations.message.description1 }}
                         </div>
                         <div class="my-3 flex justify-center text-xs">
-                            <button class="hover:bg-red-400 border-white px-10 py-3 text-white rounded-lg font-black mx-2">Tips</button>
-                            <button class="hover:bg-red-400 border-white px-10 py-3 text-white rounded-lg font-black mx-2">Message</button>
+                            <button class="hover:bg-red-400 border-white px-10 py-3 text-white rounded-lg font-black mx-2">{{ page.props.translations.message.tips }}</button>
+                            
+                            <ModalLayout classes="bg-red-400 text-white w-[25%] " :isOpen="showModalChat">
+                                <template #button>
+                                    <button @click="showModalChat = true" class="hover:bg-red-400 border-white px-10 py-3 text-white rounded-lg font-black mx-2">{{ page.props.translations.message.message }}</button>
+                                </template>
+                                <template #content>
+                                    <div>
+                                        <label for="chat" class="my-1">Entrer votre message</label>
+                                        <input type="text" v-model="messageChat" name="chat" class="text-red-400 w-full focus:boder-0 ">
+                                    </div>
+                                </template>
+                                <template #footer>
+                                    <div class="flex justify-around w-full">
+                                        <button class="px-3 py-2 rounded-lg bg-blue-400 " @click="sendMessage">Envoyer</button>
+                                        <button class="px-3 py-2 rounded-lg bg-blue-400 " @click="showModalChat = false">fermer</button>
+                                    </div>
+                                </template>
+                            </ModalLayout>
                         </div>
                         <div class="my-5 flex justify-center">
                             <Icon class="cursor-pointer hover:text-red-400" icon="la:facebook-f" style="font-size: 30px; margin-left: 5px;" size="2em" />
@@ -169,10 +200,10 @@ const filtre = async (event) => {
 
                 <div class="bg-slate-800 w-full px-2 py-5 flex justify-center items-center">
                     <div @click="showData = 'post'" :class="showData == 'post' ? 'border-red-400 border-b-4' :''" class="hover:text-red-400 cursor-pointer mx-5 p-5  ">
-                        Post (12)
+                        {{ page.props.translations.message.post }} (12)
                     </div>
                     <div @click="showData = 'demande'" :class="showData == 'demande' ? 'border-red-400 border-b-4' :''" class="hover:text-red-400 cursor-pointer mx-5 p-5">
-                        Post on demande (34)
+                        {{ page.props.translations.message.demande }} (34)
                     </div>
                 </div>
 
@@ -261,9 +292,29 @@ const filtre = async (event) => {
                 <div v-else>
                     
                 </div>
-                <footer class="cursor-pointer py-16 text-center text-sm text-black dark:text-white/70">
-                    Mention legale
-                </footer>
+                
+                <ModalLayout classes="bg-red-400 text-white w-[75%]" :isOpen="showMention">
+                    <template #button>
+                        <footer @click="showMention = true" class="cursor-pointer py-16 text-center text-sm text-black dark:text-white/70">
+                            {{ page.props.translations.message.mention }}
+                        </footer>
+                    </template>
+                    <template #header>
+                        <div class="text-white">
+                            Mention legale
+                        </div>
+                    </template>
+                    <template #content>
+                        <div>
+                            <MentionLegal />
+                        </div>
+                    </template>
+                    <template #footer>
+                        <div>
+                            <button class="px-3 py-2 rounded-lg bg-blue-400 " @click="showMention = false">fermer</button>
+                        </div>
+                    </template>
+                </ModalLayout>
             </div>
         </div>
     </div>

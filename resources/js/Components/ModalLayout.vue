@@ -3,7 +3,7 @@
         <slot name="button"></slot>
     </div>
     <TransitionRoot appear :show="props?.isOpen" as="template">
-      <Dialog as="div" @close="closeModal" class="relative z-90">
+      <Dialog as="div" @close="closeModal" class="relative z-[9999]">
         <TransitionChild
           as="template"
           enter="duration-300 ease-out"

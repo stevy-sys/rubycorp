@@ -1,7 +1,7 @@
 <template>
     <AdminLayout>
         <div>
-            <div>
+            <!-- <div>
                 <label for="texte" class="block mb-2 text-sm font-medium text-white-900 ">Nom du site</label>
                 <div class="flex">
                     <input type="texte" name="password" id="password" placeholder="aphrodite"
@@ -9,11 +9,10 @@
                         required="">
                     <button class="border px-2 rounded cursor-pointer">modifier</button>
                 </div>
-            </div>
+            </div> -->
 
             <div class="my-5">
-                <label for="texte" class="block mb-2 text-sm font-medium text-white-900 ">Description dessous
-                    profile</label>
+                <label for="texte" class="block mb-2 text-sm font-medium text-white-900 ">Description dessous profile</label>
                 <div class="flex">
                     <textarea v-model="something" height="200" type="texte" name="password" id="password"
                         placeholder="aphrodite"
@@ -51,6 +50,16 @@
                 <button v-if="showBtnCropPdp" class="px-2 border" @click="cropImagePdp">Crop Image</button>
                 <button v-if="!showBtnCropPdp" @click="savePdp" class="px-2 border">Enregistrer</button>
             </div>
+
+            <div class="my-5">
+                <label for="texte" class="block mb-2 text-sm font-medium text-white-900 ">Mention legale</label>
+                <textarea v-model="metionLegale" class="w-full text-black" name="" id="">
+
+                </textarea>
+                <div @click="updateMention">
+                    <button class="px-3 border">Enregister</button>
+                </div>
+            </div>
         </div>
     </AdminLayout>
 </template>
@@ -61,6 +70,9 @@ import { ref } from 'vue';
 import Cropper from 'cropperjs';
 import 'cropperjs/dist/cropper.css';
 import { nextTick } from 'vue';
+const props = defineProps({
+    configs:Object
+})
 
 
 const name = ref("")
@@ -71,7 +83,7 @@ const pdc = ref("")
 const uploadPdp = ref("")
 const uploadPdc = ref("")
 
-
+const metionLegale = ref(props.configs.mention)
 // Références
 const image = ref(null);
 const croppedImagePdc = ref(null);
@@ -79,6 +91,11 @@ const imageRef = ref(null); // Référence à l'élément image
 const showBtnCrop = ref(false)
 let cropper = null;
 
+
+const imagePdp = ref(null);
+const croppedImagePdp = ref(null);
+const imageRefPdp = ref(null); // Référence à l'élément image
+const showBtnCropPdp = ref(false)
 // Fonction de gestion du fichier
 function onFileChange(event) {
     croppedImagePdc.value = ""
@@ -116,11 +133,6 @@ function cropImagePdc() {
 }
 
 
-
-const imagePdp = ref(null);
-const croppedImagePdp = ref(null);
-const imageRefPdp = ref(null); // Référence à l'élément image
-const showBtnCropPdp = ref(false)
 
 function onFileChangePdp(event) {
     croppedImagePdp.value = ""
@@ -169,6 +181,11 @@ const savePdc = async () => {
     console.log(response);
 }
 
+
+const updateMention =  async () => {
+    const response = await window.axios.post('/admin/updateMention',{mention : metionLegale.value});
+    console.log(response);
+}
 </script>
 
 <style scoped>

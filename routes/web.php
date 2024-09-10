@@ -95,6 +95,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
 
     //admin
+    
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/product', [AdminController::class, 'listProduct'])->name('admin.allproduct');
     Route::post('/admin/create-product', [AdminController::class, 'create'])->name('admin.store.product');
@@ -104,6 +105,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/admin/getMessage/{conversation_id}', [ChatController::class, 'messages'])->name('admin.chat.message');
     Route::post('/admin/sendMessage', [ChatController::class, 'sendMessage'])->name('admin.chat.send');
     Route::get('/admin/text', [ConfigController::class, 'allTexte'])->name('admin.config.texte');
+    Route::post('/admin/updateMessages', [ConfigController::class, 'updateMessages'])->name('admin.config.updateMessages');
+    Route::post('/admin/updateMention', [ConfigController::class, 'updateMention'])->name('admin.config.updateMention');
     Route::post('/admin/updateTexte', [ConfigController::class, 'updateTexte'])->name('admin.config.updateTexte');
     Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.user.index');
     Route::get('/admin/categorie', [ConfigController::class, 'allCategorie'])->name('admin.categorie.index');

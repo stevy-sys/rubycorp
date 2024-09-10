@@ -11,7 +11,7 @@ import { Icon } from '@iconify/vue';
 
 defineProps({
     title: String,
-    showSidebar:Boolean
+    showSidebar: Boolean
 });
 
 const showingNavigationDropdown = ref(false);
@@ -46,7 +46,7 @@ const logout = () => {
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center text-white text-2xl ">
                                 <Link :href="route('home')">
-                                 Aphrodite
+                                Aphrodite
                                 </Link>
                             </div>
 
@@ -262,14 +262,50 @@ const logout = () => {
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile.show')" :active="route().current('profile.show')">
+                            <ResponsiveNavLink :href="route('profile.show')">
                                 Profile
                             </ResponsiveNavLink>
 
-                            <ResponsiveNavLink v-if="$page.props.jetstream.hasApiFeatures"
+                            <div class="border-t border-gray-200 dark:border-gray-600" />
+
+                            <ResponsiveNavLink :href="route('admin.allproduct')">
+                                Produits
+                            </ResponsiveNavLink>
+
+                            <div class="border-t border-gray-200 dark:border-gray-600" />
+
+                            <ResponsiveNavLink :href="route('admin.chat.index')">
+                                Chat
+                            </ResponsiveNavLink>
+
+                            <div class="border-t border-gray-200 dark:border-gray-600" />
+
+                            <ResponsiveNavLink :href="route('profile.show')">
+                                Config
+                            </ResponsiveNavLink>
+
+                            <div class="border-t border-gray-200 dark:border-gray-600" />
+
+                            <ResponsiveNavLink :href="route('admin.config.texte')">
+                                Texte
+                            </ResponsiveNavLink>
+
+                            <div class="border-t border-gray-200 dark:border-gray-600" />
+
+                            <ResponsiveNavLink :href="route('admin.user.index')">
+                                Utilisateur
+                            </ResponsiveNavLink>
+
+                            <div class="border-t border-gray-200 dark:border-gray-600" />
+
+                            <ResponsiveNavLink :href="route('profile.show')">
+                                Facture
+                            </ResponsiveNavLink>
+
+                            <!-- <ResponsiveNavLink v-if="$page.props.jetstream.hasApiFeatures"
                                 :href="route('api-tokens.index')" :active="route().current('api-tokens.index')">
                                 API Tokens
-                            </ResponsiveNavLink>
+                            </ResponsiveNavLink> -->
 
                             <!-- Authentication -->
                             <form method="POST" @submit.prevent="logout">
@@ -279,14 +315,13 @@ const logout = () => {
                             </form>
 
                             <!-- Team Management -->
-                            <template v-if="$page.props.jetstream.hasTeamFeatures">
+                            <!-- <template v-if="$page.props.jetstream.hasTeamFeatures">
                                 <div class="border-t border-gray-200 dark:border-gray-600" />
 
                                 <div class="block px-4 py-2 text-xs text-gray-400">
                                     Manage Team
                                 </div>
 
-                                <!-- Team Settings -->
                                 <ResponsiveNavLink :href="route('teams.show', $page.props.auth.user.current_team)"
                                     :active="route().current('teams.show')">
                                     Team Settings
@@ -297,7 +332,6 @@ const logout = () => {
                                     Create New Team
                                 </ResponsiveNavLink>
 
-                                <!-- Team Switcher -->
                                 <template v-if="$page.props.auth.user.all_teams.length > 1">
                                     <div class="border-t border-gray-200 dark:border-gray-600" />
 
@@ -322,7 +356,7 @@ const logout = () => {
                                         </form>
                                     </template>
                                 </template>
-                            </template>
+                            </template> -->
                         </div>
                     </div>
                 </div>
@@ -356,49 +390,70 @@ const logout = () => {
                                         </a>
                                     </li> -->
                                     <li>
-                                        <Link :href="route('admin.allproduct')"  class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                            <Icon class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white" icon="solar:gallery-bold" />
-                                            <span class="ms-3">Produits</span>
+                                        <Link :href="route('admin.allproduct')"
+                                            class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                        <Icon
+                                            class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
+                                            icon="solar:gallery-bold" />
+                                        <span class="ms-3">Produits</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link :href="route('admin.categorie.index')"  class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                            <Icon class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white" icon="bxs:category-alt" />
-                                            <span class="ms-3">Categorie</span>
+                                        <Link :href="route('admin.categorie.index')"
+                                            class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                        <Icon
+                                            class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
+                                            icon="bxs:category-alt" />
+                                        <span class="ms-3">Categorie</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link :href="route('admin.chat.index')"  class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                            <Icon class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white" icon="mynaui:chat" />
-                                            <span class="ms-3">Chat</span>
+                                        <Link :href="route('admin.chat.index')"
+                                            class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                        <Icon
+                                            class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
+                                            icon="mynaui:chat" />
+                                        <span class="ms-3">Chat</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link :href="route('admin.config.index')"  class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                            <Icon class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white" icon="icon-park-outline:config" />
-                                            <span class="ms-3">Config</span>
+                                        <Link :href="route('admin.config.index')"
+                                            class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                        <Icon
+                                            class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
+                                            icon="icon-park-outline:config" />
+                                        <span class="ms-3">Config</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link :href="route('admin.config.texte')" class="flex items-center p-2  rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                            <Icon class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white" icon="solar:text-bold" />
-                                            <span class="flex-1 ms-3 whitespace-nowrap">Texte</span>
+                                        <Link :href="route('admin.config.texte')"
+                                            class="flex items-center p-2  rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                        <Icon
+                                            class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
+                                            icon="solar:text-bold" />
+                                        <span class="flex-1 ms-3 whitespace-nowrap">Texte</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link :href="route('admin.user.index')" class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                            <Icon class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white" icon="ph:user-light" />
-                                            <span class="flex-1 ms-3 whitespace-nowrap">Utilisateur</span>
+                                        <Link :href="route('admin.user.index')"
+                                            class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                        <Icon
+                                            class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
+                                            icon="ph:user-light" />
+                                        <span class="flex-1 ms-3 whitespace-nowrap">Utilisateur</span>
                                         </Link>
                                     </li>
 
                                     <li>
-                                        <a href="#" class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                            <Icon class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white" icon="iconamoon:invoice-fill" />
+                                        <a href="#"
+                                            class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                            <Icon
+                                                class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
+                                                icon="iconamoon:invoice-fill" />
                                             <span class="flex-1 ms-3 whitespace-nowrap">Facture</span>
                                         </a>
                                     </li>
-                                    
+
                                 </ul>
                             </div>
                         </aside>

@@ -40,8 +40,9 @@ class UserController extends Controller
             return '' ;
         }
 
-        $conversation = Conversation::where('talker_id',Auth::id())->first();
-        if (!isset($conversations)) {
+        $conversation = Conversation::where('talker_id' , Auth::id())->first();
+        
+        if (!$conversation->id) {
             $conversation = Conversation::create(['name' => 'chat','talker_id' => Auth::id()]);
         }
 

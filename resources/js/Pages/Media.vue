@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="p-5 border mt-10">
-                        <div class="mt-5 font-bold text-xl">Descriptions</div>
+                        <div class="mt-5 font-bold text-xl">{{ page.props.translations.message.description }}</div>
                         <div class="w-full mt-3">
                             {{ product.description }}
                         </div>
@@ -41,8 +41,8 @@
                     <div class="border mb-5 p-5 h-auto rounded bg-grey-500">
                         <div class="mb-2 font-bold text-xl">Details</div>
 
-                        <div class="my-5"><span>upload : {{ product.created_at }}</span></div>
-                        <div class="my-5">Partager sur :
+                        <div class="my-5"><span>{{ page.props.translations.message.upload }} : {{ product.created_at }}</span></div>
+                        <div class="my-5">{{ page.props.translations.message.partage }}
                             <div class="flex">
                                 <Icon class="cursor-pointer hover:text-red-400" icon="la:facebook-f"
                                     style="font-size: 30px; margin-left: 5px;" size="2em" />
@@ -55,7 +55,7 @@
                     <div class="border my-5 p-5 h-auto rounded bg-grey-500">
                         <div v-if="product.is_free == false" class="mb-2 font-bold text-xl">Intéressé ?</div>
                         <div class="flex justify-start items-center">
-                            <div v-if="product.is_free == true">Gratuit</div>
+                            <div v-if="product.is_free == true">{{ page.props.translations.message.gratuit }}</div>
                             <div v-else>{{ product.price / 100 }} €</div>
                         </div>
                         <form v-if="product.is_free == false" class="mt-5 text-white" id="payment-form">
@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="border my-5 p-5 rounded bg-grey-500">
-                        <div class="mb-2 font-bold text-xl">Produits relatifs</div>
+                        <div class="mb-2 font-bold text-xl">{{ page.props.translations.message.relatif }}</div>
                         <div class="flex justify-around flex-wrap p-5">
                             <div v-for="(prod, index) in relatif" :key="index"
                                 class="rounded-lg mx-1 my-1 w-[70px] h-[70px]">
@@ -124,11 +124,13 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import { onMounted, ref } from 'vue';
 import { loadStripe } from '@stripe/stripe-js';
 import { Icon } from '@iconify/vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 const props = defineProps({
     product: Object,
     relatif: Array,
 });
+const page = usePage();
+console.log(page.props.translations.message)
 
 const handleSubmit = async (event) => {
     event.preventDefault();

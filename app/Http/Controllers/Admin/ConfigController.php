@@ -4,15 +4,22 @@ namespace App\Http\Controllers\Admin;
 
 use Inertia\Inertia;
 use App\Models\Config;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class ConfigController extends Controller
 {
+
+    public function updateMention(Request $request) {
+        $config = Config::first();
+        $config->update(['mention' => $request->mention]);
+        return response()->json(['update' => 'ok']);
+    }
     public function allConfig() {
-        $configs = Config::all();
+        $configs = Config::first();
         return Inertia::render('Admin/Config',compact('configs'));
     }
 
@@ -103,5 +110,38 @@ class ConfigController extends Controller
             // Log::error($th->getMessage());
             return response()->json(['error' => $th->getMessage()], 500);
         }
+    }
+
+
+
+
+    public function updateMessages(Request $request)
+    {
+        // Récupérer les données envoyées par le front-end
+        $newMessages = $request->all();
+
+        // Chemin vers le fichier message.php
+        $langFile = resource_path('lang/en/message.php');
+
+        // Lire le contenu actuel du fichier message.php
+        $currentMessages = include($langFile);
+
+        // Mettre à jour les valeurs existantes avec les nouvelles données
+        foreach ($newMessages as $key => $value) {
+            if (array_key_exists($key, $currentMessages)) {
+                $currentMessages[$key] = $value;  // Met à jour la valeur si la clé existe
+            }
+        }
+
+        // Générer le code PHP pour le tableau mis à jour
+        $newContent = "<?php\n\nreturn " . var_export($currentMessages, true) . ";\n";
+
+        // Sauvegarder les nouvelles données dans message.php
+        File::put($langFile, $newContent);
+
+        return response()->json([
+            'message' => 'Les messages ont été mis à jour avec succès.',
+            'data' => $currentMessages,
+        ]);
     }
 }
