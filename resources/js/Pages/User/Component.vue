@@ -41,7 +41,7 @@ const ShowmenuChat = () => {
                                     <path d="M12 15l4-4-4-4" stroke="#f87171" stroke-width="1.5" stroke-linecap="round"
                                         stroke-linejoin="round" />
                                 </svg>
-                                <p class="font-sans text-[12px] ml-1">efa nalefanao ve le vola</p>
+                                <p class="font-sans text-[12px] ml-1"> J'attend votre paiement</p>
                             </div>
                         </div>
                     </div>
