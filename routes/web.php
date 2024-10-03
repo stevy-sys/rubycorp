@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
 Route::post('/filtre', [IndexController::class, 'filtreProduct'])->name('home.filtre');
+Route::get('/component', [UserController::class, 'component'])->name('component');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
 
@@ -80,6 +81,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/abort-checkout-session', function () {
         dd('annuler');
     })->name('checkout.cancel');
+
 
 
     //user

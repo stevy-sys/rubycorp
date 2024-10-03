@@ -22,6 +22,10 @@ class UserController extends Controller
         return Inertia::render('User/Gallerie',compact('products'));
     }
 
+    public function component() {
+        return Inertia::render('User/Component');
+    }
+
     public function notification() {
         return Inertia::render('User/Notification');
     }

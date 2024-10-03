@@ -84,13 +84,15 @@ const sendMessage = async () => {
     <Head title="Aphrodite" />
     <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50 lg:w-[50%] mx-auto">
         <!-- <img id="background" class="absolute -left-20 top-0 max-w-[877px]" src="https://laravel.com/assets/img/welcome/background.svg" /> -->
-        <div
-            class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
+        <div class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
             <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                 <header class="flex justify-between items-center">
                     <div class="flex lg:justify-center lg:col-start-2 text-2xl text-white">
                         {{ page.props.translations.message.app_name }}
                     </div>
+                    <Link  :href="route('component')" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                        Component
+                    </Link>
                     <nav v-if="canLogin" class="-mx-3 flex flex-1 items-center justify-end">
                         <Link v-if="$page.props.auth.user" :href="$page.props.auth.user.is_admin == true ? route('admin.allproduct') : route('user.gallerie.index') " class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
                             <!-- <img class="h-8 w-8 rounded-full object-cover"
