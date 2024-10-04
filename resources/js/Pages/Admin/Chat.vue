@@ -70,9 +70,7 @@
                 <div class="text-white flex justify-center">
                     <div class="w-[50%] border border-white h-auto rounded-xl p-2 ">
                         <div class="relative mb-10 ">
-                            <input
-                                class="w-full text-black rounded-xl p-2 pr-12 border border-red-300 focus:border-red-500 focus:outline-none"
-                                type="text" placeholder="Recherche">
+                            <input class="w-full text-black rounded-xl p-2 pr-12 border border-red-300 focus:border-red-500 focus:outline-none" type="text" placeholder="Recherche">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"
                                 fill="none" stroke="black" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round"
@@ -85,9 +83,7 @@
                             <div class="flex">
                                 <div class="flex items-center p-2">
                                     <div class="w-20 h-20 rounded-full overflow-hidden border border-white">
-                                        <img class="w-full h-full object-cover"
-                                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdyhj65-Cz6UvgVh8YUCAQM_ElfcG0gJJ7NA&s"
-                                            alt="">
+                                        <img class="w-full h-full object-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdyhj65-Cz6UvgVh8YUCAQM_ElfcG0gJJ7NA&s" alt="">
                                     </div>
                                     <div class="ml-5">
                                         <p class="font-semibold text-[25px]">Kim Lorie</p>
@@ -147,8 +143,7 @@
                     <div class="w-[100px] h-[100px] relative rounded-full bg-red-500">
                         <img class="w-[100px] h-[100px] rounded-full"
                             src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D">
-                        <span
-                            class="w-[20px] border bg-green-500 h-[20px] right-[6px] bottom-[6px] absolute rounded-full">
+                        <span class="w-[20px] border bg-green-500 h-[20px] right-[6px] bottom-[6px] absolute rounded-full">
                         </span>
                     </div>
                     <div class="w-[50%] pl-10">
@@ -165,17 +160,20 @@
                                 src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D">
                         </div>
                         <div class="mx-5">
-                            <div
-                                class="  max-w-[50%] py-5 px-5 border rounded-tr-[20px] rounded-bl-[20px] min-h-[50px]">
-                                Lorem ipsum
-                                dolor sit amet consectetur, adipisicing elit. Blanditiis explicabo velit necessitatibus
-                                obcaecati omnis
-                                iste incidunt. Voluptatum, iure. Temporibus, repellendus. Lorem ipsum dolor sit amet
-                                consectetur
-                                adipisicing elit. Voluptates, repudiandae vero architecto voluptatibus obcaecati
-                                veritatis
-                                nesciunt
-                                dolore nihil alias hic!</div>
+                            <div class="relative max-w-[50%] py-5 px-5 border rounded-tr-[20px] rounded-bl-[20px] min-h-[50px]">
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis explicabo velit necessitatibus obcaecati omnis iste incidunt. Voluptatum, iure. Temporibus, repellendus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, repudiandae vero architecto voluptatibus obcaecati veritatis nesciunt dolore nihil alias hic!
+                                <span @click="showEmo = true" class="absolute cursor-pointer bottom-[-13px] text-xl border p-0 m-0 w-[29px] h-[29px] rounded-full text-center bg-red-100 right-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="29" height="29">
+                                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0m0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10"></path>
+                                    <path d="M8 7a2 2 0 1 0-.001 3.999A2 2 0 0 0 8 7M16 7a2 2 0 1 0-.001 3.999A2 2 0 0 0 16 7M15.232 15c-.693 1.195-1.87 2-3.349 2-1.477 0-2.655-.805-3.347-2H15m3-2H6a6 6 0 1 0 12 0"></path>
+                                    </svg>
+                                </span>
+
+                                <!-- Picker component for emojis -->
+                                <span v-if="showEmo" class="absolute right-2 bottom-[-250px] z-[9999]"> <!-- Adjust the bottom value as needed -->
+                                    <Picker :data="emojiIndex" set="twitter" @select="showEmoji" />
+                                </span>
+                            </div>
                             <span class="text-sm ml-5 text-white mt-3">20:45</span>
                         </div>
                     </div>
@@ -183,17 +181,13 @@
                     <div class="mt-10">
                         <div class="mx-5 justify-end flex">
                             <div
-                                class="bg-red-400 max-w-[50%] py-5 px-5 rounded-tl-[20px] rounded-br-[20px] min-h-[50px]">
-                                Lorem
-                                ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis explicabo velit
-                                necessitatibus obcaecati
-                                omnis iste incidunt. Voluptatum, iure. Temporibus, repellendus. Lorem ipsum dolor sit
-                                amet
-                                consectetur
-                                adipisicing elit. Voluptates, repudiandae vero architecto voluptatibus obcaecati
-                                veritatis
-                                nesciunt
-                                dolore nihil alias hic!</div>
+                                class="relative bg-red-400 max-w-[50%] py-5 px-5 rounded-tl-[20px] rounded-br-[20px] min-h-[50px]">
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis explicabo velit necessitatibus obcaecati
+                                omnis iste incidunt. Voluptatum, iure. Temporibus, repellendus. Lorem ipsum dolor sit amet
+                                consectetur adipisicing elit. Voluptates, repudiandae vero architecto voluptatibus obcaecati
+                                veritatis nesciunt dolore nihil alias hic!
+                                <span class="absolute bottom-[-13px] text-xl border p-0 m-0 w-[29px] h-[29px] rounded-full text-center bg-red-100 right-4">🙂</span>
+                            </div>
                         </div>
                         <span class="justify-end mt-3 flex text-sm mr-5 text-white">20:45</span>
                     </div>
@@ -210,7 +204,7 @@
                                 src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D">
                         </div>
                         <div class="mx-5">
-                            <div class="  max-w-[50%] py-5 px-5 rounded-tr-[20px] rounded-bl-[20px] min-h-[50px]">
+                            <div class="border max-w-[50%] py-5 px-5 rounded-tr-[20px] rounded-bl-[20px] min-h-[50px]">
                                 Lorem ipsum
                                 dolor sit amet consectetur, adipisicing elit. Blanditiis explicabo velit necessitatibus
                                 obcaecati omnis
@@ -231,14 +225,8 @@
                             <div
                                 class="bg-red-400 max-w-[50%] py-5 px-5 border border-red-400 rounded-tl-[20px] rounded-br-[20px] min-h-[50px]">
                                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis explicabo velit
-                                necessitatibus
-                                obcaecati omnis iste incidunt. Voluptatum, iure. Temporibus, repellendus. Lorem ipsum
-                                dolor
-                                sit amet
-                                consectetur adipisicing elit. Voluptates, repudiandae vero architecto voluptatibus
-                                obcaecati
-                                veritatis
-                                nesciunt dolore nihil alias hic!</div>
+                                necessitatibus obcaecati omnis iste incidunt. Voluptatum, iure. Temporibus, repellendus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, repudiandae vero architecto voluptatibus
+                                obcaecati veritatis nesciunt dolore nihil alias hic!</div>
                         </div>
                         <div class="justify-end flex">
                             <img class="w-[25%]  h-auto border border-red-400 rounded mt-3 mr-5"
@@ -261,11 +249,30 @@ import ModalLayout from '@/Components/ModalLayout.vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { onMounted, ref } from 'vue';
 
+//emoji
+import data from "emoji-mart-vue-fast/data/all.json";
+import "emoji-mart-vue-fast/css/emoji-mart.css";
+import { Picker, EmojiIndex } from "emoji-mart-vue-fast/src";
+
 const props = defineProps({
     conversations: {
         type: Array
     }
 })
+
+
+
+
+const showEmo = ref(false)
+const emojiIndex = new EmojiIndex(data);
+const emojisOutput = ref("");
+const showEmoji = (emoji) => {
+  emojisOutput.value += emoji.native;
+};
+
+
+
+
 
 const messages = ref([])
 const newMessage = ref('')
@@ -291,13 +298,13 @@ const sendMessage = async () => {
 }
 
 onMounted(() => {
-  scrollToBottom();
+    scrollToBottom();
 });
 
 const scrollToBottom = () => {
-  if (chatContainer.value) {
-    chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
-  }
+    if (chatContainer.value) {
+        chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
+    }
 };
 </script>
 
@@ -307,4 +314,40 @@ const scrollToBottom = () => {
     overflow-y: auto;
     padding: 10px;
 }
+
+
+
+
+
+.emoji-mart {
+  background-color: #1f2937; /* Fond sombre */
+  color: #374151; /* Texte en blanc */
+}
+
+.emoji-mart-search input {
+  background-color: #374151; /* Fond sombre pour la barre de recherche */
+  color: #374151; /* Texte en blanc */
+}
+
+.emoji-mart-bar {
+  background-color: #374151; /* Fond sombre pour la barre d'outils */
+}
+
+.emoji-mart-category-label {
+  background-color: #4b5563; /* Fond des étiquettes de catégorie */
+}
+
+.emoji-mart-emoji {
+  background-color: transparent;
+}
+
+.emoji-mart-preview {
+  background-color: #1f2937; /* Fond sombre pour l'aperçu */
+  color: #ffffff;
+}
+
+.emoji-mart-title, .emoji-mart-preview-emoji, .emoji-mart-preview-name {
+  color: #ffffff; /* Texte en blanc pour les titres et l'aperçu */
+}
+
 </style>
