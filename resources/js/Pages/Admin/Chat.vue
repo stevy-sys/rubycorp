@@ -249,6 +249,37 @@
 
                     <!-- ***************************************************************************************************** -->
                 </div>
+
+
+
+                <div class="flex justify-end items-center mt-2">
+                    <div class="flex items-center  w-[20%] ">
+                        <div class="ml-1">
+                            <Icon
+                                class="w-10 h-10 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
+                                icon="gravity-ui:picture" />
+                        </div>
+                        <div class="ml-5">
+                            <Icon
+                                class="w-9 h-9 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
+                                icon="pajamas:doc-new" />
+                        </div>
+                    </div>
+                    <div class=" w-[85%] ml-4 flex items-center">
+                        <div class="text-black w-full rounded-2xl">
+                            <div class=" w-[full] h-12 bg-white text-black w-full border-none rounded-t-2xl">
+                            </div>
+                            <div class="relative w-full">
+                                <input class="border-none text-black w-full rounded-2xl pr-10 pl-4 py-2" type="text" />
+                                <Icon class="absolute right-3 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-500"
+                                    icon="mingcute:emoji-2-fill" />
+                            </div>
+                        </div>
+                        <button
+                            class=" w-[80px] h-[42px] ml-3  rounded-2xl  text-black text-sm font-bold bg-[#1e293b] hover:bg-[#0f172a]">
+                            Envoyer </button>
+                    </div>
+                </div>
             </div>
             <!-- fin stevy -->
         </div>
@@ -260,7 +291,7 @@
 import ModalLayout from '@/Components/ModalLayout.vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { onMounted, ref } from 'vue';
-
+import { Icon } from '@iconify/vue';
 const props = defineProps({
     conversations: {
         type: Array
@@ -291,13 +322,13 @@ const sendMessage = async () => {
 }
 
 onMounted(() => {
-  scrollToBottom();
+    scrollToBottom();
 });
 
 const scrollToBottom = () => {
-  if (chatContainer.value) {
-    chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
-  }
+    if (chatContainer.value) {
+        chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
+    }
 };
 </script>
 
