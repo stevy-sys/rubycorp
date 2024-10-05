@@ -124,10 +124,7 @@
                                     <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Supprimmer</p>
                                     <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Bloquer</p>
                                     <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Retirer</p>
-                                    <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Désactiver les
-                                        notifications</p>
-                                    <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Réactiver les
-                                        notifications</p>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -283,7 +280,6 @@
             </div>
             <!-- fin stevy -->
         </div>
-
     </AdminLayout>
 </template>
 
@@ -330,6 +326,11 @@ const scrollToBottom = () => {
         chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
     }
 };
+const MenuChat = ref(false)
+const ShowmenuChat = () => {
+    MenuChat.value = !MenuChat.value
+    console.log(MenuChat.value);
+}
 </script>
 
 <style scoped>
