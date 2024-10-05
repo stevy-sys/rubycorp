@@ -5,6 +5,23 @@ const ShowmenuChat = () => {
     MenuChat.value = !MenuChat.value
     console.log(MenuChat.value);
 }
+
+
+import data from "emoji-mart-vue-fast/data/all.json";
+import "emoji-mart-vue-fast/css/emoji-mart.css";
+
+import { Picker, EmojiIndex } from "emoji-mart-vue-fast/src";
+
+const emojiIndex = new EmojiIndex(data);
+
+const emojisOutput = ref("");
+
+const showEmoji = (emoji) => {
+    console.log(emoji);
+    
+  emojisOutput.value += emoji.native;
+};
+
 </script>
 
 <template>
@@ -137,7 +154,30 @@ const ShowmenuChat = () => {
             <!-- ***************************************************************************************************** -->
         </div>
         <!-- fin stevy -->
+
+
+
+    </div>
+
+    <div class="row text-white">
+        <!-- Utilisation du composant Picker -->
+        <Picker :data="emojiIndex" set="twitter" @select="showEmoji" />
+    </div>
+
+    <div class="row">
+        <div>
+        {{ emojisOutput }}
+        </div>
     </div>
     
 
 </template>
+
+<style scoped>
+.row {
+  display: flex;
+}
+.row > * {
+  margin: auto;
+}
+</style>

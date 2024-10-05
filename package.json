@@ -23,6 +23,7 @@
     },
     "dependencies": {
         "@headlessui/vue": "^1.7.22",
-        "cropperjs": "^1.6.2"
+        "cropperjs": "^1.6.2",
+        "emoji-mart-vue-fast": "^15.0.3"
     }
 }
