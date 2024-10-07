@@ -70,7 +70,9 @@
                 <div class="text-white flex justify-center">
                     <div class="w-[50%] border border-white h-auto rounded-xl p-2 ">
                         <div class="relative mb-10 ">
-                            <input class="w-full text-black rounded-xl p-2 pr-12 border border-red-300 focus:border-red-500 focus:outline-none" type="text" placeholder="Recherche">
+                            <input
+                                class="w-full text-black rounded-xl p-2 pr-12 border border-red-300 focus:border-red-500 focus:outline-none"
+                                type="text" placeholder="Recherche">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"
                                 fill="none" stroke="black" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round"
@@ -83,7 +85,9 @@
                             <div @click="changeConversation(conv)"ss="flex">
                                 <div class="flex items-center p-2">
                                     <div class="w-20 h-20 rounded-full overflow-hidden border border-white">
-                                        <img class="w-full h-full object-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdyhj65-Cz6UvgVh8YUCAQM_ElfcG0gJJ7NA&s" alt="">
+                                        <img class="w-full h-full object-cover"
+                                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdyhj65-Cz6UvgVh8YUCAQM_ElfcG0gJJ7NA&s"
+                                            alt="">
                                     </div>
                                     <div class="ml-5">
                                         <p class="font-semibold text-[25px]">{{conv.user.name}}</p>
@@ -134,17 +138,34 @@
         <div v-if="conversationActif" class="flex text-white w-[100%]">
             <!-- stevy -->
             <div class="w-full">
-                <div class="flex">
+                <div class="flex items-center ">
                     <div class="w-[100px] h-[100px] relative rounded-full bg-red-500">
                         <img class="w-[100px] h-[100px] rounded-full"
                             src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D">
-                        <span class="w-[20px] border bg-green-500 h-[20px] right-[6px] bottom-[6px] absolute rounded-full">
+                        <span
+                            class="w-[20px] border bg-green-500 h-[20px] right-[6px] bottom-[6px] absolute rounded-full">
                         </span>
                     </div>
-                    <div class="w-[50%] pl-10">
-                        <h1 class="text-2xl">Conversation avec {{ conversationActif.user.name }}</h1>
+                    <div class="w-[75%] pl-10">
+                        <h1 class="text-2xl">{{ conversationActif.user.name }}</h1>
                         <span class="text-sm">4520 messages</span>
                     </div>
+                    <div @click="ShowMenuMore" class="relative">
+                        <Icon
+                            class=" w-10 h-10 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
+                            icon="ant-design:more-outlined" />
+                        <div v-if="MenuMore === true"
+                            class="  border bg-[#1e293b] rounded p-2 w-[200px] absolute right-[18px] top-[35px]">
+                            <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Voir profil</p>
+                            <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Archiver</p>
+                            <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Voir contenue multimedia</p>
+                            <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Supprimmer</p>
+                            <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Bloquer</p>
+                            <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Retirer</p>
+
+                        </div>
+                    </div>
+
                 </div>
 
                 <div ref="chatContainer" class="chat-container">
@@ -224,7 +245,11 @@
                             <div
                                 class="bg-red-400 max-w-[50%] py-5 px-5 border border-red-400 rounded-tl-[20px] rounded-br-[20px] min-h-[50px]">
                                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis explicabo velit
-                                necessitatibus obcaecati omnis iste incidunt. Voluptatum, iure. Temporibus, repellendus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, repudiandae vero architecto voluptatibus
+                                necessitatibus obcaecati omnis iste incidunt. Voluptatum, iure. Temporibus, repellendus.
+                                Lorem
+                                ipsum dolor sit amet consectetur adipisicing elit. Voluptates, repudiandae vero
+                                architecto
+                                voluptatibus
                                 obcaecati veritatis nesciunt dolore nihil alias hic!</div>
                         </div>
                         <div class="justify-end flex">
@@ -239,7 +264,37 @@
 
 
 
-                <div class="flex justify-start items-center mt-2">
+
+ 
+
+                <div class="flex  w-full  mt-2  h-20 bg-[#1e293b] text-black z-50 border-none rounded-t-2xl">
+                    <div class="relative  text-xs ml-5 mx-2 w-[30px] p-4 h-[30px] bg-green">
+                        <div class="border rounded border-black w-[50px] h-[50px]"></div>
+                        <Icon class="absolute top-[10px] right-[6px] left-0 w-6 h-6 text-white"
+                            icon="carbon:close-outline" />
+                    </div>
+                    <div class="relative  text-xs ml-5 mx-2 w-[30px] p-4 h-[30px] bg-green">
+                        <div class="border rounded border-black w-[50px] h-[50px]"></div>
+                        <Icon class="absolute top-[10px] right-[6px] left-0 w-6 h-6 text-white"
+                            icon="carbon:close-outline" />
+                    </div>
+                    <div class="relative  text-xs ml-5 mx-2 w-[30px] p-4 h-[30px] bg-green">
+                        <div class="border rounded border-black w-[50px] h-[50px]"></div>
+                        <Icon class="absolute top-[10px] right-[6px] left-0 w-6 h-6 text-white"
+                            icon="carbon:close-outline" />
+                    </div>
+                    <div class="relative  text-xs ml-5 mx-2 w-[30px] p-4 h-[30px] bg-green">
+                        <div class="border rounded border-black w-[50px] h-[50px]"></div>
+                        <Icon class="absolute top-[10px] right-[6px] left-0 w-6 h-6 text-white"
+                            icon="carbon:close-outline" />
+                    </div>
+                     <div class="relative  text-xs ml-5 mx-2 w-[30px] p-4 h-[30px] bg-green">
+                        <div class="border rounded border-black w-[50px] h-[50px]"></div>
+                        <Icon class="absolute top-[10px] right-[6px] left-0 w-6 h-6 text-white"
+                            icon="carbon:close-outline" />
+                    </div>
+                </div>
+                <div class="flex justify-end items-center mt-2 ">
                     <div class="flex items-center  w-[20%] ">
                         <div class="ml-1">
                             <Icon @click="fileInput.click();" class="cursor-pointer w-10 h-10 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white" icon="gravity-ui:picture" />
@@ -251,26 +306,40 @@
                             />
                         </div>
                         <div class="ml-5">
-                            <Icon class="w-9 h-9 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white" icon="pajamas:doc-new" />
+                            <Icon
+                                class="w-10 h-10 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
+                                icon="solar:file-bold" />
                         </div>
                     </div>
-                    <div class="ml-5 w-full flex items-center">
+                    <div class=" w-[75%] ml-5 flex items-center">
                         <div class="text-black w-full rounded-2xl">
-                            <!-- <div class=" w-[full] h-12 bg-white text-black w-full border-none rounded-t-2xl">
-                            </div> -->
+
                             <div class="relative w-full">
                                 <span v-if="showEmo" class="absolute right-2 bottom-[50px] z-[9999]"> 
                                     <Picker :data="emojiIndex" set="twitter" @select="showEmoji" />
-                                </span> 
-                                <input v-model="newMessage" class="border-none text-black w-full rounded-2xl pr-10 pl-4 py-2" type="text" />
-                                <Icon @click="showEmo = !showEmo" class="cursor-pointer absolute right-3 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-500"
-                                    icon="mingcute:emoji-2-fill" />
+                                </span>
+                                <input class="border-none text-black w-full rounded-2xl pr-10 pl-4 py-2" type="text" />
+                                <Icon @click="showEmo = !showEmo" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-6 h-6 text-[#1e293b]"
+                                    icon="fluent:emoji-smile-slight-24-filled" />
+
                             </div>
                         </div>
-                        <button @click="sendMessage" class=" w-[80px] h-[42px] ml-3  rounded-2xl  text-white text-sm font-bold bg-[#1e293b] hover:bg-[#0f172a]">
-                            Envoyer </button>
+                        <div @click="sendMessage" class="w-10 h-10">
+                            <Icon class="w-10 h-10 text-[#1e293b] ml-1  " icon="fluent:send-48-filled" />
+                        </div>
                     </div>
                 </div>
+
+
+
+
+
+
+
+
+
+
+
             </div>
             <!-- fin stevy -->
         </div>
@@ -364,6 +433,14 @@ const MenuChat = ref(false)
 //     MenuChat.value = !MenuChat.value
 //     console.log(MenuChat.value);
 // }
+// const ShowmenuChat = () => {
+//     MenuChat.value = !MenuChat.value
+//     console.log(MenuChat.value);
+// }
+const MenuMore = ref(false)
+const ShowMenuMore = () => {
+    MenuMore.value = !MenuMore.value
+}
 </script>
 
 <style scoped>
@@ -378,34 +455,43 @@ const MenuChat = ref(false)
 
 
 .emoji-mart {
-  background-color: #1f2937; /* Fond sombre */
-  color: #374151; /* Texte en blanc */
+    background-color: #1f2937;
+    /* Fond sombre */
+    color: #374151;
+    /* Texte en blanc */
 }
 
 .emoji-mart-search input {
-  background-color: #374151; /* Fond sombre pour la barre de recherche */
-  color: #374151; /* Texte en blanc */
+    background-color: #374151;
+    /* Fond sombre pour la barre de recherche */
+    color: #374151;
+    /* Texte en blanc */
 }
 
 .emoji-mart-bar {
-  background-color: #374151; /* Fond sombre pour la barre d'outils */
+    background-color: #374151;
+    /* Fond sombre pour la barre d'outils */
 }
 
 .emoji-mart-category-label {
-  background-color: #4b5563; /* Fond des étiquettes de catégorie */
+    background-color: #4b5563;
+    /* Fond des étiquettes de catégorie */
 }
 
 .emoji-mart-emoji {
-  background-color: transparent;
+    background-color: transparent;
 }
 
 .emoji-mart-preview {
-  background-color: #1f2937; /* Fond sombre pour l'aperçu */
-  color: #ffffff;
+    background-color: #1f2937;
+    /* Fond sombre pour l'aperçu */
+    color: #ffffff;
 }
 
-.emoji-mart-title, .emoji-mart-preview-emoji, .emoji-mart-preview-name {
-  color: #ffffff; /* Texte en blanc pour les titres et l'aperçu */
+.emoji-mart-title,
+.emoji-mart-preview-emoji,
+.emoji-mart-preview-name {
+    color: #ffffff;
+    /* Texte en blanc pour les titres et l'aperçu */
 }
-
 </style>
