@@ -13,4 +13,8 @@ class Message extends Model
     public function conversation() {
         return $this->belongsTo(Conversation::class,'conversation_id');
     }
+
+    public function mediable() {
+        return $this->morphMany(Media::class,'mediable');
+    }
 }

@@ -79,14 +79,14 @@
                                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                             </svg>
                         </div>
-                        <div class="relative bg-[#1a1a1a] hover:bg-[#1e293b] transition-colors duration-300">
-                            <div class="flex">
+                        <div v-for="(conv,index) in conversations" :key="index" class="relative bg-[#1a1a1a] hover:bg-[#1e293b] transition-colors duration-300">
+                            <div @click="changeConversation(conv)"ss="flex">
                                 <div class="flex items-center p-2">
                                     <div class="w-20 h-20 rounded-full overflow-hidden border border-white">
                                         <img class="w-full h-full object-cover" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdyhj65-Cz6UvgVh8YUCAQM_ElfcG0gJJ7NA&s" alt="">
                                     </div>
                                     <div class="ml-5">
-                                        <p class="font-semibold text-[25px]">Kim Lorie</p>
+                                        <p class="font-semibold text-[25px]">{{conv.user.name}}</p>
                                         <div class="flex items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none">
@@ -97,7 +97,7 @@
                                                 <path d="M12 15l4-4-4-4" stroke="#f87171" stroke-width="1.5"
                                                     stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>
-                                            <p class="font-sans text-[12px] ml-1"> J'attend votre paiement</p>
+                                            <p class="font-sans text-[12px] ml-1">{{ conv.last_message.message }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -107,20 +107,18 @@
                                 <circle cx="8" cy="8" r="8"></circle>
                             </svg>
                             <div class="absolute right-4 top-1/2 transform -translate-y-1/2">
-                                <svg class="relative" @click="ShowmenuChat" xmlns="http://www.w3.org/2000/svg"
+                                <svg class="relative" @click="MenuChat = !MenuChat" xmlns="http://www.w3.org/2000/svg"
                                     width="24" height="24" viewBox="0 0 24 24" fill="none">
                                     <circle cx="12" cy="6" r="2" fill="#333" />
                                     <circle cx="12" cy="12" r="2" fill="#333" />
                                     <circle cx="12" cy="18" r="2" fill="#333" />
                                 </svg>
-                                <div v-if="MenuChat === true"
-                                    class=" absolute right-[10px] top-[25px] border bg-[#1e293b] rounded p-2 w-[200px] ">
+                                <div v-if="MenuChat === true" class=" absolute right-[10px] top-[25px] border bg-[#1e293b] rounded p-2 w-[200px] ">
                                     <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Voir profil</p>
                                     <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Archiver</p>
                                     <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Supprimmer</p>
                                     <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Bloquer</p>
                                     <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Retirer</p>
-                                    
                                 </div>
                             </div>
                         </div>
@@ -133,7 +131,7 @@
                 </div>
             </template>
         </ModalLayout>
-        <div class="flex text-white w-[100%]">
+        <div v-if="conversationActif" class="flex text-white w-[100%]">
             <!-- stevy -->
             <div class="w-full">
                 <div class="flex">
@@ -144,50 +142,54 @@
                         </span>
                     </div>
                     <div class="w-[50%] pl-10">
-                        <h1 class="text-2xl">Chat with Khalid</h1>
+                        <h1 class="text-2xl">Conversation avec {{ conversationActif.user.name }}</h1>
                         <span class="text-sm">4520 messages</span>
                     </div>
                 </div>
 
                 <div ref="chatContainer" class="chat-container">
                     <!-- ***************************************************************************************************** -->
-                    <div class="mt-10 flex">
-                        <div class="min-w-[50px]">
-                            <img class="w-[50px] h-[50px] rounded-full"
-                                src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D">
-                        </div>
-                        <div class="mx-5">
-                            <div class="relative max-w-[50%] py-5 px-5 border rounded-tr-[20px] rounded-bl-[20px] min-h-[50px]">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis explicabo velit necessitatibus obcaecati omnis iste incidunt. Voluptatum, iure. Temporibus, repellendus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, repudiandae vero architecto voluptatibus obcaecati veritatis nesciunt dolore nihil alias hic!
-                                <span @click="showEmo = true" class="absolute cursor-pointer bottom-[-13px] text-xl border p-0 m-0 w-[29px] h-[29px] rounded-full text-center bg-red-100 right-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="29" height="29">
-                                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0m0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10"></path>
-                                    <path d="M8 7a2 2 0 1 0-.001 3.999A2 2 0 0 0 8 7M16 7a2 2 0 1 0-.001 3.999A2 2 0 0 0 16 7M15.232 15c-.693 1.195-1.87 2-3.349 2-1.477 0-2.655-.805-3.347-2H15m3-2H6a6 6 0 1 0 12 0"></path>
-                                    </svg>
-                                </span>
-
-                                <!-- Picker component for emojis -->
-                                <span v-if="showEmo" class="absolute right-2 bottom-[-250px] z-[9999]"> <!-- Adjust the bottom value as needed -->
-                                    <Picker :data="emojiIndex" set="twitter" @select="showEmoji" />
-                                </span>
+                     <div  v-for="(message,index) in messages" :key="index">
+                        <div v-if="$attrs.auth.user.id !== message.user_id " class="mt-10 flex">
+                            <div class="min-w-[50px]">
+                                <img class="w-[50px] h-[50px] rounded-full"
+                                    src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D">
                             </div>
-                            <span class="text-sm ml-5 text-white mt-3">20:45</span>
-                        </div>
-                    </div>
+                            <div class="mx-5">
+                                <div class="relative max-w-[50%] min-w-[100px] py-5 px-5 border rounded-tr-[20px] rounded-bl-[20px] min-h-[50px]">
+                                {{message.message}}
+                                    <!-- <span @click="showEmo = true" class="absolute cursor-pointer bottom-[-13px] text-xl border p-0 m-0 w-[29px] h-[29px] rounded-full text-center bg-red-100 right-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="29" height="29">
+                                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0m0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10"></path>
+                                        <path d="M8 7a2 2 0 1 0-.001 3.999A2 2 0 0 0 8 7M16 7a2 2 0 1 0-.001 3.999A2 2 0 0 0 16 7M15.232 15c-.693 1.195-1.87 2-3.349 2-1.477 0-2.655-.805-3.347-2H15m3-2H6a6 6 0 1 0 12 0"></path>
+                                        </svg>
+                                    </span>
 
-                    <div class="mt-10">
-                        <div class="mx-5 justify-end flex">
-                            <div
-                                class="relative bg-red-400 max-w-[50%] py-5 px-5 rounded-tl-[20px] rounded-br-[20px] min-h-[50px]">
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis explicabo velit necessitatibus obcaecati
-                                omnis iste incidunt. Voluptatum, iure. Temporibus, repellendus. Lorem ipsum dolor sit amet
-                                consectetur adipisicing elit. Voluptates, repudiandae vero architecto voluptatibus obcaecati
-                                veritatis nesciunt dolore nihil alias hic!
-                                <span class="absolute bottom-[-13px] text-xl border p-0 m-0 w-[29px] h-[29px] rounded-full text-center bg-red-100 right-4">🙂</span>
+                                    <span v-if="showEmo" class="absolute right-2 bottom-[-250px] z-[9999]"> 
+                                        <Picker :data="emojiIndex" set="twitter" @select="showEmoji" />
+                                    </span> -->
+                                </div>
+                                <img v-if="message.mediable && message.mediable.length > 0" class="w-[25%] h-auto border rounded mt-3" :src="`/storage/data/image/${message.mediable[0].name}`">
+                                <span class="text-sm ml-5 text-white mt-3">20:45</span>
                             </div>
                         </div>
-                        <span class="justify-end mt-3 flex text-sm mr-5 text-white">20:45</span>
-                    </div>
+
+                        <div v-else class="mt-10">
+                            <div class="mx-5 justify-end flex">
+                                <div class="relative bg-red-400 max-w-[50%] py-5 px-5 rounded-tl-[20px] rounded-br-[20px] min-h-[50px]">
+                                    {{message.message}}
+                                    <!-- <span class="absolute bottom-[-13px] text-xl border p-0 m-0 w-[29px] h-[29px] rounded-full text-center bg-red-100 right-4">🙂</span> -->
+                                </div>
+                            </div>
+                            <div v-if="message.mediable && message.mediable.length > 0" class="justify-end flex">
+                                <img class="w-[25%]  h-auto border border-red-400 rounded mt-3 mr-5" :src="`/storage/data/image/${message.mediable[0].name}`">
+                            </div>
+                            <span class="justify-end mt-3 flex text-sm mr-5 text-white">20:45</span>
+                        </div>
+                     </div>
+                    
+
+                    
 
                     <!-- ***************************************************************************************************** -->
 
@@ -195,7 +197,7 @@
 
                     <!-- ***************************************************************************************************** -->
 
-                    <div class="mt-10 flex">
+                    <!-- <div class="mt-10 flex">
                         <div class="min-w-[50px]">
                             <img class="w-[50px] h-[50px] rounded-full"
                                 src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D">
@@ -230,38 +232,42 @@
                                 src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D">
                         </div>
                         <span class="justify-end mt-3 flex text-sm mr-5 text-white">20:45</span>
-                    </div>
+                    </div> -->
 
                     <!-- ***************************************************************************************************** -->
                 </div>
 
 
 
-                <div class="flex justify-end items-center mt-2">
+                <div class="flex justify-start items-center mt-2">
                     <div class="flex items-center  w-[20%] ">
                         <div class="ml-1">
-                            <Icon
-                                class="w-10 h-10 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
-                                icon="gravity-ui:picture" />
+                            <Icon @click="fileInput.click();" class="cursor-pointer w-10 h-10 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white" icon="gravity-ui:picture" />
+                            <input 
+                                type="file" 
+                                ref="fileInput" 
+                                @change="handleFileChange" 
+                                class="hidden"
+                            />
                         </div>
                         <div class="ml-5">
-                            <Icon
-                                class="w-9 h-9 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
-                                icon="pajamas:doc-new" />
+                            <Icon class="w-9 h-9 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white" icon="pajamas:doc-new" />
                         </div>
                     </div>
-                    <div class=" w-[85%] ml-4 flex items-center">
+                    <div class="ml-5 w-full flex items-center">
                         <div class="text-black w-full rounded-2xl">
-                            <div class=" w-[full] h-12 bg-white text-black w-full border-none rounded-t-2xl">
-                            </div>
+                            <!-- <div class=" w-[full] h-12 bg-white text-black w-full border-none rounded-t-2xl">
+                            </div> -->
                             <div class="relative w-full">
-                                <input class="border-none text-black w-full rounded-2xl pr-10 pl-4 py-2" type="text" />
-                                <Icon class="absolute right-3 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-500"
+                                <span v-if="showEmo" class="absolute right-2 bottom-[50px] z-[9999]"> 
+                                    <Picker :data="emojiIndex" set="twitter" @select="showEmoji" />
+                                </span> 
+                                <input v-model="newMessage" class="border-none text-black w-full rounded-2xl pr-10 pl-4 py-2" type="text" />
+                                <Icon @click="showEmo = !showEmo" class="cursor-pointer absolute right-3 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-500"
                                     icon="mingcute:emoji-2-fill" />
                             </div>
                         </div>
-                        <button
-                            class=" w-[80px] h-[42px] ml-3  rounded-2xl  text-black text-sm font-bold bg-[#1e293b] hover:bg-[#0f172a]">
+                        <button @click="sendMessage" class=" w-[80px] h-[42px] ml-3  rounded-2xl  text-white text-sm font-bold bg-[#1e293b] hover:bg-[#0f172a]">
                             Envoyer </button>
                     </div>
                 </div>
@@ -295,11 +301,25 @@ const showEmo = ref(false)
 const emojiIndex = new EmojiIndex(data);
 const emojisOutput = ref("");
 const showEmoji = (emoji) => {
-  emojisOutput.value += emoji.native;
+    newMessage.value += emoji.native;
 };
 
 
+const fileInput = ref(null);
+const fileData = ref(null)
 
+const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    
+    reader.onload = async () => {
+        fileData.value = await reader.result;
+    };
+    
+    reader.readAsDataURL(file);
+  }
+};
 
 
 const messages = ref([])
@@ -312,22 +332,27 @@ const changeConversation = async (conversation) => {
     const response = await window.axios.get('/admin/getMessage/' + conversation.id)
     conversationActif.value = conversation;
     messages.value = response.data.messages
+    showConversation.value=false
+    scrollToBottom();
+
 }
 
 const sendMessage = async () => {
     const data = {
         message: newMessage.value,
-        conversation_id: conversationActif.value.id
+        conversation_id: conversationActif.value.id,
+        file:fileData.value
     }
     const response = await window.axios.post('/admin/sendMessage', data)
     messages.value.push(response.data.message)
     conversationActif.value.last_message = response.data.message
-    newMessage.value = ''
+    newMessage.value = await ''
+    await scrollToBottom();
 }
 
-onMounted(() => {
-    scrollToBottom();
-});
+// onMounted(() => {
+//     scrollToBottom();
+// });
 
 const scrollToBottom = () => {
     if (chatContainer.value) {
@@ -335,10 +360,10 @@ const scrollToBottom = () => {
     }
 };
 const MenuChat = ref(false)
-const ShowmenuChat = () => {
-    MenuChat.value = !MenuChat.value
-    console.log(MenuChat.value);
-}
+// const ShowmenuChat = () => {
+//     MenuChat.value = !MenuChat.value
+//     console.log(MenuChat.value);
+// }
 </script>
 
 <style scoped>
