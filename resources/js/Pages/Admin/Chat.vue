@@ -318,7 +318,7 @@
                                 <span v-if="showEmo" class="absolute right-2 bottom-[50px] z-[9999]"> 
                                     <Picker :data="emojiIndex" set="twitter" @select="showEmoji" />
                                 </span>
-                                <input class="border-none text-black w-full rounded-2xl pr-10 pl-4 py-2" type="text" />
+                                <input v-model="newMessage" class="border-none text-black w-full rounded-2xl pr-10 pl-4 py-2" type="text" />
                                 <Icon @click="showEmo = !showEmo" class="absolute right-3 top-1/2 transform -translate-y-1/2 w-6 h-6 text-[#1e293b]"
                                     icon="fluent:emoji-smile-slight-24-filled" />
 
