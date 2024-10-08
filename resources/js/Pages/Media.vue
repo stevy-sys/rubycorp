@@ -28,6 +28,25 @@
                             </div>
                         </span>
                     </div>
+                    <div class=" flex justify-between items-center  border-t-2 border-b-2 mt-2  h-10">
+                        <div class="flex items-baseline">
+                            <p class="hover:text-[#1e293b] leading-3 text-md underline ml-2 transition duration-300">
+                                J'adore</p>
+                            <span class="hover:text-[#1e293b] underline text-[12px] transition duration-300">(22789)</span>
+                        </div>
+                        <div class="flex items-baseline">
+                            <p class="hover:text-[#1e293b] leading-3 text-md underline transition duration-300">
+                                Commenter</p>
+                            <span class="hover:text-[#1e293b] underline text-[12px] transition duration-300">(155)</span>
+                        </div>
+                        <div>
+                            <Icon icon="material-symbols:share"
+                                class="text-white hover:text-[#1e293b] transition duration-300"
+                                style="font-size: 30px; margin-right: 5px;" size="2em" />
+
+                            <span></span>
+                        </div>
+                    </div>
 
                     <div class="p-5 border mt-10">
                         <div class="mt-5 font-bold text-xl">{{ page.props.translations.message.description }}</div>
