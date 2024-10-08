@@ -29,15 +29,15 @@
                         </span>
                     </div>
                     <div class=" flex justify-between items-center  border-t-2 border-b-2 mt-2  h-10">
-                        <div class="flex items-center">
-                            <p class="hover:text-[#1e293b] leading-3 text-sm underline ml-2 transition duration-300">
+                        <div class="flex items-baseline">
+                            <p class="hover:text-[#1e293b] leading-3 text-md underline ml-2 transition duration-300">
                                 J'adore</p>
-                            <span class="hover:text-[#1e293b] underline text-sm transition duration-300">(22789)</span>
+                            <span class="hover:text-[#1e293b] underline text-[12px] transition duration-300">(22789)</span>
                         </div>
-                        <div class="flex items-center">
-                            <p class="hover:text-[#1e293b] leading-3 text-sm underline transition duration-300">
+                        <div class="flex items-baseline">
+                            <p class="hover:text-[#1e293b] leading-3 text-md underline transition duration-300">
                                 Commenter</p>
-                            <span class="hover:text-[#1e293b] underline text-sm transition duration-300">(155)</span>
+                            <span class="hover:text-[#1e293b] underline text-[12px] transition duration-300">(155)</span>
                         </div>
                         <div>
                             <Icon icon="material-symbols:share"
