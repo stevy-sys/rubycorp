@@ -11,7 +11,9 @@ use App\Models\Conversation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
+use App\Models\Media;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -31,12 +33,19 @@ class UserController extends Controller
     }
 
     public function chat() {
-        $conversations = Conversation::with(['messages'])->where('talker_id',Auth::id())->first();
+        $conversations = Conversation::with(['messages.mediable'])->where('talker_id',Auth::id())->first();
         if (!isset($conversations)) {
             $conversations = Conversation::create(['name' => 'chat','talker_id' => Auth::id()]);
-            $conversations->load('messages');
+            $conversations->load(['messages.mediable']);
         }
-        return Inertia::render('User/Message',compact('conversations'));
+
+        $count = Message::where('conversation_id',$conversations->id)->get()->count();
+
+        $media = Media::whereHasMorph('mediable', [Message::class] , function ($q) use ($conversations) {
+            $q->where('conversation_id',$conversations->id);
+        })->get();
+
+        return Inertia::render('User/Message',compact('conversations','count','media'));
     }
 
     public function sendMessage(Request $request) {
@@ -56,9 +65,56 @@ class UserController extends Controller
             'message' => $request->message
         ]);
 
+        if (isset($request->file)) {
+            $image = $this->storageFile($request->file);
+            $message->mediable()->create([
+                'name' => $image['name'],
+                'type' => $image['extension']
+            ]);
+        }
+
         return response()->json([
             'message' => $message
         ]);
+    }
+
+    public function storageFile($base64,$storage="image")  {
+        
+        try {
+            // Vérifie si le base64 commence par le préfixe 'data:image/'
+            if (preg_match('/^data:(image|video)\/(\w+);base64,/', $base64, $matches)) {
+                $extension = $matches[2]; // Extrait l'extension de l'image
+                $extensionType = $matches[1]; // Extrait l'extension de l'image
+            } else {
+                throw new \Exception('Le base64 fourni n\'est pas valide.');
+            }
+    
+            // Nettoie la chaîne base64 pour extraire les données brutes
+            $replace = substr($base64, 0, strpos($base64, ',') + 1);
+            $image = str_replace($replace, '', $base64);
+            $image = str_replace(' ', '+', $image);
+    
+            // Crée un nom de fichier aléatoire avec l'extension appropriée
+            $imageName = \Str::random(10) . '.' . $extension;
+    
+            // Enregistre l'image dans le stockage
+            $path = Storage::disk($storage)->put($imageName, base64_decode($image));
+    
+            // if (!$path) {
+            //     throw new \Exception('Échec de l\'enregistrement du fichier.');
+            // }
+    
+            return [
+                'name' => $imageName,
+                'extension' => $extension,
+                'extensionType' => $extensionType
+            ];
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            // Ajoutez des logs ou des messages d'erreur détaillés
+            // Log::error($th->getMessage());
+            return response()->json(['error' => $th->getMessage()], 500);
+        }
     }
 
     public function facture() {

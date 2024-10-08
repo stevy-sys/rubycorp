@@ -1,66 +1,5 @@
 <template>
     <AdminLayout>
-        <!-- <div class="flex h-screen overflow-hidden">
-            <div class="w-[40%] bg-black border-r border-gray-300">
-                <header class="p-4 border-b border-gray-300 flex justify-between items-center bg-black text-white">
-                    <h1 class="text-2xl font-semibold">Chat Web</h1>
-                    <div class="relative">
-                        <button id="menuButton" class="focus:outline-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-100" viewBox="0 0 20 20"
-                                fill="currentColor">
-                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                                <path d="M2 10a2 2 0 012-2h12a2 2 0 012 2 2 2 0 01-2 2H4a2 2 0 01-2-2z" />
-                            </svg>
-                        </button>
-                    </div>
-                </header>
-                <div class="overflow-y-auto h-screen p-3 mb-9 pb-20">
-                    <div v-for="(conversation,index) in conversations" :key="index" @click="changeConversation(conversation)"  class="flex items-center mb-4 cursor-pointer hover:bg-gray-700 p-2 rounded-md">
-                        <div class="w-12 h-12 bg-gray-300 rounded-full mr-3">
-                            <img src="https://placehold.co/200x/ffa8e4/ffffff.svg?text=ʕ•́ᴥ•̀ʔ&font=Lato"
-                                alt="User Avatar" class="w-12 h-12 rounded-full">
-                        </div>
-                        <div class="flex-1">
-                            <h2 class="text-lg font-semibold">{{ conversation.user.name}}</h2>
-                            <p class="text-gray-600">{{ conversation.last_message.message }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div v-if="conversationActif" class="w-full">
-                <header class="bg-white p-4 text-gray-700">
-                    <h1 class="text-2xl font-semibold">{{ conversationActif.user.name}}</h1>
-                </header>
-
-                <div class="h-[500px] overflow-y-auto p-4 pb-36">
-                     <div v-for="(message,index) in messages" :key="index">
-                         <div v-if="$attrs.auth.user.id !== message.user_id " class="flex mb-4 cursor-pointer">
-                             <div class="w-9 h-9 rounded-full flex items-center justify-center mr-2">
-                                 <img src="https://placehold.co/200x/ffa8e4/ffffff.svg?text=ʕ•́ᴥ•̀ʔ&font=Lato" alt="User Avatar" class="w-8 h-8 rounded-full">
-                             </div>
-                             <div class="flex max-w-96 bg-white rounded-lg p-3 gap-3">
-                                 <p class="text-gray-700">{{ message.message }}</p>
-                             </div>
-                         </div>
-     
-                         <div v-else class="flex justify-end mb-4 cursor-pointer">
-                             <div class="flex max-w-[75%] bg-indigo-500 text-white rounded-lg p-3 gap-3">
-                                 <p>{{ message.message }}</p>
-                             </div>
-                         </div>
-
-                     </div>
-                    
-                </div>
-                <div class=" bg-black border-t border-gray-300 p-4">
-                    <div class="flex items-center">
-                        <input v-model="newMessage" type="text" placeholder="Type a message..." class="w-full text-black p-2 rounded-md focus:outline-none focus:border-blue-500">
-                        <button @click="sendMessage" class="bg-indigo-500 text-white px-4 py-2 rounded-md ml-2">Send</button>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         <div class="flex justify-end mb-5">
             <button class="px-5 border hover:bg-red-400" @click="showConversation = true">Conversation</button>
         </div>
@@ -110,14 +49,14 @@
                                 width="16" height="16" viewBox="0 0 16 16" fill="green">
                                 <circle cx="8" cy="8" r="8"></circle>
                             </svg>
-                            <div class="absolute right-4 top-1/2 transform -translate-y-1/2">
-                                <svg class="relative" @click="MenuChat = !MenuChat" xmlns="http://www.w3.org/2000/svg"
+                            <div class="absolute z-100 right-4 top-1/2 transform -translate-y-1/2">
+                                <svg class="relative z-100" @click="MenuChat = !MenuChat" xmlns="http://www.w3.org/2000/svg"
                                     width="24" height="24" viewBox="0 0 24 24" fill="none">
                                     <circle cx="12" cy="6" r="2" fill="#333" />
                                     <circle cx="12" cy="12" r="2" fill="#333" />
                                     <circle cx="12" cy="18" r="2" fill="#333" />
                                 </svg>
-                                <div v-if="MenuChat === true" class=" absolute right-[10px] top-[25px] border bg-[#1e293b] rounded p-2 w-[200px] ">
+                                <div v-if="MenuChat === true" class=" absolute z-100 right-[10px] top-[25px] border bg-[#1e293b] rounded p-2 w-[200px] ">
                                     <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Voir profil</p>
                                     <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Archiver</p>
                                     <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Supprimmer</p>
@@ -135,6 +74,7 @@
                 </div>
             </template>
         </ModalLayout>
+
         <div v-if="conversationActif" class="flex text-white w-[100%]">
             <!-- stevy -->
             <div class="w-full">
@@ -150,20 +90,33 @@
                         <h1 class="text-2xl">{{ conversationActif.user.name }}</h1>
                         <span class="text-sm">4520 messages</span>
                     </div>
-                    <div @click="ShowMenuMore" class="relative">
-                        <Icon
-                            class=" w-10 h-10 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
-                            icon="ant-design:more-outlined" />
-                        <div v-if="MenuMore === true"
-                            class="  border bg-[#1e293b] rounded p-2 w-[200px] absolute right-[18px] top-[35px]">
-                            <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Voir profil</p>
-                            <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Archiver</p>
-                            <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Voir contenue multimedia</p>
-                            <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Supprimmer</p>
-                            <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Bloquer</p>
-                            <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Retirer</p>
-
-                        </div>
+                    <div @click="MenuMore = true" class="relative">
+                        <Icon @click="" class=" w-10 h-10 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white" icon="solar:gallery-bold" />
+                        <ModalLayout classes="text-white w-[50%]" :isOpen="MenuMore">
+                            <template #content>
+                                <div class="flex justify-center wrap">
+                                    <div class="w-[100px] h-[100px] mx-1 bg-red-400 border"></div>
+                                    <div class="w-[100px] h-[100px] mx-1 bg-red-400 border"></div>
+                                    <div class="w-[100px] h-[100px] mx-1 bg-red-400 border"></div>
+                                    <div class="w-[100px] h-[100px] mx-1 bg-red-400 border"></div>
+                                </div>
+                            </template>
+                            <template #footer>
+                                <div class="flex justify-center">
+                                    <button class="px-3 py-2 rounded-lg bg-blue-400 " @click="MenuMore = false">fermer</button>
+                                </div>
+                            </template>
+                        </ModalLayout>
+                        
+                        <!-- <div v-if="MenuMore === true"
+                            class="  border bg-[#1e293b] rounded p-2 w-[200px] absolute right-[18px] top-[35px]"> -->
+                            <!-- <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Voir profil</p> -->
+                            <!-- <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Archiver</p> -->
+                            <!-- <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Voir contenue multimedia</p> -->
+                            <!-- <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Supprimmer</p> -->
+                            <!-- <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Bloquer</p> -->
+                            <!-- <p class="hover:bg-[#1a1a1a] rounded text-center text-sm">Retirer</p> -->
+                        <!-- </div> -->
                     </div>
 
                 </div>
@@ -179,16 +132,6 @@
                             <div class="mx-5">
                                 <div class="relative max-w-[50%] min-w-[100px] py-5 px-5 border rounded-tr-[20px] rounded-bl-[20px] min-h-[50px]">
                                 {{message.message}}
-                                    <!-- <span @click="showEmo = true" class="absolute cursor-pointer bottom-[-13px] text-xl border p-0 m-0 w-[29px] h-[29px] rounded-full text-center bg-red-100 right-4">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="29" height="29">
-                                        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0m0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10"></path>
-                                        <path d="M8 7a2 2 0 1 0-.001 3.999A2 2 0 0 0 8 7M16 7a2 2 0 1 0-.001 3.999A2 2 0 0 0 16 7M15.232 15c-.693 1.195-1.87 2-3.349 2-1.477 0-2.655-.805-3.347-2H15m3-2H6a6 6 0 1 0 12 0"></path>
-                                        </svg>
-                                    </span>
-
-                                    <span v-if="showEmo" class="absolute right-2 bottom-[-250px] z-[9999]"> 
-                                        <Picker :data="emojiIndex" set="twitter" @select="showEmoji" />
-                                    </span> -->
                                 </div>
                                 <img v-if="message.mediable && message.mediable.length > 0" class="w-[25%] h-auto border rounded mt-3" :src="`/storage/data/image/${message.mediable[0].name}`">
                                 <span class="text-sm ml-5 text-white mt-3">20:45</span>
@@ -197,9 +140,8 @@
 
                         <div v-else class="mt-10">
                             <div class="mx-5 justify-end flex">
-                                <div class="relative bg-red-400 max-w-[50%] py-5 px-5 rounded-tl-[20px] rounded-br-[20px] min-h-[50px]">
+                                <div class="relative z-40 bg-red-400 max-w-[50%] py-5 px-5 rounded-tl-[20px] rounded-br-[20px] min-h-[50px]">
                                     {{message.message}}
-                                    <!-- <span class="absolute bottom-[-13px] text-xl border p-0 m-0 w-[29px] h-[29px] rounded-full text-center bg-red-100 right-4">🙂</span> -->
                                 </div>
                             </div>
                             <div v-if="message.mediable && message.mediable.length > 0" class="justify-end flex">
@@ -208,92 +150,18 @@
                             <span class="justify-end mt-3 flex text-sm mr-5 text-white">20:45</span>
                         </div>
                      </div>
-                    
-
-                    
-
-                    <!-- ***************************************************************************************************** -->
-
-
-
-                    <!-- ***************************************************************************************************** -->
-
-                    <!-- <div class="mt-10 flex">
-                        <div class="min-w-[50px]">
-                            <img class="w-[50px] h-[50px] rounded-full"
-                                src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D">
-                        </div>
-                        <div class="mx-5">
-                            <div class="border max-w-[50%] py-5 px-5 rounded-tr-[20px] rounded-bl-[20px] min-h-[50px]">
-                                Lorem ipsum
-                                dolor sit amet consectetur, adipisicing elit. Blanditiis explicabo velit necessitatibus
-                                obcaecati omnis
-                                iste incidunt. Voluptatum, iure. Temporibus, repellendus. Lorem ipsum dolor sit amet
-                                consectetur
-                                adipisicing elit. Voluptates, repudiandae vero architecto voluptatibus obcaecati
-                                veritatis
-                                nesciunt
-                                dolore nihil alias hic!</div>
-                            <img class="w-[25%] h-auto border rounded mt-3"
-                                src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D">
-                            <span class="text-sm ml-5 text-white mt-3">20:45</span>
-                        </div>
-                    </div>
-
-                    <div class="mt-10">
-                        <div class="mx-5 justify-end flex">
-                            <div
-                                class="bg-red-400 max-w-[50%] py-5 px-5 border border-red-400 rounded-tl-[20px] rounded-br-[20px] min-h-[50px]">
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Blanditiis explicabo velit
-                                necessitatibus obcaecati omnis iste incidunt. Voluptatum, iure. Temporibus, repellendus.
-                                Lorem
-                                ipsum dolor sit amet consectetur adipisicing elit. Voluptates, repudiandae vero
-                                architecto
-                                voluptatibus
-                                obcaecati veritatis nesciunt dolore nihil alias hic!</div>
-                        </div>
-                        <div class="justify-end flex">
-                            <img class="w-[25%]  h-auto border border-red-400 rounded mt-3 mr-5"
-                                src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D">
-                        </div>
-                        <span class="justify-end mt-3 flex text-sm mr-5 text-white">20:45</span>
-                    </div> -->
-
-                    <!-- ***************************************************************************************************** -->
                 </div>
-
-
-
-
  
 
-                <div class="flex  w-full  mt-2  h-20 bg-[#1e293b] text-black z-50 border-none rounded-t-2xl">
+                <div v-if="fileData" class="flex  w-full  mt-2  h-20 bg-[#1e293b] text-black z-50 border-none rounded-t-2xl">
                     <div class="relative  text-xs ml-5 mx-2 w-[30px] p-4 h-[30px] bg-green">
-                        <div class="border rounded border-black w-[50px] h-[50px]"></div>
-                        <Icon class="absolute top-[10px] right-[6px] left-0 w-6 h-6 text-white"
-                            icon="carbon:close-outline" />
-                    </div>
-                    <div class="relative  text-xs ml-5 mx-2 w-[30px] p-4 h-[30px] bg-green">
-                        <div class="border rounded border-black w-[50px] h-[50px]"></div>
-                        <Icon class="absolute top-[10px] right-[6px] left-0 w-6 h-6 text-white"
-                            icon="carbon:close-outline" />
-                    </div>
-                    <div class="relative  text-xs ml-5 mx-2 w-[30px] p-4 h-[30px] bg-green">
-                        <div class="border rounded border-black w-[50px] h-[50px]"></div>
-                        <Icon class="absolute top-[10px] right-[6px] left-0 w-6 h-6 text-white"
-                            icon="carbon:close-outline" />
-                    </div>
-                    <div class="relative  text-xs ml-5 mx-2 w-[30px] p-4 h-[30px] bg-green">
-                        <div class="border rounded border-black w-[50px] h-[50px]"></div>
-                        <Icon class="absolute top-[10px] right-[6px] left-0 w-6 h-6 text-white"
-                            icon="carbon:close-outline" />
-                    </div>
-                     <div class="relative  text-xs ml-5 mx-2 w-[30px] p-4 h-[30px] bg-green">
-                        <div class="border rounded border-black w-[50px] h-[50px]"></div>
-                        <Icon class="absolute top-[10px] right-[6px] left-0 w-6 h-6 text-white"
-                            icon="carbon:close-outline" />
+                        <div class="border rounded border-black w-[50px] h-[50px]">
+                            <img class="w-[50px] h-[50px]" :src="fileData" alt="" srcset="">
+                        </div>
+                        <Icon @click="fileData = null" class="cursor-pointer absolute top-[10px] right-[6px] left-0 w-6 h-6 text-white" icon="carbon:close-outline" />
                     </div>
                 </div>
+
                 <div class="flex justify-end items-center mt-2 ">
                     <div class="flex items-center  w-[20%] ">
                         <div class="ml-1">
@@ -324,22 +192,11 @@
 
                             </div>
                         </div>
-                        <div @click="sendMessage" class="w-10 h-10">
+                        <div @click="sendMessage" class="cursor-pointer w-10 h-10">
                             <Icon class="w-10 h-10 text-[#1e293b] ml-1  " icon="fluent:send-48-filled" />
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
             </div>
             <!-- fin stevy -->
         </div>
@@ -419,9 +276,6 @@ const sendMessage = async () => {
     await scrollToBottom();
 }
 
-// onMounted(() => {
-//     scrollToBottom();
-// });
 
 const scrollToBottom = () => {
     if (chatContainer.value) {
@@ -429,18 +283,9 @@ const scrollToBottom = () => {
     }
 };
 const MenuChat = ref(false)
-// const ShowmenuChat = () => {
-//     MenuChat.value = !MenuChat.value
-//     console.log(MenuChat.value);
-// }
-// const ShowmenuChat = () => {
-//     MenuChat.value = !MenuChat.value
-//     console.log(MenuChat.value);
-// }
+
 const MenuMore = ref(false)
-const ShowMenuMore = () => {
-    MenuMore.value = !MenuMore.value
-}
+
 </script>
 
 <style scoped>
