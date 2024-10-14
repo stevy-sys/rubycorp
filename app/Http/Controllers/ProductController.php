@@ -25,7 +25,8 @@ class ProductController extends Controller
         // Exclut le produit actuel des résultats
         ->where('id', '!=', $product->id)
         ->get();
-    
+
+        $product->load(['comments.user','likes']);
         // Retourne les données à la vue avec Inertia
         return Inertia::render('Media', compact('product', 'relatif'));
     }

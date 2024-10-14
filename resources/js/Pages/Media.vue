@@ -29,15 +29,31 @@
                         </span>
                     </div>
                     <div class=" flex justify-between items-center  border-t-2 border-b-2 mt-2  h-10">
-                        <div class="flex items-baseline">
-                            <p class="hover:text-[#1e293b] leading-3 text-md underline ml-2 transition duration-300">
-                                J'adore</p>
-                            <span class="hover:text-[#1e293b] underline text-[12px] transition duration-300">(22789)</span>
+                        <div @click="likeMedia" class="flex cursor-pointer items-center">
+                            <p class="hover:text-[#1e293b] leading-3 text-md underline ml-2 transition duration-300"> 
+                                <Icon class="cursor-pointer hover:text-red-400" icon="flat-color-icons:like" style="font-size: 30px; margin-left: 5px;" size="2em" />
+                            </p>
+                            <span class="hover:text-[#1e293b] underline text-[12px] transition duration-300">
+                                {{ likeInclue == true ? "je n'aime plus" : "j'aime" }} ({{ countLike }})
+                            </span>
                         </div>
-                        <div class="flex items-baseline">
-                            <p class="hover:text-[#1e293b] leading-3 text-md underline transition duration-300">
-                                Commenter</p>
-                            <span class="hover:text-[#1e293b] underline text-[12px] transition duration-300">(155)</span>
+                        <div @click="showComments = true" class="flex items-center cursor-pointer">
+                            <p  class="hover:text-[#1e293b] mr-2 leading-3 text-md underline transition duration-300"> 
+                                <Icon class="cursor-pointer hover:text-red-400" icon="fa:comments-o" style="font-size: 30px; margin-left: 5px;" size="2em" />
+                            </p>
+                            <ModalLayout classes="text-white w-[50%]" :isOpen="showComments">
+                                <template #content>
+                                    <div class="flex justify-center wrap">
+                                        <CommentsSection :product="product" />
+                                    </div>
+                                </template>
+                                <template #footer>
+                                    <div class="flex justify-center">
+                                        <button class="px-3 py-2 rounded-lg bg-blue-400 " @click="showComments = false">fermer</button>
+                                    </div>
+                                </template>
+                            </ModalLayout>
+                            <span class="hover:text-[#1e293b] underline text-[12px] transition duration-300">Commentaire ({{ product.comments.length }})</span>
                         </div>
                         <div>
                             <Icon icon="material-symbols:share"
@@ -144,13 +160,25 @@ import { onMounted, ref } from 'vue';
 import { loadStripe } from '@stripe/stripe-js';
 import { Icon } from '@iconify/vue';
 import { Link, usePage } from '@inertiajs/vue3';
+import ModalLayout from '@/Components/ModalLayout.vue';
+import CommentsSection from '@/Components/CommentsSection.vue';
 const props = defineProps({
     product: Object,
     relatif: Array,
 });
+
+const countLike = ref(props.product.likes.length)
+const likeInclue = ref(props.product.isLike)
+const showComments = ref(false)
 const page = usePage();
 console.log(page.props.translations.message)
 
+
+const likeMedia = async () => {
+    const response = await window.axios.get(`/user/like?product_id=${props.product.id}`);
+    countLike.value = response.data.data.likes.length
+    likeInclue.value = response.data.data.isLike
+}
 const handleSubmit = async (event) => {
     event.preventDefault();
 

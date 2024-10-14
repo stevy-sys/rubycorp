@@ -11,6 +11,7 @@ use App\Models\Conversation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
+use App\Models\Like;
 use App\Models\Media;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -46,6 +47,35 @@ class UserController extends Controller
         })->get();
 
         return Inertia::render('User/Message',compact('conversations','count','media'));
+    }
+
+    public function sendComments(Request $request) {
+        $product = Product::find($request->product_id);
+
+        $comments = $product->comments()->create([
+            'user_id' => Auth::id(),
+            'description' => $request->description
+        ]);
+
+        return response()->json([
+            'data' =>  $comments->load('user')
+        ]);
+    }
+
+    public function likeProduct(Request $request) {
+        $product = Product::find($request->product_id);
+        $like = Like::where('product_id',$product->id)->where('user_id',Auth::id())->first();
+        if (isset($like)) {
+            Like::where('product_id',$product->id)->where('user_id',Auth::id())->delete();
+        }else{
+            $product->likes()->create([
+                'user_id' => Auth::id()
+            ]);
+        }
+
+        return response()->json([
+            'data' =>  $product->load('likes')
+        ]);
     }
 
     public function sendMessage(Request $request) {

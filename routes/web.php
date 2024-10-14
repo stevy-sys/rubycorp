@@ -94,6 +94,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/user/chat', [UserController::class, 'chat'])->name('user.chat.index');
     Route::post('/user/sendMessage', [UserController::class, 'sendMessage'])->name('user.chat.send');
     Route::get('/user/notification', [UserController::class, 'notification'])->name('user.notification.index');
+    Route::get('/user/like', [UserController::class, 'likeProduct'])->name('user.like.store');
+    Route::post('/user/sendComments', [UserController::class, 'sendComments'])->name('user.comments.store');
+    
 
 
     //admin

@@ -47,7 +47,7 @@ const logout = () => {
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center text-white text-2xl ">
                                 <Link :href="route('home')">
-                                 App
+                                 Aphrodite
                                 </Link>
                             </div>
 
