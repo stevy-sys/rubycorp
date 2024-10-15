@@ -1,6 +1,18 @@
 <template>
     <AdminLayout>
         <div>
+            <ModalLayout classes="text-white w-[50%]" :isOpen="openPopup">
+                <template #content>
+                    <div class="flex justify-center wrap">
+                        Modification fait avec success
+                    </div>
+                </template>
+                <template #footer>
+                    <div class="flex justify-center">
+                        <button class="px-3 py-2 rounded-lg bg-blue-400 " @click="openPopup = false">fermer</button>
+                    </div>
+                </template>
+            </ModalLayout>
             <div class="relative overflow-x-auto">
                 <div class="max-h-[700px] overflow-y-auto"> <!-- Conteneur avec défilement vertical -->
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -37,10 +49,11 @@
 </template>
 
 <script setup>
+import ModalLayout from '@/Components/ModalLayout.vue';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import { useForm, usePage } from '@inertiajs/vue3';
 import { onMounted, ref } from 'vue';
-
+const openPopup = ref(false)
 const textes = ref({});
 const page = usePage();
 
@@ -51,6 +64,6 @@ onMounted(() => {
 
 const send =async () => {
     const response = await window.axios.post('/admin/updateMessages',textes.value)
-    console.log(response);
+    openPopup.value = true
 }
 </script>

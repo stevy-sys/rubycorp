@@ -2,16 +2,26 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Menu;
+use App\Models\Role;
+use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Config;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class ConfigController extends Controller
 {
+
+    public function getMenu() {
+        $user = Auth::user();
+        return $user->load('role.menus');
+    }
 
     public function updateMention(Request $request) {
         $config = Config::first();
@@ -40,6 +50,21 @@ class ConfigController extends Controller
         return Inertia::render('Admin/Categorie',compact('categories'));
     }
 
+
+    public function createAdmin(Request $request) {
+        $user = User::create([
+            'name' => $request->name,
+            'email'=> $request->email,
+            'password' => Hash::make($request->password),
+            'is_admin' => 1,
+            'role_id' => $request->role_id
+        ]);
+
+        return response()->json([
+            'user' => $user
+        ]);
+    }
+
     public function addCategorie(Request $request) {
         Category::create([
             'name' => $request->name
@@ -61,15 +86,50 @@ class ConfigController extends Controller
         }
 
         if ($request->description) {
-            $config->pdc = $request->description;
+            $config->description = $request->description;
         }
         $config->save();
         
         return response()->json([
             'message' => 'apps updated'
-        ]);
+        ]); 
     }
 
+    public function getRole()  {
+        // $roles = Role::with('menus')->get();
+        $menus = Menu::all(); 
+        $roles = Role::with('menus')->get()->map(function ($role) {
+            // Récupère tous les menus et construit un tableau avec `is_inclus`
+            $allMenus = Menu::all()->map(function ($menu) use ($role) {
+                return [
+                    'id' => $menu->id,
+                    'name' => $menu->name,
+                    'url' => $menu->url,
+                    'is_inclus' => $role->menus->contains('id', $menu->id),
+                ];
+            });
+        
+            // Retourne un tableau pour chaque rôle avec les menus complets
+            return [
+                'id' => $role->id,
+                'name' => $role->name,
+                'menus' => $allMenus,
+            ];
+        });
+        
+        return Inertia::render('Admin/Role',compact('roles','menus'));
+    }
+
+    public function updateRole(Request $request) {
+        $role = Role::find($request->role_id);
+        $role->update([
+            'name' => $request->name
+        ]);
+        $role->menus()->sync($request->menus);
+        return response()->json([
+            'data' => 'role modifier avec success'
+        ]);
+    }
 
     public function allTexte() {
         // $configs = Config::all();

@@ -7,6 +7,8 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import { ref } from 'vue';
+import ModalLayout from '@/Components/ModalLayout.vue';
 
 const form = useForm({
     name: '',
@@ -15,17 +17,31 @@ const form = useForm({
     password_confirmation: '',
     terms: false,
 });
-
+const openPopup = ref(false)
 const submit = () => {
     form.post(route('register'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
+        onError: (errors) => {
+            openPopup.value = true
+        },
     });
 };
 </script>
 
 <template>
     <Head title="Inscription" />
-
+    <ModalLayout classes="text-white w-[50%]" :isOpen="openPopup">
+        <template #content>
+            <div class="flex justify-center wrap">
+                Une erreur s'est produit lors de l'inscription
+            </div>
+        </template>
+        <template #footer>
+            <div class="flex justify-center">
+                <button class="px-3 py-2 rounded-lg bg-blue-400 " @click="openPopup = false">fermer</button>
+            </div>
+        </template>
+    </ModalLayout>
     <section class="bg-black">
         <div class="flex text-white flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <!-- <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-white-900">

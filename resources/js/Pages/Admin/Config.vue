@@ -10,11 +10,22 @@
                     <button class="border px-2 rounded cursor-pointer">modifier</button>
                 </div>
             </div> -->
-
+            <ModalLayout classes="text-white w-[50%]" :isOpen="openPopup">
+                <template #content>
+                    <div class="flex justify-center wrap">
+                        Modification fait avec success
+                    </div>
+                </template>
+                <template #footer>
+                    <div class="flex justify-center">
+                        <button class="px-3 py-2 rounded-lg bg-blue-400 " @click="openPopup = false">fermer</button>
+                    </div>
+                </template>
+            </ModalLayout>
             <div class="my-5">
                 <label for="texte" class="block mb-2 text-sm font-medium text-white-900 ">Description dessous profile</label>
                 <div class="flex">
-                    <textarea v-model="something" height="200" type="texte" name="password" id="password"
+                    <textarea v-model="description" height="200" type="texte" name="password" id="password"
                         placeholder="aphrodite"
                         class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required="">
@@ -24,7 +35,7 @@
                         • Plusieurs médias publiés par jours pour votre plus grand plaisir
                         • Bonnet E/Morphologie
                     </textarea>
-                    <button class="border px-2 rounded cursor-pointer mx-1">modifier</button>
+                    <button @click="saveDescription" class="border px-2 rounded cursor-pointer mx-1">modifier</button>
                 </div>
 
             </div>
@@ -70,13 +81,14 @@ import { ref } from 'vue';
 import Cropper from 'cropperjs';
 import 'cropperjs/dist/cropper.css';
 import { nextTick } from 'vue';
+import ModalLayout from '@/Components/ModalLayout.vue';
 const props = defineProps({
     configs:Object
 })
 
-
+const openPopup = ref(false)
 const name = ref("")
-const descirption = ref("")
+const description = ref("")
 const pdp = ref("")
 const pdc = ref("")
 
@@ -169,21 +181,26 @@ function cropImagePdp() {
     }
 }
 
+const saveDescription = async () => {
+    const response = await window.axios.post('/admin/updateConfig',{description : description.value})
+    openPopup.value = true
+}
 
 const savePdp = async () => {
     const response = await window.axios.post('/admin/updateConfig',{pdp : croppedImagePdp.value})
-    console.log(response);
+    openPopup.value = true
     
 }
 
 const savePdc = async () => {
     const response = await window.axios.post('/admin/updateConfig',{pdc : croppedImagePdc.value})
-    console.log(response);
+    openPopup.value = true
 }
 
 
 const updateMention =  async () => {
     const response = await window.axios.post('/admin/updateMention',{mention : metionLegale.value});
+    openPopup.value = true
     console.log(response);
 }
 </script>

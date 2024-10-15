@@ -103,6 +103,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/product', [AdminController::class, 'listProduct'])->name('admin.allproduct');
+    Route::post('/admin/deleteProduct', [AdminController::class, 'deleteProduct'])->name('admin.deleteProduct');
     Route::post('/admin/create-product', [AdminController::class, 'create'])->name('admin.store.product');
     Route::get('/admin/config', [ConfigController::class, 'allConfig'])->name('admin.config.index');
     Route::post('/admin/updateConfig', [ConfigController::class, 'updateConfig'])->name('admin.config.update');
@@ -117,4 +118,16 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/admin/categorie', [ConfigController::class, 'allCategorie'])->name('admin.categorie.index');
     Route::post('/admin/add-categorie', [ConfigController::class, 'addCategorie'])->name('admin.categorie.store');
     Route::post('/admin/update-categorie', [ConfigController::class, 'updateCategorie'])->name('admin.categorie.update');
+    
+
+
+    Route::get('/admin/getRole', [ConfigController::class, 'getRole'])->name('admin.role.index');
+    Route::get('/admin/getMenu', [ConfigController::class, 'getMenu'])->name('admin.menu.index');
+    Route::post('/admin/updateRole', [ConfigController::class, 'updateRole'])->name('admin.role.update');
+
+
+    Route::post('/admin/createAdmin', [ConfigController::class, 'createAdmin'])->name('admin.admin.store');
+
+
+
 });

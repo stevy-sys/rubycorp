@@ -22,7 +22,7 @@ const form = useForm({
 
 const productActif = ref(null)
 const showProductActif = ref(false)
-
+const products = ref(props.products)
 const submit = () => {
     form.transform(data => ({
         ...data
@@ -50,8 +50,12 @@ const handleFileUpload = (event) => {
     }
 }
 
-const selectProduct = (product) => {
-
+const deleteProduct = async (product) => {
+    const response = await window.axios.post('/admin/deleteProduct', {product_id:product.id})
+    products.value = products.value.filter((element) => {
+        return element.id !== product.id
+    })
+    showProductActif.value = false
 }
 
 </script>
@@ -80,7 +84,7 @@ const selectProduct = (product) => {
             </template>
             <template #footer>
                 <div class="flex justify-end">
-                    <button class="px-3 py-2 rounded-lg bg-blue-400 mr-5">Supprimer</button>
+                    <button @click="deleteProduct(productActif)" class="px-3 py-2 rounded-lg bg-blue-400 mr-5">Supprimer</button>
                     <button class="px-3 py-2 rounded-lg bg-blue-400 " @click="showProductActif = false">fermer</button>
                 </div>
             </template>
@@ -181,7 +185,7 @@ const selectProduct = (product) => {
 
 
         <div class="flex flex-wrap">
-            <div v-for="(item, index) in props.products" :key="index" @click="productActif = item ; showProductActif = true" class="cursor-pointer border mx-1 my-5 w-[200px] h-[200px] bg-red-500 border-none">
+            <div v-for="(item, index) in products" :key="index" @click="productActif = item ; showProductActif = true" class="cursor-pointer border mx-1 my-5 w-[200px] h-[200px] bg-red-500 border-none">
                 <img v-if="item.extentionType == 'image'" class="w-[200px] h-[200px]" :src="`/storage/data/image/${item.name}`" alt="" srcset="">
                 <video v-else class="w-[200px] h-[200px]" controls>
                     <source :src="`/storage/data/image/${item.name}`" type="video/mp4" />

@@ -124,20 +124,22 @@
                 <div ref="chatContainer" class="chat-container">
                     <!-- ***************************************************************************************************** -->
                      <div  v-for="(message,index) in messages" :key="index">
-                        <div v-if="$attrs.auth.user.id !== message.user_id " class="mt-10 flex">
+                        <!-- toi -->
+                        <div v-if=" !verifAdmin(message.user_id)" class="mt-10 flex">
                             <div class="min-w-[50px]">
                                 <img class="w-[50px] h-[50px] rounded-full"
                                     src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D">
                             </div>
                             <div class="mx-5">
                                 <div class="relative max-w-[50%] min-w-[100px] py-5 px-5 border rounded-tr-[20px] rounded-bl-[20px] min-h-[50px]">
-                                {{message.message}}
+                                    {{ message.message }}
                                 </div>
                                 <img v-if="message.mediable && message.mediable.length > 0" class="w-[25%] h-auto border rounded mt-3" :src="`/storage/data/image/${message.mediable[0].name}`">
-                                <span class="text-sm ml-5 text-white mt-3">20:45</span>
+                                <span class="text-sm ml-5 text-white mt-3"> 20:45</span>
                             </div>
                         </div>
 
+                        <!-- moi -->
                         <div v-else class="mt-10">
                             <div class="mx-5 justify-end flex">
                                 <div class="relative z-40 bg-red-400 max-w-[50%] py-5 px-5 rounded-tl-[20px] rounded-br-[20px] min-h-[50px]">
@@ -217,6 +219,9 @@ import { Icon } from '@iconify/vue';
 const props = defineProps({
     conversations: {
         type: Array
+    },
+    idAdmin:{
+        type: Array
     }
 })
 
@@ -286,6 +291,12 @@ const MenuChat = ref(false)
 
 const MenuMore = ref(false)
 
+const verifAdmin = (user_id) => {
+    let existe = props.idAdmin.filter((elemnt) => {
+        return elemnt.id == user_id
+    })
+    return existe.length > 0 ? true : false ;
+}
 </script>
 
 <style scoped>

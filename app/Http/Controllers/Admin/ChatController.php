@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Message;
 use App\Models\Conversation;
@@ -14,11 +15,13 @@ class ChatController extends Controller
 {
     public function index() {
         $conversations = Conversation::with(['user','lastMessage'])->get();
-        return Inertia::render('Admin/Chat',compact('conversations'));
+        $idAdmin = User::where('is_admin',true)->get(['id']);
+        return Inertia::render('Admin/Chat',compact('conversations','idAdmin'));
     }
    
 
     public function messages(Request $request)  {
+        
         return response()->json([
             'messages' => Message::with('mediable')->where('conversation_id',$request->conversation_id)->get()
         ]);

@@ -29,7 +29,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'is_admin'
+        'is_admin',
+        'role_id'
     ];
 
     /**
@@ -69,5 +70,9 @@ class User extends Authenticatable
 
     public function products() {
         return $this->belongsToMany(Product::class);
+    }
+
+    public function role() {
+        return $this->belongsTo(Role::class,'role_id');
     }
 }

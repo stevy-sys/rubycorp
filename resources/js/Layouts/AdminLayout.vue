@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import ApplicationMark from '@/Components/ApplicationMark.vue';
 import Banner from '@/Components/Banner.vue';
@@ -15,7 +15,8 @@ defineProps({
 });
 
 const showingNavigationDropdown = ref(false);
-
+const menus = ref([])
+const isAdmin = ref(false);
 const switchToTeam = (team) => {
     router.put(route('current-team.update'), {
         team_id: team.id,
@@ -28,6 +29,11 @@ const logout = () => {
     router.post(route('logout'));
 };
 
+onMounted(async () => {
+    const response = await window.axios.get('/admin/getMenu/')
+    menus.value = response.data.role.menus
+    isAdmin.value = response.data.role.name
+})
 </script>
 
 <template>
@@ -157,51 +163,65 @@ const logout = () => {
 
                                     <template #content>
                                         <!-- Account Management -->
-                                        <div class="block px-4 py-2 text-xs text-gray-400">
+                                        <!-- <div class="block px-4 py-2 text-xs text-gray-400">
                                             Manage Account
+                                        </div> -->
+                                        <div v-if="isAdmin == 'Admin'">
+                                            <DropdownLink :href="route('profile.show')">
+                                                Profile
+                                            </DropdownLink>
+    
+                                            <div class="border-t border-gray-200 dark:border-gray-600" />
+    
+                                            <DropdownLink :href="route('admin.allproduct')">
+                                                Produits
+                                            </DropdownLink>
+    
+                                            <div class="border-t border-gray-200 dark:border-gray-600" />
+    
+                                            <DropdownLink :href="route('admin.chat.index')">
+                                                Chat
+                                            </DropdownLink>
+    
+                                            <div class="border-t border-gray-200 dark:border-gray-600" />
+    
+                                            <DropdownLink :href="route('profile.show')">
+                                                Config
+                                            </DropdownLink>
+    
+                                            <div class="border-t border-gray-200 dark:border-gray-600" />
+    
+                                            <DropdownLink :href="route('admin.config.texte')">
+                                                Texte
+                                            </DropdownLink>
+    
+                                            <div class="border-t border-gray-200 dark:border-gray-600" />
+    
+                                            <DropdownLink :href="route('admin.user.index')">
+                                                Utilisateur
+                                            </DropdownLink>
+    
+                                            <DropdownLink :href="route('admin.role.index')">
+                                                Roles
+                                            </DropdownLink>
+    
+                                            <div class="border-t border-gray-200 dark:border-gray-600" />
+    
+                                            <DropdownLink :href="route('profile.show')">
+                                                Facture
+                                            </DropdownLink>
+    
+                                            <div class="border-t border-gray-200 dark:border-gray-600" />
                                         </div>
-
-                                        <DropdownLink :href="route('profile.show')">
-                                            Profile
-                                        </DropdownLink>
-
-                                        <div class="border-t border-gray-200 dark:border-gray-600" />
-
-                                        <DropdownLink :href="route('admin.allproduct')">
-                                            Produits
-                                        </DropdownLink>
-
-                                        <div class="border-t border-gray-200 dark:border-gray-600" />
-
-                                        <DropdownLink :href="route('admin.chat.index')">
-                                            Chat
-                                        </DropdownLink>
-
-                                        <div class="border-t border-gray-200 dark:border-gray-600" />
-
-                                        <DropdownLink :href="route('profile.show')">
-                                            Config
-                                        </DropdownLink>
-
-                                        <div class="border-t border-gray-200 dark:border-gray-600" />
-
-                                        <DropdownLink :href="route('admin.config.texte')">
-                                            Texte
-                                        </DropdownLink>
-
-                                        <div class="border-t border-gray-200 dark:border-gray-600" />
-
-                                        <DropdownLink :href="route('admin.user.index')">
-                                            Utilisateur
-                                        </DropdownLink>
-
-                                        <div class="border-t border-gray-200 dark:border-gray-600" />
-
-                                        <DropdownLink :href="route('profile.show')">
-                                            Facture
-                                        </DropdownLink>
-
-                                        <div class="border-t border-gray-200 dark:border-gray-600" />
+                                        <div v-else>
+                                            <div v-for="(menu,index) in menus" :key="index" >
+                                                <DropdownLink :href="route(menu.url)">
+                                                    {{ menu.name }}
+                                                </DropdownLink>
+        
+                                                <div class="border-t border-gray-200 dark:border-gray-600" />
+                                            </div>
+                                        </div>
 
                                         <!-- Authentication -->
                                         <form @submit.prevent="logout">
@@ -237,11 +257,11 @@ const logout = () => {
                 <!-- Responsive Navigation Menu -->
                 <div :class="{ 'block': showingNavigationDropdown, 'hidden': !showingNavigationDropdown }"
                     class="sm:hidden">
-                    <div class="pt-2 pb-3 space-y-1">
+                    <!-- <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('app.dashboard')" :active="route().current('admin.dashboard')">
                             Dashboard
                         </ResponsiveNavLink>
-                    </div>
+                    </div> -->
 
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
@@ -261,7 +281,7 @@ const logout = () => {
                             </div>
                         </div>
 
-                        <div class="mt-3 space-y-1">
+                        <div v-if="isAdmin == 'Admin'" class="mt-3 space-y-1">
                             <ResponsiveNavLink :href="route('profile.show')">
                                 Profile
                             </ResponsiveNavLink>
@@ -294,6 +314,10 @@ const logout = () => {
 
                             <ResponsiveNavLink :href="route('admin.user.index')">
                                 Utilisateur
+                            </ResponsiveNavLink>
+
+                            <ResponsiveNavLink :href="route('admin.role.index')">
+                                Role
                             </ResponsiveNavLink>
 
                             <div class="border-t border-gray-200 dark:border-gray-600" />
@@ -358,16 +382,29 @@ const logout = () => {
                                 </template>
                             </template> -->
                         </div>
+                        <div v-else class="mt-3 space-y-1">
+                            <div v-for="(menu,index) in menus" :key="index">
+                                <ResponsiveNavLink :href="route(menu.url)">
+                                    {{menu.name}}
+                                </ResponsiveNavLink>
+                                <div class="border-t border-gray-200 dark:border-gray-600" />
+                            </div>
+
+
+                            <!-- Authentication -->
+                            <form method="POST" @submit.prevent="logout">
+                                <ResponsiveNavLink as="button">
+                                    Log Out
+                                </ResponsiveNavLink>
+                            </form>
+
+                            
+                        </div>
                     </div>
                 </div>
             </nav>
 
-            <!-- Page Heading -->
-            <!-- <header v-if="$slots.header" class="bg-white dark:bg-gray-800 shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <slot name="header" />
-                </div>
-            </header> -->
+           
 
             <!-- Page Content -->
             <main>
@@ -375,20 +412,8 @@ const logout = () => {
                     <div class="lg:w-[25%] lg:block hidden border borde-grey ">
                         <aside id="default-sidebar" class="hidden lg:block lg:h-screen" aria-label="Sidebar">
                             <div class="h-full px-3 py-4 overflow-y-auto">
-                                <ul class="space-y-2 font-medium">
-                                    <!-- <li>
-                                        <a href="#" class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                            <svg class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
-                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                fill="currentColor" viewBox="0 0 22 21">
-                                                <path
-                                                    d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
-                                                <path
-                                                    d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
-                                            </svg>
-                                            <span class="ms-3">Dashboard</span>
-                                        </a>
-                                    </li> -->
+                                <ul v-if="isAdmin == 'Admin'" class="space-y-2 font-medium">
+                                    
                                     <li>
                                         <Link :href="route('admin.allproduct')"
                                             class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -445,6 +470,16 @@ const logout = () => {
                                     </li>
 
                                     <li>
+                                        <Link :href="route('admin.role.index')"
+                                            class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                        <Icon
+                                            class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
+                                            icon="ph:user-light" />
+                                        <span class="flex-1 ms-3 whitespace-nowrap">Role</span>
+                                        </Link>
+                                    </li>
+
+                                    <li>
                                         <a href="#"
                                             class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                             <Icon
@@ -454,6 +489,18 @@ const logout = () => {
                                         </a>
                                     </li>
 
+                                </ul>
+
+                                <ul v-else class="space-y-2 font-medium">
+                                    <li v-for="(menu,index) in menus" :key="index">
+                                        <Link :href="route(menu.url)"
+                                            class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                        <Icon
+                                            class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
+                                            icon="solar:gallery-bold" />
+                                        <span class="ms-3">{{ menu.name }}</span>
+                                        </Link>
+                                    </li>
                                 </ul>
                             </div>
                         </aside>

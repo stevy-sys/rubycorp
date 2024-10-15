@@ -21,6 +21,13 @@ class AdminController extends Controller
         return Inertia::render('Admin/Product',compact('products','categories'));
     }
 
+    public function deleteProduct(Request $request) {
+        Product::find($request->product_id)->delete();
+        return response()->json([
+            'message' => 'element supprimer'
+        ]);
+    }
+
     public function dashboard() {
         return Inertia::render('Admin/Dashboard');
     }

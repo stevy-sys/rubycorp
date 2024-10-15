@@ -7,12 +7,15 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import ModalLayout from '@/Components/ModalLayout.vue';
+import { ref } from 'vue';
 
 defineProps({
     canResetPassword: Boolean,
     status: String,
 });
 
+const openPopup = ref(false)
 const form = useForm({
     email: '',
     password: '',
@@ -25,6 +28,9 @@ const submit = () => {
         remember: form.remember ? 'on' : '',
     })).post(route('login'), {
         onFinish: () => form.reset('password'),
+        onError: (errors) => {
+            openPopup.value = true
+        },
     });
 };
 </script>
@@ -32,7 +38,18 @@ const submit = () => {
 <template>
     <Head title="Connexion" />
 
-
+    <ModalLayout classes="text-white w-[50%]" :isOpen="openPopup">
+        <template #content>
+            <div class="flex justify-center wrap">
+                Email ou mot de passe incorect
+            </div>
+        </template>
+        <template #footer>
+            <div class="flex justify-center">
+                <button class="px-3 py-2 rounded-lg bg-blue-400 " @click="openPopup = false">fermer</button>
+            </div>
+        </template>
+    </ModalLayout>
 
     <section class="bg-black">
         <div class="flex text-white flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

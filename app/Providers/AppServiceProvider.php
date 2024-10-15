@@ -5,6 +5,7 @@ namespace App\Providers;
 use Inertia\Inertia;
 use App\Models\Config;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
