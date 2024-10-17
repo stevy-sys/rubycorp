@@ -74,7 +74,9 @@ const sendMessage = async () => {
     }
 
     const response = await window.axios.post('/user/sendMessage',{message : messageChat.value});
-    router.push('/user/chat');
+    showModalChat.value = false
+    alert('emessage envoyer avec sucess')
+    // router.push('/user/chat');
 }
 
 </script>
@@ -110,8 +112,8 @@ const sendMessage = async () => {
                     </nav>
                 </header>
 
-                <div class="bg-red-500 h-[400px] mt-5 rounded">
-                    <img v-if="config.pdc" class="h-[400px] w-full rounded" :src="`/storage/data/image/${config.pdc}`"
+                <div class="bg-red-500 h-auto lg:h-[400px] mt-5 rounded">
+                    <img v-if="config.pdc" class="h-auto lg:h-[400px] w-full rounded" :src="`/storage/data/image/${config.pdc}`"
                         alt="" srcset="">
                 </div>
                 <div class="relative bottom-[100px] left-[50%] rounded-full">
@@ -168,7 +170,7 @@ const sendMessage = async () => {
                         <div class="my-3 flex justify-center text-xs">
                             <button class="hover:bg-red-400 border-white px-10 py-3 text-white rounded-lg font-black mx-2">{{ page.props.translations.message.tips }}</button>
                             
-                            <ModalLayout classes="bg-red-400 text-white w-[25%] " :isOpen="showModalChat">
+                            <ModalLayout classes="bg-red-400 text-white w-auto " :isOpen="showModalChat">
                                 <template #button>
                                     <button @click="showModalChat = true" class="hover:bg-red-400 border-white px-10 py-3 text-white rounded-lg font-black mx-2">{{ page.props.translations.message.message }}</button>
                                 </template>

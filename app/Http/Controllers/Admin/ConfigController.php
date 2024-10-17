@@ -23,6 +23,15 @@ class ConfigController extends Controller
         return $user->load('role.menus');
     }
 
+    public function createRole(Request $request) {
+        $role = Role::create([
+            'name' => $request->name
+        ]);
+        return response()->json([
+            'role' => $role->load('menus')
+        ]);
+    }
+
     public function updateMention(Request $request) {
         $config = Config::first();
         $config->update(['mention' => $request->mention]);

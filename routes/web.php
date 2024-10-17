@@ -120,8 +120,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::post('/admin/update-categorie', [ConfigController::class, 'updateCategorie'])->name('admin.categorie.update');
     
 
-
+    
     Route::get('/admin/getRole', [ConfigController::class, 'getRole'])->name('admin.role.index');
+    Route::post('/admin/createRole', [ConfigController::class, 'createRole'])->name('admin.role.store');
     Route::get('/admin/getMenu', [ConfigController::class, 'getMenu'])->name('admin.menu.index');
     Route::post('/admin/updateRole', [ConfigController::class, 'updateRole'])->name('admin.role.update');
 

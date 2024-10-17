@@ -81,7 +81,20 @@
         <ModalLayout classes="text-white w-[50%]" :isOpen="createRole">
             <template #content>
                 <div class="flex justify-center wrap">
-
+                    <form @submit.prevent="storeRole" action="">
+                        <div class="my-5">
+                            <label for="texte" class="block mb-2 text-sm font-medium text-white-900 ">name</label>
+                            <div class="flex">
+                                <input v-model="newRole.name"  height="200" type="texte" name="password" id="password" placeholder="aphrodite" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                            </div>
+                        </div>
+                        
+                        <div class="my-5">
+                            <div class="flex">
+                                <input height="200" type="submit" value="enregistrer" name="password" id="password" placeholder="aphrodite" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </template>
             <template #footer>
@@ -110,7 +123,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(role, index) in props.roles" :key="index"
+                    <tr v-for="(role, index) in allRoles" :key="index"
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ role.name }}
@@ -138,14 +151,16 @@ const props = defineProps({
 
 const createAdmin = ref(false);
 const createRole = ref(false);
-
+const allRoles = ref(props.roles)
 const roleSelected = ref()
 const openPopup = ref(false)
 const selectRole = (role) => {
     openPopup.value = true
     roleSelected.value = role
 }
-
+const newRole = ref({
+    name:""
+})
 
 
 const newAdmin = ref({
@@ -161,6 +176,12 @@ const storeAdmin = async () => {
     alert('admin creer avec success')
 }
 
+const storeRole = async () => {
+    const response = await window.axios.post('/admin/createRole', newRole.value)
+    allRoles.value.push(response.data.role)
+    alert('admin creer avec success')
+    createRole.value = false
+}
 
 const updateRole = async () => {
     let menu = [];
