@@ -100,8 +100,8 @@ const deleteProduct = async (product) => {
                                 Imorter votre produit
                             </h1>
                             <form @submit.prevent="submit" class="space-y-4 md:space-y-6 " action="#">
-                                <div class="flex">
-                                    <div class="w-1/2 mx-2">
+                                <div class="lg:flex justify-center">
+                                    <div class="lg:w-1/2 lg:mx-2 mx-auto">
                                         <div class="my-2">
                                             <label for="email"
                                                 class="block mb-2 text-sm font-medium text-white-900 ">nom</label>
@@ -166,7 +166,7 @@ const deleteProduct = async (product) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="w-1/2">
+                                    <div class="lg:w-1/2">
                                         <div class="border w-full h-[150px] my-1"></div>
                                         <button @click="upload.click()" type="button" class="border px-1 rounded">uploder</button>
                                         <input @change="handleFileUpload" ref="upload" class="border px-1 hidden rounded" type="file" />
