@@ -185,7 +185,7 @@ onMounted(async () => {
     
                                             <div class="border-t border-gray-200 dark:border-gray-600" />
     
-                                            <DropdownLink :href="route('profile.show')">
+                                            <DropdownLink :href="route('admin.config.index')">
                                                 Config
                                             </DropdownLink>
     

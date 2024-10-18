@@ -92,7 +92,7 @@
                     </div>
                     <div @click="MenuMore = true" class="relative">
                         <Icon @click="" class=" w-10 h-10 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white" icon="solar:gallery-bold" />
-                        <ModalLayout classes="text-white w-[50%]" :isOpen="MenuMore">
+                        <ModalLayout classes="text-white w-full lg:w-[50%]" :isOpen="MenuMore">
                             <template #content>
                                 <div class="flex justify-center wrap">
                                     <div class="w-[100px] h-[100px] mx-1 bg-red-400 border"></div>
