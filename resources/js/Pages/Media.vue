@@ -1,5 +1,21 @@
 <template>
     <AppLayout :showSidebar="false" title="Dashboard">
+
+        <ModalLayout classes="w-auto text-white " :isOpen="showModal">
+            <template #content>
+                <div class="border rounded-lg shadow-lg px-6 py-8 max-w-md mx-auto mt-8">
+                    vous avez acheter ce produit avec votre token 
+                </div>
+            </template>
+
+            <template #footer>
+                <div class="flex justify-end">
+                    <button class="border px-3 mx-1 flex justify-end" @click="window.location.reload()">fermer</button>
+                </div>
+            </template>
+
+        </ModalLayout>
+
         <div class="text-white">
             <div class="lg:flex justify-between">
                 <div class="lg:w-[55%]">
@@ -90,13 +106,24 @@
                     <div class="border my-5 p-5 h-auto rounded bg-grey-500">
                         <div v-if="product.is_free == false" class="mb-2 font-bold text-xl">Intéressé ?</div>
                         <div class="flex justify-start items-center">
-                            <div v-if="product.is_free == true">{{ page.props.translations.message.gratuit }}</div>
-                            <div v-else>{{ product.price / 100 }} €</div>
+                            <div v-if="product.is_free == true">
+                                <div >{{ page.props.translations.message.gratuit }}</div>
+                            </div>
+                            <div v-else>
+                                <div >{{ product.price / 100 }} €</div>
+                                <div> {{ product.token }} token </div>
+                            </div>
                         </div>
                         <form v-if="product.is_free == false" class="mt-5 text-white" id="payment-form">
                             <div class="mb-2" ref="cardElement" id="card-element"></div>
                             <button @click="handleSubmit" class="border px-5 py-1 rounded-lg bg-red-500 text-white"
-                                type="submit" id="pay-button">Payer</button>
+                                type="submit" id="pay-button">Payer </button>
+                            <p id="error-message"></p>
+                        </form>
+                        <form v-if="product.is_free == false" class="mt-5 text-white" id="payment-form">
+                            <div class="mb-2" ref="cardElement" id="card-element"></div>
+                            <button @click="handleSubmitToken" class="border px-5 py-1 rounded-lg bg-red-500 text-white"
+                                type="submit" id="pay-button">Payer avec Token </button>
                             <p id="error-message"></p>
                         </form>
                     </div>
@@ -170,6 +197,7 @@ const props = defineProps({
 const countLike = ref(props.product.likes.length)
 const likeInclue = ref(props.product.isLike)
 const showComments = ref(false)
+const showModal = ref(false)
 const page = usePage();
 console.log(page.props.translations.message)
 
@@ -179,6 +207,17 @@ const likeMedia = async () => {
     countLike.value = response.data.data.likes.length
     likeInclue.value = response.data.data.isLike
 }
+
+const handleSubmitToken = async () => {
+    const myToken =  page.props.auth.user.token
+    if (props.product.token > myToken) {
+        return alert('pas assez de token');
+    }
+    const response = await window.axios.post(`/payment/token`,{ product_id : props.product.id});
+    showModal.value = true
+    // window.location.reload()
+}
+
 const handleSubmit = async (event) => {
     event.preventDefault();
 

@@ -207,7 +207,7 @@ onMounted(async () => {
     
                                             <div class="border-t border-gray-200 dark:border-gray-600" />
     
-                                            <DropdownLink :href="route('profile.show')">
+                                            <DropdownLink :href="route('admin.facture.index')">
                                                 Facture
                                             </DropdownLink>
     
@@ -322,7 +322,7 @@ onMounted(async () => {
 
                             <div class="border-t border-gray-200 dark:border-gray-600" />
 
-                            <ResponsiveNavLink :href="route('profile.show')">
+                            <ResponsiveNavLink :href="route('admin.facture.index')">
                                 Facture
                             </ResponsiveNavLink>
 
@@ -480,13 +480,13 @@ onMounted(async () => {
                                     </li>
 
                                     <li>
-                                        <a href="#"
+                                        <Link :href="route('admin.facture.index')"
                                             class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                             <Icon
                                                 class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
                                                 icon="iconamoon:invoice-fill" />
                                             <span class="flex-1 ms-3 whitespace-nowrap">Facture</span>
-                                        </a>
+                                        </Link>
                                     </li>
 
                                 </ul>

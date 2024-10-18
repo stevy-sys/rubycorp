@@ -66,7 +66,7 @@ const deleteProduct = async (product) => {
             <div @click="showUpload = !showUpload" class="cursor-pointer border px-5 rounded hover:text-black hover:bg-white"> {{ showUpload ? 'fermer' : 'uploader' }} </div>
         </div>
 
-        <ModalLayout classes="bg-red-400 text-white w-[50%] " :isOpen="showProductActif ? true : false">
+        <ModalLayout classes="bg-red-400 text-white  w-auto lg:w-[50%] " :isOpen="showProductActif ? true : false">
             <template #content>
                 <div class="flex justify-between">
                     <div class="w-[50%]">
@@ -90,7 +90,7 @@ const deleteProduct = async (product) => {
             </template>
         </ModalLayout>
 
-        <ModalLayout classes="w-[50%] text-white " :isOpen="showUpload">
+        <ModalLayout classes=" w-auto lg:w-[50%] text-white " :isOpen="showUpload">
             <template #content>
                 <section class="bg-black mb-5">
                 <div class="lg:py-0">

@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Admin;
 use Stripe\Price;
 use Stripe\Stripe;
 use Inertia\Inertia;
+use App\Models\Invoice;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use Stripe\Product as StripeProduct;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,6 +31,11 @@ class AdminController extends Controller
 
     public function dashboard() {
         return Inertia::render('Admin/Dashboard');
+    }
+
+    public function adminFacture() {
+        $factures = Invoice::with(['user','product'])->get();
+        return Inertia::render('Admin/Facture', ['factures' => $factures]);
     }
 
 

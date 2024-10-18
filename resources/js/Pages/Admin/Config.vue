@@ -10,7 +10,7 @@
                     <button class="border px-2 rounded cursor-pointer">modifier</button>
                 </div>
             </div> -->
-            <ModalLayout classes="text-white w-[50%]" :isOpen="openPopup">
+            <ModalLayout classes="text-white w-auto lg:w-[50%]" :isOpen="openPopup">
                 <template #content>
                     <div class="flex justify-center wrap">
                         Modification fait avec success
@@ -71,6 +71,15 @@
                     <button class="px-3 border">Enregister</button>
                 </div>
             </div>
+
+            <div class="my-5">
+                <label for="texte" class="block mb-2 text-sm font-medium text-white-900 ">Prix d'un token en €</label>
+                <input v-model="price" type="number" class="w-full text-black" name="" id="" />
+                <div @click="updatePrice">
+                    <button class="px-3 border">Enregister</button>
+                </div>
+            </div>
+
         </div>
     </AdminLayout>
 </template>
@@ -108,6 +117,12 @@ const imagePdp = ref(null);
 const croppedImagePdp = ref(null);
 const imageRefPdp = ref(null); // Référence à l'élément image
 const showBtnCropPdp = ref(false)
+const price = ref(props.configs.price)
+const updatePrice = async () => {
+    const response = await window.axios.post('/admin/updateConfig',{price : price.value})
+    openPopup.value = true
+}
+
 // Fonction de gestion du fichier
 function onFileChange(event) {
     croppedImagePdc.value = ""

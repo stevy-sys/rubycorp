@@ -355,6 +355,12 @@ const logout = () => {
                                         </Link>
                                     </li>
                                     <li>
+                                        <Link :href="route('user.token.index')"  class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                            <Icon class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white" icon="solar:gallery-bold" />
+                                            <span class="ms-3">Token</span>
+                                        </Link>
+                                    </li>
+                                    <li>
                                         <Link :href="route('user.chat.index')" class="flex items-center p-2  rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                             <Icon class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white" icon="mynaui:chat" />
                                             <span class="flex-1 ms-3 whitespace-nowrap">Message</span>

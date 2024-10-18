@@ -4,7 +4,7 @@
             <button class="px-5 border hover:bg-red-400" @click="showConversation = true">Conversation</button>
         </div>
 
-        <ModalLayout classes="text-white w-[75%]" :isOpen="showConversation">
+        <ModalLayout classes="text-white w-auto lg:w-[50%]" :isOpen="showConversation">
             <template #content>
                 <div class="text-white flex justify-center">
                     <div class="w-[50%] border border-white h-auto rounded-xl p-2 ">

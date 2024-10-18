@@ -1,7 +1,7 @@
 <template>
     <AdminLayout>
         <div>
-            <ModalLayout classes="text-white w-[50%]" :isOpen="openPopup">
+            <ModalLayout classes="text-white w-auto lg:w-[50%]" :isOpen="openPopup">
                 <template #content>
                     <div class="flex justify-center wrap">
                         Modification fait avec success

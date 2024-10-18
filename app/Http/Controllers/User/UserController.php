@@ -3,16 +3,19 @@
 namespace App\Http\Controllers\User;
 
 use Stripe\Stripe;
+use App\Models\Like;
 use App\Models\User;
 use Inertia\Inertia;
+use App\Models\Media;
+use App\Models\Config;
+use App\Models\Invoice;
 use App\Models\Message;
 use App\Models\Product;
 use App\Models\Conversation;
+use App\Models\InvoiceToken;
 use Illuminate\Http\Request;
+use Stripe\Checkout\Session;
 use App\Http\Controllers\Controller;
-use App\Models\Invoice;
-use App\Models\Like;
-use App\Models\Media;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,6 +26,58 @@ class UserController extends Controller
             $q->where('users.id',Auth::id());
         })->get();
         return Inertia::render('User/Gallerie',compact('products'));
+    }
+
+    public function paymentToken(Request $request) {
+        $produit = Product::find($request->product_id) ;
+        $user = Auth::user() ;
+        $user->token = $user->token - $produit->token ;
+        $user->save() ;
+        $user->products()->attach($produit->id);
+        return response()->json(['message' => "paymnet avec success"]);
+    }
+
+
+    public function sessionToken(Request $request) {
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        $session = Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'eur',
+                    'product_data' => [
+                        'name' => 'Achat de token',
+                    ],
+                    'unit_amount' => $request->amount * 100, // Montant en centimes
+                ],
+                'quantity' => 1,
+            ]],
+            'mode' => 'payment',
+            'success_url' => route('checkout.success.token',['token' => $request->token]),
+            'cancel_url' => route('checkout.cancel.token'),
+        ]);
+
+        return response()->json(['url' => $session->url]);
+    }
+
+    public function successToken(Request $request) {
+        $user = Auth::user() ;
+        $user->token = $user->token + $request->token ;
+        $user->save() ;
+        InvoiceToken::create([
+            'user_id' => $user->id,
+            'token' => $request->token,
+            'total' => Config::first()->price_token * $request->token 
+        ]);
+        return Inertia::render('User/Token', [
+            'newToken' => $user->token,
+            'payment' => true
+        ]);
+    }
+
+    public function cancelToken() {
+        return Inertia::render('User/Token');
     }
 
     public function component() {
@@ -61,6 +116,13 @@ class UserController extends Controller
             'data' =>  $comments->load('user')
         ]);
     }
+
+    public function showToken(Request $request) {
+        $user = Auth::user();
+        return Inertia::render('User/Token',compact('user'));
+    }
+
+    
 
     public function likeProduct(Request $request) {
         $product = Product::find($request->product_id);

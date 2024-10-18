@@ -1,6 +1,6 @@
 <template>
     <AdminLayout>
-        <ModalLayout classes="text-white w-[50%]" :isOpen="openPopup">
+        <ModalLayout classes="text-white  w-auto lg:w-[50%]" :isOpen="openPopup">
             <template #content>
                 <div class="flex justify-center wrap">
                     <div>
@@ -30,7 +30,7 @@
             </template>
         </ModalLayout>
 
-        <ModalLayout classes="text-white w-[50%]" :isOpen="createAdmin">
+        <ModalLayout classes="text-white w-auto lg:w-[50%]" :isOpen="createAdmin">
             <template #content>
                 <div class="flex justify-center wrap border p-20">
                     <form @submit.prevent="storeAdmin" action="">
@@ -78,7 +78,7 @@
             </template>
         </ModalLayout>
 
-        <ModalLayout classes="text-white w-[50%]" :isOpen="createRole">
+        <ModalLayout classes="text-white w-auto lg:w-[50%]" :isOpen="createRole">
             <template #content>
                 <div class="flex justify-center wrap">
                     <form @submit.prevent="storeRole" action="">

@@ -93,20 +93,21 @@ const sendMessage = async () => {
                         {{ page.props.translations.message.app_name }}
                     </div>
                     <nav v-if="canLogin" class="-mx-3 flex flex-1 items-center justify-end">
-                        <Link v-if="$page.props.auth.user" :href="$page.props.auth.user.is_admin == true ? route('admin.allproduct') : route('user.gallerie.index') " class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                            <!-- <img class="h-8 w-8 rounded-full object-cover"
-                                                    :src="'/storage/'+$page.props.auth.user.profile_photo_path"
-                                                    :alt="$page.props.auth.user.name" /> -->
-                            {{ $page.props.auth.user.name }}
-                        </Link>
-
-                        <template v-else>
+                        <div  v-if="$page.props.auth.user">
+                            <Link :href="$page.props.auth.user.is_admin == true ? route('admin.allproduct') : route('user.gallerie.index') " class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                {{ $page.props.auth.user.name }}
+                            </Link>
+                            <span class="border px-2">
+                                {{ $page.props.auth.user.token }} Token
+                            </span>
+                        </div>
+                        <template v-else >
                             <Link :href="route('login')" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                              Connexion
+                                Connexion
                             </Link>
 
                             <Link v-if="canRegister" :href="route('register')" class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-                              Inscription
+                                Inscription
                             </Link>
                         </template>
                     </nav>
@@ -137,7 +138,7 @@ const sendMessage = async () => {
                     <div class="my-5">
                         <span>{{ page.props.translations.message.sub_title2 }}</span>
                         <div class="my-3 text-xs ">
-                            <ModalLayout classes="bg-red-400 text-white " :isOpen="showModalSubscribe">
+                            <ModalLayout classes="bg-red-400 text-white w-full lg:w-[50%]" :isOpen="showModalSubscribe">
                                 <template #button>
                                     <button @click="showModalSubscribe= true" class="border bg-red-400 text-white border-0 px-10 py-3 rounded-lg font-black mx-2">S'abonner</button>
                                 </template>

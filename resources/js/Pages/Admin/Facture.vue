@@ -2,7 +2,7 @@
     <AppLayout :showSidebar="true">
 
 
-        <ModalLayout classes=" w-auto lg:w-[50%] text-white " :isOpen="showInvoce">
+        <ModalLayout classes="w-auto lg:w-[50%] text-white " :isOpen="showInvoce">
             <template #content>
                 <div class="bg-white border rounded-lg shadow-lg px-6 py-8 max-w-md mx-auto mt-8">
                     <h1 class="font-bold text-2xl my-4 text-center text-blue-600">Aphrodite</h1>

@@ -96,12 +96,22 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/user/notification', [UserController::class, 'notification'])->name('user.notification.index');
     Route::get('/user/like', [UserController::class, 'likeProduct'])->name('user.like.store');
     Route::post('/user/sendComments', [UserController::class, 'sendComments'])->name('user.comments.store');
+    Route::get('/user/token', [UserController::class, 'showToken'])->name('user.token.index');
+
+    //
+    Route::post('/create-checkout-session-token', [UserController::class, 'sessionToken']);
+    Route::get('/checkout/success-token', [UserController::class, 'successToken'])->name('checkout.success.token');
+    Route::get('/checkout/cancel-token', [UserController::class, 'cancelToken'])->name('checkout.cancel.token');
+
+
+    Route::post('/payment/token', [UserController::class, 'paymentToken'])->name('payment.create.token');
     
 
 
     //admin
     
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/facture', [AdminController::class, 'adminFacture'])->name('admin.facture.index');
     Route::get('/admin/product', [AdminController::class, 'listProduct'])->name('admin.allproduct');
     Route::post('/admin/deleteProduct', [AdminController::class, 'deleteProduct'])->name('admin.deleteProduct');
     Route::post('/admin/create-product', [AdminController::class, 'create'])->name('admin.store.product');
@@ -118,6 +128,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/admin/categorie', [ConfigController::class, 'allCategorie'])->name('admin.categorie.index');
     Route::post('/admin/add-categorie', [ConfigController::class, 'addCategorie'])->name('admin.categorie.store');
     Route::post('/admin/update-categorie', [ConfigController::class, 'updateCategorie'])->name('admin.categorie.update');
+    
+
+    
     
 
     

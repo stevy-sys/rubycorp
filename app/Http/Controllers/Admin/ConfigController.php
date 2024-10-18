@@ -97,6 +97,11 @@ class ConfigController extends Controller
         if ($request->description) {
             $config->description = $request->description;
         }
+
+        if ($request->price) {
+            $config->price_token = $request->price;
+        }
+
         $config->save();
         
         return response()->json([
