@@ -7,7 +7,7 @@
         <ModalLayout classes="text-white w-[75%]" :isOpen="showConversation">
             <template #content>
                 <div class="text-white flex justify-center">
-                    <div class="w-[50%] border border-white h-auto rounded-xl p-2 ">
+                    <div class="lg:w-[60%] border border-white h-auto rounded-xl p-2 ">
                         <div class="relative mb-10 ">
                             <input
                                 class="w-full text-black rounded-xl p-2 pr-12 border border-red-300 focus:border-red-500 focus:outline-none"
@@ -78,7 +78,7 @@
         <div v-if="conversationActif" class="flex text-white w-[100%]">
             <!-- stevy -->
             <div class="w-full">
-                <div class="flex items-center ">
+                <div class="flex justify-between items-center ">
                     <div class="w-[100px] h-[100px] relative rounded-full bg-red-500">
                         <img class="w-[100px] h-[100px] rounded-full"
                             src="https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D">
@@ -86,7 +86,7 @@
                             class="w-[20px] border bg-green-500 h-[20px] right-[6px] bottom-[6px] absolute rounded-full">
                         </span>
                     </div>
-                    <div class="w-[75%] pl-10">
+                    <div class="lg:w-[75%]  pl-10">
                         <h1 class="text-2xl">{{ conversationActif.user.name }}</h1>
                         <span class="text-sm">4520 messages</span>
                     </div>
