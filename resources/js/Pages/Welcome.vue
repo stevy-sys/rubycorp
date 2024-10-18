@@ -84,7 +84,7 @@ const sendMessage = async () => {
 <template>
 
     <Head title="Aphrodite" />
-    <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50 lg:w-[50%] mx-auto">
+    <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50 w-full lg:w-[50%] mx-auto">
         <!-- <img id="background" class="absolute -left-20 top-0 max-w-[877px]" src="https://laravel.com/assets/img/welcome/background.svg" /> -->
         <div class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
             <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
@@ -211,7 +211,7 @@ const sendMessage = async () => {
                 <div class="p-4">
                     <div class="relative mt-2 w-1/4">
                         <div class="items-start mt-5 hover:text-red-400">
-                            <ModalLayout classes="bg-red-400 text-white " :isOpen="showModalFiltre">
+                            <ModalLayout classes="bg-red-400 text-white w-auto " :isOpen="showModalFiltre">
                                 <template #button>
                                     <label @click="showModalFiltre = true" for="password" class="cursor-pointer block flex items-center mb-2 text-sm font-medium text-white-900 ">
                                         <Icon icon="bx:copy" style="font-size: 30px ; margin-right: 5px;" size="2em" />
@@ -294,7 +294,7 @@ const sendMessage = async () => {
                     
                 </div>
                 
-                <ModalLayout classes="bg-red-400 text-white w-[75%]" :isOpen="showMention">
+                <ModalLayout classes="bg-red-400 text-white w-auto" :isOpen="showMention">
                     <template #button>
                         <footer @click="showMention = true" class="cursor-pointer py-16 text-center text-sm text-black dark:text-white/70">
                             {{ page.props.translations.message.mention }}

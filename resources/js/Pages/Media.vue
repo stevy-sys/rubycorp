@@ -41,7 +41,7 @@
                             <p  class="hover:text-[#1e293b] mr-2 leading-3 text-md underline transition duration-300"> 
                                 <Icon class="cursor-pointer hover:text-red-400" icon="fa:comments-o" style="font-size: 30px; margin-left: 5px;" size="2em" />
                             </p>
-                            <ModalLayout classes="text-white w-[50%]" :isOpen="showComments">
+                            <ModalLayout classes="text-white w-full" :isOpen="showComments">
                                 <template #content>
                                     <div class="flex justify-center wrap">
                                         <CommentsSection :product="product" />
