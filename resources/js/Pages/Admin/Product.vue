@@ -118,7 +118,7 @@ const deleteProduct = async (product) => {
                                                 required=""></textarea>
                                         </div>
 
-                                        <div class="flex items-center justify-between">
+                                        <div class="xl:flex items-center justify-between">
                                             <div v-if="!form.is_free" class="">
                                                 <label for="password"
                                                     class="block mb-2 text-sm font-medium text-white-900 ">prix
@@ -129,12 +129,12 @@ const deleteProduct = async (product) => {
                                                     required="" />
                                             </div>
                                             <div class="flex items-start">
-                                                <div class="flex items-center h-5">
+                                                <div class="flex mt-1 items-center h-5">
                                                     <input v-model=form.is_free :checked="remember" id="remember"
                                                         aria-describedby="remember" type="checkbox"
                                                         class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800">
                                                 </div>
-                                                <div class="ml-3 text-sm">
+                                                <div class="ml-3 mt-1 text-sm">
                                                     <label for="remember"
                                                         class="text-white-500 dark:text-gray-300">gratuit ?</label>
                                                 </div>
