@@ -20,8 +20,8 @@ const submit = async () => {
 </script>
 
 <template>
-    <section class="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
-        <div class="w-[700px] mx-auto px-4">
+    <section class="w-full bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
+        <div class="w-full mx-auto px-4">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Discussion ({{ AllComments.length }})</h2>
             </div>
