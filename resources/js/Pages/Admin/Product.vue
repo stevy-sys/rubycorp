@@ -184,7 +184,7 @@ const deleteProduct = async (product) => {
         </ModalLayout>
 
 
-        <div class="flex flex-wrap">
+        <div class="flex flex-wrap lg:justify-center sm:justify-center">
             <div v-for="(item, index) in products" :key="index" @click="productActif = item ; showProductActif = true" class="cursor-pointer border mx-1 my-5 w-[200px] h-[200px] bg-red-500 border-none">
                 <img v-if="item.extentionType == 'image'" class="w-[200px] h-[200px]" :src="`/storage/data/image/${item.name}`" alt="" srcset="">
                 <video v-else class="w-[200px] h-[200px]" controls>
