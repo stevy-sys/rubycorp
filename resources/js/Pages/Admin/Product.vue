@@ -100,8 +100,8 @@ const deleteProduct = async (product) => {
                                 Imorter votre produit
                             </h1>
                             <form @submit.prevent="submit" class="space-y-4 md:space-y-6 " action="#">
-                                <div class="flex">
-                                    <div class="w-1/2 mx-2">
+                                <div class="lg:flex justify-center">
+                                    <div class="lg:w-1/2 lg:mx-2 mx-auto">
                                         <div class="my-2">
                                             <label for="email"
                                                 class="block mb-2 text-sm font-medium text-white-900 ">nom</label>
@@ -118,7 +118,7 @@ const deleteProduct = async (product) => {
                                                 required=""></textarea>
                                         </div>
 
-                                        <div class="flex items-center justify-between">
+                                        <div class="xl:flex items-center justify-between">
                                             <div v-if="!form.is_free" class="">
                                                 <label for="password"
                                                     class="block mb-2 text-sm font-medium text-white-900 ">prix
@@ -129,12 +129,12 @@ const deleteProduct = async (product) => {
                                                     required="" />
                                             </div>
                                             <div class="flex items-start">
-                                                <div class="flex items-center h-5">
+                                                <div class="flex mt-1 items-center h-5">
                                                     <input v-model=form.is_free :checked="remember" id="remember"
                                                         aria-describedby="remember" type="checkbox"
                                                         class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800">
                                                 </div>
-                                                <div class="ml-3 text-sm">
+                                                <div class="ml-3 mt-1 text-sm">
                                                     <label for="remember"
                                                         class="text-white-500 dark:text-gray-300">gratuit ?</label>
                                                 </div>
@@ -166,7 +166,7 @@ const deleteProduct = async (product) => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="w-1/2">
+                                    <div class="lg:w-1/2">
                                         <div class="border w-full h-[150px] my-1"></div>
                                         <button @click="upload.click()" type="button" class="border px-1 rounded">uploder</button>
                                         <input @change="handleFileUpload" ref="upload" class="border px-1 hidden rounded" type="file" />
@@ -184,7 +184,7 @@ const deleteProduct = async (product) => {
         </ModalLayout>
 
 
-        <div class="flex justify-center flex-wrap">
+        <div class="flex flex-wrap lg:justify-center sm:justify-center">
             <div v-for="(item, index) in products" :key="index" @click="productActif = item ; showProductActif = true" class="cursor-pointer border mx-1 my-5 w-[200px] h-[200px] bg-red-500 border-none">
                 <img v-if="item.extentionType == 'image'" class="w-[200px] h-[200px]" :src="`/storage/data/image/${item.name}`" alt="" srcset="">
                 <video v-else class="w-[200px] h-[200px]" controls>

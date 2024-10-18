@@ -64,7 +64,7 @@ onMounted(async () => {
                             </div> -->
                         </div>
 
-                        <div class="hidden sm:flex sm:items-center sm:ms-6">
+                        <div class="hidden sm:flex sm:items-center  sm:ms-6">
                             <div class="ms-3 relative">
                                 <!-- Teams Dropdown -->
                                 <Dropdown v-if="$page.props.jetstream.hasTeamFeatures" align="right" width="60">
@@ -408,7 +408,7 @@ onMounted(async () => {
 
             <!-- Page Content -->
             <main>
-                <div class="flex justify-start text-white lg:w-[50%] mx-auto my-10">
+                <div class="flex lg:justify-start justify-center text-white lg:w-[50%] mx-auto my-10">
                     <div class="lg:w-[25%] lg:block hidden border borde-grey ">
                         <aside id="default-sidebar" class="hidden lg:block lg:h-screen" aria-label="Sidebar">
                             <div class="h-full px-3 py-4 overflow-y-auto">
