@@ -20,8 +20,8 @@ const submit = async () => {
 </script>
 
 <template>
-    <section class="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
-        <div class="w-[700px] mx-auto px-4">
+    <section class="w-full lg:w-[50%] bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
+        <div class="w-auto mx-auto px-4">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Discussion ({{ AllComments.length }})</h2>
             </div>
@@ -45,7 +45,7 @@ const submit = async () => {
                                 src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
                                 alt="Michael Gough">{{ comment.user.name }}</p>
                         <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate datetime="2022-02-08"
-                                title="February 8th, 2022">{{ comment.created_at }}</time></p>
+                                title="February 8th, 2022"></time></p>
                     </div>
                     <button id="dropdownComment1Button" data-dropdown-toggle="dropdownComment1"
                         class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
