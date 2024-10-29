@@ -27,6 +27,33 @@ class ChatController extends Controller
         ]);
     }
 
+    public function startMessage(Request $request) {
+
+        $conversation = Conversation::where('talker_id' , $request->user_id)->first();
+        
+        if (!$conversation->id) {
+            $conversation = Conversation::create(['name' => 'chat','talker_id' => $request->user_id]);
+        }
+
+        $message = Message::create([
+            'conversation_id' => $conversation->id,
+            'user_id' => Auth::id(),
+            'message' => $request->message
+        ]);
+
+        if (isset($request->file)) {
+            $image = $this->storageFile($request->file);
+            $message->mediable()->create([
+                'name' => $image['name'],
+                'type' => $image['extension']
+            ]);
+        }
+
+        return response()->json([
+            'message' => $message
+        ]);
+    }
+
     public function sendMessage(Request $request)  {
         $message = Message::create([
             'user_id' => Auth::id(),

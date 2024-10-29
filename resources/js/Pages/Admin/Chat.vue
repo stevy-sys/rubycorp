@@ -29,7 +29,7 @@
                                             alt="">
                                     </div>
                                     <div class="ml-5">
-                                        <p class="font-semibold text-[25px]">{{conv.user.name}}</p>
+                                        <p class="font-semibold text-[25px]">{{conv?.user?.name}}</p>
                                         <div class="flex items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none">
@@ -40,7 +40,7 @@
                                                 <path d="M12 15l4-4-4-4" stroke="#f87171" stroke-width="1.5"
                                                     stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>
-                                            <p class="font-sans text-[12px] ml-1">{{ conv.last_message.message }}</p>
+                                            <p class="font-sans text-[12px] ml-1">{{ conv?.last_message?.message }}</p>
                                         </div>
                                     </div>
                                 </div>

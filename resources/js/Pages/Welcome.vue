@@ -65,7 +65,7 @@ const filtre = async (event) => {
 }
 
 const sendMessage = async () => {
-    if (sendMessage.value == '') {
+    if (messageChat.value == '') {
         return alert('pas de message');
     }
 

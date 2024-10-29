@@ -128,6 +128,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/admin/categorie', [ConfigController::class, 'allCategorie'])->name('admin.categorie.index');
     Route::post('/admin/add-categorie', [ConfigController::class, 'addCategorie'])->name('admin.categorie.store');
     Route::post('/admin/update-categorie', [ConfigController::class, 'updateCategorie'])->name('admin.categorie.update');
+    Route::post('/admin/startMessage', [ChatController::class, 'startMessage'])->name('admin.conversation.start');
     
 
     
