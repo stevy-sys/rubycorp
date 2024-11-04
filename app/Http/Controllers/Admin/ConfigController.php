@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Config;
+use App\Models\Secret;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -21,6 +22,14 @@ class ConfigController extends Controller
     public function getMenu() {
         $user = Auth::user();
         return $user->load('role.menus');
+    }
+
+    public function updateSecret(Request $request) {
+        $secret = Secret::first();
+        $secret->update($request->all()['secretApi']);
+        return response()->json([
+            'message' => 'modification sucess'
+        ]);
     }
 
     public function createRole(Request $request) {
@@ -39,7 +48,8 @@ class ConfigController extends Controller
     }
     public function allConfig() {
         $configs = Config::first();
-        return Inertia::render('Admin/Config',compact('configs'));
+        $secret = Secret::first();
+        return Inertia::render('Admin/Config',compact('configs','secret'));
     }
 
     public function updateCategorie(Request $request) {

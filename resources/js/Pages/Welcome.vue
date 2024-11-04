@@ -4,8 +4,15 @@ import ModalLayout from '@/Components/ModalLayout.vue';
 import { Icon } from '@iconify/vue';
 import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue';
+import { loadStripe } from '@stripe/stripe-js';
+
 import { computed } from 'vue';
+import GallerieSubscriber from '@/Components/GallerieSubscriber.vue';
+import GallerieNotSubscriber from '@/Components/GallerieNotSubscriber.vue';
 defineProps({
+    secret:{
+        type: Array,
+    },
     canLogin: {
         type: Boolean,
     },
@@ -21,6 +28,10 @@ defineProps({
         required: true,
     },
     products: {
+        type: Array,
+        required: true,
+    },
+    subscribes: {
         type: Array,
         required: true,
     },
@@ -62,6 +73,44 @@ const filtre = async (event) => {
         productsFiltre.value = response.data
     }
     showModalFiltre.value = false
+}
+
+const abonerUser = async (product_id) => {
+    if(!page.props.auth.user){
+        return alert("Inscriver vous avant d'abonner")
+    }
+    
+
+    try {
+        const response = await window.axios.post('/createSessionSubscribeUser',{product_id:product_id})
+        console.log('response', response);
+
+        const sessionId = response.data.id;
+
+        // Charger Stripe et attendre qu'il soit prêt
+        const stripe = await loadStripe('pk_test_51PkRRP2MBhGS3IWFTGLplKKcFukYg76dRAzhXsMXSjjSaQDNdW3dgabblGZcQx7U1SVd1LDkVdoR9BgIdThPw5jz00hNF4xZys');
+        // const stripe = await loadStripe('sk_test_51PkRRP2MBhGS3IWFuILywGk7MQEDL5OX12gA0cx6WMkaXLtKovvyChIdXvS6ppLp0ey3EXddWuv7DbvhaRL0XKH300OKdrnX5I');
+        
+        if (!stripe) {
+            console.error('Échec du chargement de Stripe.');
+            return;
+        }
+
+        // Rediriger l'utilisateur vers Stripe Checkout
+        const { error } = await stripe.redirectToCheckout({
+            sessionId: sessionId,
+        });
+
+        if (error) {
+            console.error('Erreur lors de la redirection vers Stripe Checkout', error);
+        }
+    } catch (error) {
+        console.error('Erreur lors de la création de la session de paiement', error);
+    }
+
+
+
+
 }
 
 const sendMessage = async () => {
@@ -138,22 +187,31 @@ const sendMessage = async () => {
                     <div class="my-5">
                         <span>{{ page.props.translations.message.sub_title2 }}</span>
                         <div class="my-3 text-xs ">
-                            <ModalLayout classes="bg-red-400 text-white w-full lg:w-[50%]" :isOpen="showModalSubscribe">
+                            <ModalLayout classes="bg-red-400 text-white w-full lg:w-[75%]" :isOpen="showModalSubscribe">
                                 <template #button>
                                     <button @click="showModalSubscribe= true" class="border bg-red-400 text-white border-0 px-10 py-3 rounded-lg font-black mx-2">S'abonner</button>
                                 </template>
                                 <template #header>
-                                    <div class="text-white">
-                                        Abonnement
+                                    <div class="flex justify-center mb-5 text-white text-2xl">
+                                        Profiter de notre abonnement
                                     </div>
                                 </template>
                                 <template #content>
-                                    <div>
-                                        Votre abonnement est fait avec success
+                                    <div class="text-white">
+                                        <div class="flex justify-around">
+                                            <div v-for="(subscribe,index) in subscribes" :key="index" class="text-center border h-auto w-[25%]">
+                                                <div class="my-5">{{subscribe.name}}</div>
+                                                <div class="w-full flex justify-center items-center my-5 border px-5 bg-red-600 text-center">{{ subscribe.price }}€</div>
+                                                <div class="my-5">{{subscribe.description}}</div>
+                                                <div class="my-5">
+                                                    <button class="border px-5 bg-blue-400" @click="abonerUser(subscribe.id)">Abonner</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </template>
                                 <template #footer>
-                                    <div>
+                                    <div class="flex justify-center ">
                                         <button class="px-3 py-2 rounded-lg bg-blue-400 " @click="showModalSubscribe = false">fermer</button>
                                     </div>
                                 </template>
@@ -247,7 +305,13 @@ const sendMessage = async () => {
                 
                 <div v-if="showData == 'post'">
                     <div v-if="productsFiltre" class="mx-auto flex justify-center flex-wrap">
-                        <Link :href="route('media', { product_id: product.id })" v-for="(product, index) in productsFiltre" :key="index" class="relative border border-black px-1 my-2 w-[300px] h-[300px] rounded-lg cursor-pointer overflow-hidden">
+                        <div v-if="$page.props.auth.user.is_subscribe">
+                            <GallerieSubscriber :products="productsFiltre"/>
+                        </div>
+                        <div v-else>
+                            <GallerieNotSubscriber :products="productsFiltre"/>
+                        </div>
+                        <!-- <Link :href="route('media', { product_id: product.id })" v-for="(product, index) in productsFiltre" :key="index" class="relative border border-black px-1 my-2 w-[300px] h-[300px] rounded-lg cursor-pointer overflow-hidden">
                             <span v-if="product.extentionType == 'image'">
                                 <img :class="product.is_free == false ? 'filter blur' : ''" class="w-full h-full object-cover " :src="`/storage/data/image/${product.name}`" alt="Product Image" />
                                 <div v-if="product.is_free == false" class="absolute  z-10 inset-0 flex items-center justify-center bg-white bg-opacity-60 rounded-lg">
@@ -266,10 +330,17 @@ const sendMessage = async () => {
                                     <Icon icon="icon-park-twotone:play" style="color: black; font-size: 50px ; margin-right: 5px;" size="2em" />
                                 </div>
                             </span>
-                        </Link>
+                        </Link> -->
                     </div>
                     <div v-else class=" mx-auto flex justify-center flex-wrap">
-                        <Link :href="route('media', { product_id: product.id })" v-for="(product, index) in products" :key="index" class="relative border border-black px-1 my-2 w-[300px] h-[300px] rounded-lg cursor-pointer overflow-hidden">
+                        <!-- <div > -->
+                            <GallerieSubscriber v-if="$page.props.auth.user?.is_subscribe" :products="products"/>
+                        <!-- </div> -->
+                        <!-- <div > -->
+                            <GallerieNotSubscriber v-else :products="products"/>
+                        <!-- </div> -->
+
+                        <!-- <Link :href="route('media', { product_id: product.id })" v-for="(product, index) in products" :key="index" class="relative border border-black px-1 my-2 w-[300px] h-[300px] rounded-lg cursor-pointer overflow-hidden">
                             <span v-if="product.extentionType == 'image'">
                                 <img :class="product.is_free == false ? 'filter blur' : ''" class="w-full h-full object-cover " :src="`/storage/data/image/${product.name}`" alt="Product Image" />
                                 <div v-if="product.is_free == false" class="absolute z-10 inset-0 flex items-center justify-center bg-white bg-opacity-60 rounded-lg">
@@ -288,7 +359,7 @@ const sendMessage = async () => {
                                     <Icon icon="icon-park-twotone:play" style="color: black; font-size: 50px ; margin-right: 5px;" size="2em" />
                                 </div>
                             </span>
-                        </Link>
+                        </Link> -->
                     </div>
                 </div>
                 <div v-else>

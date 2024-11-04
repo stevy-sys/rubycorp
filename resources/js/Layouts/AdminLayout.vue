@@ -488,6 +488,15 @@ onMounted(async () => {
                                             <span class="flex-1 ms-3 whitespace-nowrap">Facture</span>
                                         </Link>
                                     </li>
+                                    <li>
+                                        <Link :href="route('admin.subscription.index')"
+                                            class="flex items-center p-2  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                            <Icon
+                                                class="w-5 h-5 text-white-500 transition duration-75 group-hover:text-white dark:group-hover:text-white"
+                                                icon="iconamoon:invoice-fill" />
+                                            <span class="flex-1 ms-3 whitespace-nowrap">Abonnement</span>
+                                        </Link>
+                                    </li>
 
                                 </ul>
 

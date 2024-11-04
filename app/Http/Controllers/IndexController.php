@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Secret;
+use App\Models\SubscribProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -19,13 +21,16 @@ class IndexController extends Controller
             })->get();
         }
         $categories = Category::all();
+        $subscribes = SubscribProduct::all();
         return Inertia::render('Welcome', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
             'products' => $products,
-            'categories' => $categories
+            'categories' => $categories,
+            'subscribes' => $subscribes,
+            'secret' => Secret::get(['STRIPE_KEY'])
         ]);
     }
 

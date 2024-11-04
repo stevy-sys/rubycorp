@@ -1,0 +1,1 @@
+import{_ as t}from"./AppLayout-m78Df98V.js";import{o as e,c as a,w as o,a as s}from"./app-ctRuoYWV.js";import"./ResponsiveNavLink-Bm7QRUV3.js";import"./iconify-7qN0QMYr.js";const r=s("div",{class:"text-white"}," welcome ",-1),h={__name:"Dashboard",setup(c){return(_,i)=>(e(),a(t,{showSidebar:!0,title:"Dashboard"},{default:o(()=>[r]),_:1}))}};export{h as default};

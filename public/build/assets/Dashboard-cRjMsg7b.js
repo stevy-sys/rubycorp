@@ -1,1 +1,0 @@
-import{_ as a}from"./AdminLayout-DgQgNN4c.js";import{o,c as t,w as e,a as r}from"./app-mzutPM1G.js";import"./ResponsiveNavLink-DzkTfNm9.js";import"./iconify-V65GgP_E.js";const s=r("div",null," Dashboard ",-1),d={__name:"Dashboard",setup(_){return(c,n)=>(o(),t(a,null,{default:e(()=>[s]),_:1}))}};export{d as default};

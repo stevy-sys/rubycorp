@@ -22,11 +22,16 @@
                     <div class="w-full bg-red-500 h-[500px] rounded-lg relative">
                         <!-- Si c'est une image -->
                         <span v-if="product.extentionType == 'image'" class="block w-full h-full relative">
-                            <img :class="product.is_free == false ? 'filter blur' : ''" class="w-full h-full object-cover" :src="`/storage/data/image/${product.name}`" alt="Product Image" />
-                            <!-- Icône du cadenas -->
-                            <div v-if="product.is_free == false" class="absolute z-10 inset-0 flex items-center justify-center bg-white bg-opacity-60 rounded-lg">
-                                <Icon icon="material-symbols:lock" style="color: black; font-size: 30px; margin-right: 5px;" size="2em" />
-                            </div>
+                            <span v-if="!$page.props.auth.user.is_subscribe" class="block w-full h-full relative">
+                                <img :class="product.is_free == false ? 'filter blur' : ''" class="w-full h-full object-cover" :src="`/storage/data/image/${product.name}`" alt="Product Image" />
+                                <!-- Icône du cadenas -->
+                                <span v-if="product.is_free == false" class="absolute z-10 inset-0 flex items-center justify-center bg-white bg-opacity-60 rounded-lg">
+                                    <Icon icon="material-symbols:lock" style="color: black; font-size: 30px; margin-right: 5px;" size="2em" />
+                                </span>
+                            </span>
+                            <span v-else class="block w-full h-full relative">
+                                <img class="w-full h-full object-cover" :src="`/storage/data/image/${product.name}`" alt="Product Image" />
+                            </span>
                         </span>
 
                         <!-- Si c'est une vidéo -->
@@ -93,17 +98,17 @@
                         <div class="mb-2 font-bold text-xl">Details</div>
 
                         <div class="my-5"><span>{{ page.props.translations.message.upload }} : {{ product.created_at }}</span></div>
-                        <div class="my-5">{{ page.props.translations.message.partage }}
+                        <!-- <div class="my-5">{{ page.props.translations.message.partage }}
                             <div class="flex">
                                 <Icon class="cursor-pointer hover:text-red-400" icon="la:facebook-f"
                                     style="font-size: 30px; margin-left: 5px;" size="2em" />
                                 <Icon class="cursor-pointer hover:text-red-400" icon="mdi:twitter"
                                     style="font-size: 30px; margin-left: 5px;" size="2em" />
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
-                    <div class="border my-5 p-5 h-auto rounded bg-grey-500">
+                    <div v-if="!$page.props.auth.user.is_subscribe" class="border my-5 p-5 h-auto rounded bg-grey-500">
                         <div v-if="product.is_free == false" class="mb-2 font-bold text-xl">Intéressé ?</div>
                         <div class="flex justify-start items-center">
                             <div v-if="product.is_free == true">

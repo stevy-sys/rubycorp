@@ -16,11 +16,14 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ConfigController;
+use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
 Route::post('/filtre', [IndexController::class, 'filtreProduct'])->name('home.filtre');
 Route::get('/component', [UserController::class, 'component'])->name('component');
+Route::post('/stripe/webhook', [UserController::class, 'handleStripeWebhook'])->withoutMiddleware([VerifyCsrfToken::class]);
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
 
@@ -102,10 +105,14 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::post('/create-checkout-session-token', [UserController::class, 'sessionToken']);
     Route::get('/checkout/success-token', [UserController::class, 'successToken'])->name('checkout.success.token');
     Route::get('/checkout/cancel-token', [UserController::class, 'cancelToken'])->name('checkout.cancel.token');
-
-
+    
+    
     Route::post('/payment/token', [UserController::class, 'paymentToken'])->name('payment.create.token');
     
+    Route::post('/createSessionSubscribeUser', [UserController::class, 'createSessionSubscribeUser']);
+    Route::get('/subscribe-sucess', [UserController::class, 'sucessSubscribe'])->name('user.subscribe.sucess');
+    
+
 
 
     //admin
@@ -113,6 +120,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/facture', [AdminController::class, 'adminFacture'])->name('admin.facture.index');
     Route::get('/admin/product', [AdminController::class, 'listProduct'])->name('admin.allproduct');
+    Route::get('/admin/subscription', [SubscriptionController::class, 'listSubscription'])->name('admin.subscription.index');
+    Route::post('/admin/subscription/create', [SubscriptionController::class, 'create'])->name('admin.subscription.store');
+    Route::post('/admin/subscription/delete', [SubscriptionController::class, 'delete'])->name('admin.subscription.delete');
+
     Route::post('/admin/deleteProduct', [AdminController::class, 'deleteProduct'])->name('admin.deleteProduct');
     Route::post('/admin/create-product', [AdminController::class, 'create'])->name('admin.store.product');
     Route::get('/admin/config', [ConfigController::class, 'allConfig'])->name('admin.config.index');
@@ -129,8 +140,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::post('/admin/add-categorie', [ConfigController::class, 'addCategorie'])->name('admin.categorie.store');
     Route::post('/admin/update-categorie', [ConfigController::class, 'updateCategorie'])->name('admin.categorie.update');
     Route::post('/admin/startMessage', [ChatController::class, 'startMessage'])->name('admin.conversation.start');
+    Route::post('/admin/updateSecret', [ConfigController::class, 'updateSecret'])->name('admin.secret.store');
     
-
+    
     
     
 

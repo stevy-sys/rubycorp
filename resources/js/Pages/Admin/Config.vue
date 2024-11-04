@@ -80,6 +80,19 @@
                 </div>
             </div>
 
+
+            <div class="my-5">
+                <label for="texte" class="block mb-2 text-sm font-medium text-white-900 ">STRIPE SECRET</label>
+                <input v-model="secretApi.stripe_secret" type="text" class="w-full text-black" name="" id="" />
+                <label for="texte" class="block mb-2 text-sm font-medium text-white-900 ">STRIPE KEY</label>
+                <input v-model="secretApi.stripe_key" type="text" class="w-full text-black" name="" id="" />
+                <label  for="texte" class="block mb-2 text-sm font-medium text-white-900 ">STRIPE WEBHOOK</label>
+                <input v-model="secretApi.stripe_webhook" type="text" class="w-full text-black" name="" id="" />
+                <div @click="updateSeret">
+                    <button class="px-3 border">Enregister</button>
+                </div>
+            </div>
+
         </div>
     </AdminLayout>
 </template>
@@ -92,9 +105,16 @@ import 'cropperjs/dist/cropper.css';
 import { nextTick } from 'vue';
 import ModalLayout from '@/Components/ModalLayout.vue';
 const props = defineProps({
-    configs:Object
+    configs:Object,
+    secret:Object
 })
 
+
+const secretApi = ref({
+    stripe_key:props.secret.STRIPE_KEY,
+    stripe_secret:props.secret.STRIPE_SECRET,
+    stripe_webhook:props.secret.STRIPE_WEBHOOK,
+})
 const openPopup = ref(false)
 const name = ref("")
 const description = ref("")
@@ -121,6 +141,11 @@ const price = ref(props.configs.price)
 const updatePrice = async () => {
     const response = await window.axios.post('/admin/updateConfig',{price : price.value})
     openPopup.value = true
+}
+
+
+const updateSeret = async () => {
+    const response = await window.axios.post('/admin/updateSecret',{ secretApi : secretApi.value })
 }
 
 // Fonction de gestion du fichier
